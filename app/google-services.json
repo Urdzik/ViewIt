@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "586725185048",
+    "firebase_url": "https://arch-app-1230c.firebaseio.com",
+    "project_id": "arch-app-1230c",
+    "storage_bucket": "arch-app-1230c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586725185048:android:4add606268f19d9f",
+        "android_client_info": {
+          "package_name": "com.company.archapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586725185048-e6e3e4f6vaka34fd0qn8adu235rce5oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUEQfG6v5wwzpyWRUnCxEz23sRheBkaIc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
