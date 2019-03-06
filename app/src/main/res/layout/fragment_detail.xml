@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/fragment_detail_padding_vertical"
+        android:paddingEnd="@dimen/fragment_detail_padding_horizontal"
+        android:paddingBottom="@dimen/fragment_detail_padding_vertical"
+        android:paddingStart="@dimen/fragment_detail_padding_horizontal"
+        tools:showIn="@layout/activity_main"
+        tools:context=".DetailFragment">
+
+    <View android:id="@+id/line"
+          android:layout_width="30dp"
+          android:layout_height="8dp"
+          android:background="@android:color/darker_gray"
+          android:layout_centerHorizontal="true"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="detail_fragment_min_height">200dp</dimen>
+    <dimen name="fragment_detail_padding_vertical">16dp</dimen>
+    <dimen name="fragment_detail_padding_horizontal">22dp</dimen>
+</resources>
