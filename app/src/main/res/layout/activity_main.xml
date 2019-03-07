@@ -15,7 +15,6 @@
             android:src="@drawable/sof_tower"
             android:scaleType="centerCrop"/>
 
-
     <include layout="@layout/fragment_container"/>
 
 </LinearLayout>

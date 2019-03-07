@@ -6,13 +6,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 
-
-
 class MainActivity : AppCompatActivity(), DetailFragment.OnSwipedLineListener {
     private lateinit var imageView: ImageView
+    private lateinit var frameLayout: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,12 @@ class MainActivity : AppCompatActivity(), DetailFragment.OnSwipedLineListener {
 
         // Init views
         imageView = findViewById<ImageView>(R.id.image_view)
+        frameLayout = findViewById(R.id.fragment_container)
     }
 
+    /*
+    Method for adding fragments to activity
+     */
     @SuppressLint("CommitTransaction")
     protected fun addFragment(
         containerRes: Int?,
@@ -51,7 +55,12 @@ class MainActivity : AppCompatActivity(), DetailFragment.OnSwipedLineListener {
         transaction.commitAllowingStateLoss()
     }
 
+    /**
+     * Change weight of ImageView and FrameLayout
+     * when line swiped
+     */
     override fun onLineSwiped(imageWeight: Float?, fragmentWeight: Float?) {
+        // We need to use LinearLayout.LayoutParams class
         val imageParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             0,
@@ -63,7 +72,8 @@ class MainActivity : AppCompatActivity(), DetailFragment.OnSwipedLineListener {
             fragmentWeight!!
         )
 
+        // set layout params to views
         imageView.layoutParams = imageParams
-        supportFragmentManager.findFragmentById(R.id.fragment_container)
+        frameLayout.layoutParams = fragmentParams
     }
 }

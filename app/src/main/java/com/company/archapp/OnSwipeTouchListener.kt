@@ -7,6 +7,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 
+/**
+ * OnSwipedTouchListen using for handling swipes
+ * @param ctx Current context of App
+ */
 open class OnSwipeTouchListener(ctx: Context) : OnTouchListener {
 
     private val gestureDetector: GestureDetector
@@ -32,6 +36,9 @@ open class OnSwipeTouchListener(ctx: Context) : OnTouchListener {
         }
 
         override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            // https://www.youtube.com/watch?v=32rSs4tE-mc
+            // http://qaru.site/questions/20634/android-how-to-handle-right-to-left-swipe-gestures
+            // I use these tutorials for handling
             var result = false
             try {
                 val diffY = e2.y - e1.y
