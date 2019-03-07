@@ -8,10 +8,13 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 
 class VisionImage {
 
-    private fun imageFromBitmap(bitmap: Bitmap) {
-        // [START image_from_bitmap]
-        val image = FirebaseVisionImage.fromBitmap(bitmap)
-        // [END image_from_bitmap]
-    }
+    companion object {
+        fun imageFromBitmap(bitmap: Bitmap): FirebaseVisionImage? {
+            // [START image_from_bitmap]
+            val image = FirebaseVisionImage.fromBitmap(bitmap)
+            return image
+            // [END image_from_bitmap]
+        }
 
+    }
 }
