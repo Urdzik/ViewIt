@@ -32,6 +32,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'com.google.firebase:firebase-core:16.0.7'
+
+    implementation "com.google.firebase:firebase-ml-common:16.2.3"
+    implementation "com.google.firebase:firebase-ml-model-interpreter:17.0.3"
+    implementation "com.google.firebase:firebase-ml-vision:19.0.2"
+
 }
 
 apply plugin: 'com.google.gms.google-services'
