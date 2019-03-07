@@ -24,8 +24,9 @@ class MainActivity : AppCompatActivity() {
         var tv: TextView = findViewById(R.id.landmarkNameone)
         tv.text = LandmarkRecognitionActivity.nameOfLandmark
 
+        //Передаёт изображение в битмапу
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.blagovesh_1)
+        val bmp = BitmapFactory.decodeResource(resources, R.mipmap.blagovesh_1)
         val image = VisionImage.imageFromBitmap(bmp)
         LandmarkRecognitionActivity.recognizeLandmarksCloud(image!!)
     }
