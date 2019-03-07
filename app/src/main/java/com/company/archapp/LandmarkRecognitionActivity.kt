@@ -6,7 +6,6 @@ import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 
 
-
 class LandmarkRecognitionActivity : AppCompatActivity() {
 
     private fun recognizeLandmarksCloud(image: FirebaseVisionImage) {
@@ -20,15 +19,12 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
         // [START get_detector_cloud]
         val detector = FirebaseVision.getInstance()
             .visionCloudLandmarkDetector
-        // Or, to change the default settings:
-        // val detector = FirebaseVision.getInstance()
-        //         .getVisionCloudLandmarkDetector(options)
-        // [END get_detector_cloud]
+        // Или изменить настройки по умолчанию:
 
         // [START run_detector_cloud]
         val result = detector.detectInImage(image)
             .addOnSuccessListener { firebaseVisionCloudLandmarks ->
-                // Task completed successfully
+                // Задача успешно выполнена
                 // [START_EXCLUDE]
                 // [START get_landmarks_cloud]
                 for (landmark in firebaseVisionCloudLandmarks) {
@@ -38,8 +34,8 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
                     val entityId = landmark.entityId
                     val confidence = landmark.confidence
 
-                    // Multiple locations are possible, e.g., the location of the depicted
-                    // landmark and the location the picture was taken.
+                    // Возможны несколько местоположений, например, местоположение изображенного
+                    // Ориентир и место, где был сделан снимок.
                     for (loc in landmark.locations) {
                         val latitude = loc.latitude
                         val longitude = loc.longitude
@@ -49,7 +45,7 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
                 // [END_EXCLUDE]
             }
             .addOnFailureListener {
-                // Task failed with an exception
+                // Задача не выполнена с исключением
                 // ...
             }
         // [END run_detector_cloud]
