@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         //Передаёт изображение в битмапу
 
-        val bmp = BitmapFactory.decodeResource(resources, R.mipmap.blagovesh_1)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.bd9cd2880fdfaf8eee7404bf85d9eccb)
         val image = VisionImage.imageFromBitmap(bmp)
         LandmarkRecognitionActivity.recognizeLandmarksCloud(image!!)
     }
