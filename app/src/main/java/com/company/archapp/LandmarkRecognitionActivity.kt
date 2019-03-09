@@ -12,9 +12,9 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
 
 
     companion object {
-        var nameOfLandmark: String = "Name Of Landmark"
+        var nameOfLandmark: String? = null
 
-         fun recognizeLandmarksCloud(image: FirebaseVisionImage): String {
+         fun recognizeLandmarksCloud(image: FirebaseVisionImage): String? {
 
             // [START set_detector_options_cloud]
             val options = FirebaseVisionCloudDetectorOptions.Builder()
@@ -36,7 +36,7 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
                     for (landmark in firebaseVisionCloudLandmarks) {
 
                         val bounds = landmark.boundingBox
-                        //Имя достопримечательности
+                        //Название достопримечательности
                         val landmarkName = landmark.landmark
 
                         nameOfLandmark = landmarkName
