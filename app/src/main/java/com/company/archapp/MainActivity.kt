@@ -56,10 +56,12 @@ class MainActivity : AppCompatActivity(), DetailFragment.OnSwipedLineListener {
     }
 
     /**
-     * Change weight of ImageView and FrameLayout
-     * when line swiped
+     * The method call when line of DetailFragment is swiped
      */
     override fun onLineSwiped(imageWeight: Float?, fragmentWeight: Float?) {
+        /*
+        Here, we change the weight of Image and DetailFragment
+         */
         // We need to use LinearLayout.LayoutParams class
         val imageParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
