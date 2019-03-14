@@ -1,24 +1,41 @@
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/sliding_layout"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        sothree:umanoPanelHeight="68dp"
-        sothree:umanoShadowHeight="4dp">
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-    <TextView
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+            android:id="@+id/sliding_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Main Content"
-            android:textSize="16sp"/>
+            android:gravity="bottom"
+            app:umanoPanelHeight="68dp"
+            app:umanoShadowHeight="1dp"
+            app:umanoDragView="@id/dragview">
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center|top"
-            android:text="The Awesome Sliding Up Panel"
-            android:textSize="16sp"/>
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+        <ImageView
+                android:id="@+id/landmark_iv"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sof_tower"/>
+
+        <LinearLayout
+                android:id="@+id/dragview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"/>
+
+        </LinearLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</LinearLayout>
