@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity() {
         LandmarkRecognitionActivity.recognizeLandmarksCloud(image!!)
 
 
+        //Находим кнопку и добавлем ей ей действия
+
         val bu: Button = findViewById(R.id.buttonPanel)
         bu.setOnClickListener(View.OnClickListener {
             val tv: TextView = findViewById(R.id.landmarkNameone)
             tv.text = LandmarkRecognitionActivity.nameOfLandmark
         })
-
-        //Передаем в TV название достопримечательности
 
 
 

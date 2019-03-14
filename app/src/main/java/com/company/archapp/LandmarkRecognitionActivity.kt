@@ -19,7 +19,7 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
             // [START set_detector_options_cloud]
             val options = FirebaseVisionCloudDetectorOptions.Builder()
                 .setModelType(FirebaseVisionCloudDetectorOptions.LATEST_MODEL)
-                .setMaxResults(30)
+                .setMaxResults(10)
                 .build()
             // [END set_detector_options_cloud]
 
@@ -36,7 +36,11 @@ class LandmarkRecognitionActivity : AppCompatActivity() {
                     for (landmark in firebaseVisionCloudLandmarks) {
 
                         val bounds = landmark.boundingBox
-                        //Название достопримечательности
+
+
+
+                        //Название достопримечательности.
+                        /** landmarkName это переменая в которую помешаеться название обекта **/
                         val landmarkName = landmark.landmark
 
                         nameOfLandmark = landmarkName
