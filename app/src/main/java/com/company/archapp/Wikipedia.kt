@@ -1,16 +1,26 @@
 package com.company.archapp
 
+import android.text.Html
+import android.text.method.LinkMovementMethod
+import android.widget.TextView
 
-class Wikipedia{
 
-    var url: String = "https://en.wikipedia.org/wiki/"
+@Suppress("DEPRECATION")
+class Wikipedia {
 
-    fun findUrl(word: String): String {
+    private lateinit var url: String
+
+    fun findWikipediaUrl(word: String, textview: TextView) {
         //Меняем пробелы на "_"
         word.replace(" ".toRegex(), "_")
+
         //Добавляем название достопримечательности к ссылке
-        url += word
-        return url
+        url = "https://en.wikipedia.org/wiki/$word"
+
+        //Добавляем гиперссылку
+        val value = "<html><a href=\"$url\">$url</a></html>"
+        textview.text = Html.fromHtml(value)
+        textview.movementMethod = LinkMovementMethod.getInstance()
     }
 
 }
