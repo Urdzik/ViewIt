@@ -13,11 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            app:umanoPanelHeight="68dp"
-            app:umanoShadowHeight="1dp"
+            app:umanoPanelHeight="@dimen/panel_height"
+            app:umanoShadowHeight="@dimen/panel_shadow_height"
             app:umanoDragView="@id/dragview"
             app:umanoOverlay="true">
 
+        <!-- MAIN CONTENT -->
         <ImageView
                 android:id="@+id/landmark_iv"
                 android:layout_height="match_parent"
@@ -25,12 +26,13 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/sof_tower"/>
 
+        <!-- SLIDING CONTENT -->
         <LinearLayout
                 android:id="@+id/dragview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#ffffff">
+                android:background="@drawable/sliding_panel_radius">
 
             <TextView
                     android:layout_width="wrap_content"
