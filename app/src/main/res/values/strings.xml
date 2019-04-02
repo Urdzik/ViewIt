@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">archapp</string>
+    <string name="welcome_to_lanhan">Welcome to LanHan app</string>
+    <string name="recognize_landmark">Recognize landmark</string>
 </resources>
