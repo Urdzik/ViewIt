@@ -4,7 +4,10 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.View
 import android.widget.*
 import com.google.firebase.ml.vision.FirebaseVision
@@ -13,6 +16,7 @@ import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
+import java.util.*
 
 @Suppress("DEPRECATION")
 class ResultActivity : AppCompatActivity() {
@@ -28,6 +32,21 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+
+
+        // Find the toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+
+        //Button backwards
+        Objects.requireNonNull<ActionBar>(supportActionBar).setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+
+
+
 
         // Get image from intent
         val intent = intent
@@ -47,14 +66,17 @@ class ResultActivity : AppCompatActivity() {
                 newState: PanelState
             ) {
                 // When sliding panel transform to EXPANDED state, we remove radius from background
-                if (newState == PanelState.EXPANDED) {
-                    dragview.background = getDrawable(R.color.sliding_panel_color)
-                } else {
-                    // Otherwise we set to sliding panel radius
+                if (newState != PanelState.EXPANDED) {
                     dragview.background = getDrawable(R.drawable.sliding_panel_radius)
                 }
             }
         })
+    }
+
+    // Find the menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun analyzeImage(image: Bitmap?) {
@@ -95,7 +117,6 @@ class ResultActivity : AppCompatActivity() {
                 hideProgress()
             }
     }
-
 
 
     private fun recognizeLandmarks(landmarks: List<FirebaseVisionCloudLandmark>?, image: Bitmap?) {

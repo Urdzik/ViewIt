@@ -4,7 +4,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/sliding_panel_radius"
         tools:context=".WelcomeActivity">
+
+    <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <TextView
             android:id="@+id/welcome_tv"
