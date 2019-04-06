@@ -4,6 +4,6 @@
     <dimen name="panel_height">68dp</dimen>
     <dimen name="panel_shadow_height">1dp</dimen>
     <dimen name="welcome_text_size">28sp</dimen>
-    <dimen name="welcome_margin_top">16dp</dimen>
+    <dimen name="welcome_margin_top">56dp</dimen>
     <dimen name="default_padding">16dp</dimen>
 </resources>

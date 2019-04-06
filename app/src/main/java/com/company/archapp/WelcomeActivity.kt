@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import com.theartofdev.edmodo.cropper.CropImage
 
 class WelcomeActivity : AppCompatActivity() {
+
+
     private val recognizeBtn by lazy { findViewById<Button>(R.id.recognize_btn)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +36,18 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when (item.itemId) {
+                R.id.info -> {
+                    startActivity(Intent(this@WelcomeActivity, InfoActivity::class.java))
+                    return true
+                }
+            }
+        }
+        return true
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

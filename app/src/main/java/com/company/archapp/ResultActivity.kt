@@ -28,6 +28,8 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
 
     private var nameOfLandmark: String? = null // Name of recognized landmark
+    private var latitude: Double? = null // Latitude of recognized landmark
+    private var longitude: Double? = null // Longitude of recognized landmark
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,6 +112,8 @@ class ResultActivity : AppCompatActivity() {
                 landmarkIv.setImageBitmap(mutableImage)
                 hideProgress()
                 landmarkTv.text = nameOfLandmark
+
+
             }
             .addOnFailureListener {
                 // If we got error show a Toast about error
@@ -129,7 +133,15 @@ class ResultActivity : AppCompatActivity() {
         // Get landmarks
         for (landmark in landmarks) {
             nameOfLandmark = landmark.landmark
+
+            // Get locations landmarks
+            for ( loc in landmark.locations) {
+                latitude = loc.latitude
+                longitude = loc.longitude
+            }
         }
+
+
     }
 
     private fun showProgress() {
