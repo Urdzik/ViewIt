@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    implementation 'org.jsoup:jsoup:1.11.1'
 
 }
 

@@ -37,16 +37,24 @@ public class WikipediaClass {
             //Если всё считалось, берем из документа нужный абзац
             if (doc != null) {
                 Elements paragraphs = doc.select("p");
-                information = paragraphs.get(1).text();
+                //Ищем нужный абзац
+                information = "";
+                int ind1 = 1;
+                while (!information.contains(word)) {
+                    information = paragraphs.get(ind1).text();
+                    ind1++;
+                }
                 //Забираем ненужную информацию
-                int ind1 = information.indexOf(" is ");
-                information = information.substring(ind1);
+                if (information.contains(" is ")) {
+                    ind1 = information.indexOf(" is ");
+                    information = information.substring(ind1);
+                    information = word + information;
+                }
                 while (information.contains("[")) {
                     ind1 = information.indexOf("[");
                     int ind2 = information.indexOf("]");
                     information = information.substring(0, ind1) + information.substring(ind2 + 1);
                 }
-                information = word + information;
             } else
                 information = "Error";
 
