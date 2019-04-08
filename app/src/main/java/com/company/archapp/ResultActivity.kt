@@ -22,6 +22,7 @@ class ResultActivity : AppCompatActivity() {
     private val dragview by lazy { findViewById<LinearLayout>(R.id.dragview) }
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
+    private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
 
     private var nameOfLandmark: String? = null // Name of recognized landmark
 
@@ -88,6 +89,8 @@ class ResultActivity : AppCompatActivity() {
                 landmarkIv.setImageBitmap(mutableImage)
                 hideProgress()
                 landmarkTv.text = nameOfLandmark
+                val wk = WikipediaClass()
+                wk.findWikipediaText(nameOfLandmark,informationTv)
             }
             .addOnFailureListener {
                 // If we got error show a Toast about error
