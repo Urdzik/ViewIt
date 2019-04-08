@@ -36,10 +36,13 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:16.0.8'
 
-    implementation "com.google.firebase:firebase-ml-common:16.2.3"
-    implementation "com.google.firebase:firebase-ml-model-interpreter:17.0.3"
-    implementation "com.google.firebase:firebase-ml-vision:19.0.2"
+    implementation "com.google.firebase:firebase-ml-common:17.0.0"
+    implementation "com.google.firebase:firebase-ml-model-interpreter:18.0.0"
+    implementation "com.google.firebase:firebase-ml-vision:19.0.3"
 
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
