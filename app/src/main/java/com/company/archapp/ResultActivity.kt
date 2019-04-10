@@ -1,5 +1,6 @@
 package com.company.archapp
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -81,6 +82,7 @@ class ResultActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun analyzeImage(image: Bitmap?) {
         if (image == null) {
             // If no image we show Toast about error
@@ -111,7 +113,9 @@ class ResultActivity : AppCompatActivity() {
                 // Set our image, hide the ProgressBar and show the recognized landmark
                 landmarkIv.setImageBitmap(mutableImage)
                 hideProgress()
+                if (nameOfLandmark != null)
                 landmarkTv.text = nameOfLandmark
+                else landmarkTv.text = "Landmark not recognized"
 
 
             }
@@ -132,6 +136,7 @@ class ResultActivity : AppCompatActivity() {
 
         // Get landmarks
         for (landmark in landmarks) {
+
             nameOfLandmark = landmark.landmark
 
             // Get locations landmarks
@@ -156,3 +161,4 @@ class ResultActivity : AppCompatActivity() {
         resultPb.visibility = View.GONE
     }
 }
+
