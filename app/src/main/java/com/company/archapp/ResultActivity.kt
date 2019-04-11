@@ -114,15 +114,15 @@ class ResultActivity : AppCompatActivity() {
                 // Set our image, hide the ProgressBar and show the recognized landmark
 
                 landmarkIv.setImageBitmap(mutableImage)
-                hideProgress()
                 if (nameOfLandmark != null) {
                     landmarkTv.text = nameOfLandmark
 
-                    wk.findWikipediaText(nameOfLandmark!!, informationTv)
+                    wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
 
-                } else landmarkTv.text = "Landmark not recognized"
-
-
+                } else {
+                    landmarkTv.text = "Landmark not recognized"
+                    hideProgress()
+                }
             }
             .addOnFailureListener {
                 // If we got error show a Toast about error

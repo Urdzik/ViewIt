@@ -2,7 +2,10 @@ package com.company.archapp;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -12,10 +15,14 @@ import java.io.IOException;
 public class WikipediaClass {
     private String information, url, word;
     private TextView textview;
+    private ProgressBar progressBar;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
 
     //В функцию нужно передавать название достопримечательности и textview в каком будет показыватся информация про неё
-    public void findWikipediaText(String word, TextView textview) {
+    public void findWikipediaText(String word, TextView textview, ProgressBar progressBar, SlidingUpPanelLayout slidingUpPanelLayout) {
         this.textview = textview;
+        this.progressBar = progressBar;
+        this.slidingUpPanelLayout = slidingUpPanelLayout;
         this.word = word;
         url = "https://en.wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
         MyTask mt = new MyTask();
@@ -67,6 +74,8 @@ public class WikipediaClass {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             textview.setText(information);
+            progressBar.setVisibility(View.GONE);
+            slidingUpPanelLayout.setVisibility(View.VISIBLE);
         }
     }
 }
