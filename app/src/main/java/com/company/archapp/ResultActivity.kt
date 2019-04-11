@@ -16,7 +16,6 @@ import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import java.util.*
 
 class ResultActivity : AppCompatActivity() {
@@ -55,21 +54,7 @@ class ResultActivity : AppCompatActivity() {
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
 
-        slidingPanelLayout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View, slideOffset: Float) {
-                // Nothing to do here
-            }
-            override fun onPanelStateChanged(
-                panel: View,
-                previousState: PanelState,
-                newState: PanelState
-            ) {
-                // When sliding panel transform to EXPANDED state, we remove radius from background
-                if (newState != PanelState.EXPANDED) {
-                    dragview.background = getDrawable(R.drawable.sliding_panel_radius)
-                }
-            }
-        })
+
     }
 
     // Find the menu

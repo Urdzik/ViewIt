@@ -62,12 +62,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            <!--<ImageView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="200dp"-->
-                    <!--android:background="#C7C7C7"-->
-                    <!--android:layout_margin="13dp"/>-->
-
         </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
