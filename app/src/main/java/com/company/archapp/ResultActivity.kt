@@ -98,6 +98,8 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
+                    val iF = MainActivity()
+                    iF.getNameOfLandmarkToImage(nameOfLandmark)
 
                 } else {
                     landmarkTv.text = "Landmark not recognized"
