@@ -25,7 +25,6 @@
             android:layout_marginTop="150dp"/>
 
     <Button
-
             android:background="@drawable/button_botton"
             android:id="@+id/recognize_btn"
             android:layout_width="match_parent"
