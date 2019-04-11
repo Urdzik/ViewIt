@@ -26,10 +26,9 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/sliding_panel_radius"/>
 
-
         <!-- SLIDING CONTENT -->
         <LinearLayout
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="@dimen/margin_top_sliding_panel"
                 android:id="@+id/dragview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -41,23 +40,23 @@
 
             <View android:layout_gravity="center"
                   android:background="@drawable/button_result"
-                  android:layout_width="30dp"
-                  android:layout_height="3dp"/>
+                  android:layout_width="@dimen/button_sliding_wight"
+                  android:layout_height="@dimen/button_sliding_height"/>
 
             <TextView
                     android:textStyle="bold"
-                    android:textColor="#181818"
-                    android:layout_margin="10dp"
-                    android:textSize="22dp"
+                    android:textColor="@color/color_name_landmark"
+                    android:layout_margin="@dimen/top_padding"
+                    android:textSize="@dimen/text_size_name_landmark"
                     android:id="@+id/landmark_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:textStyle="bold"
-                    android:textColor="#5E5E5E"
-                    android:layout_margin="13dp"
-                    android:textSize="16dp"
+                    android:textColor="@color/color_info_landmark"
+                    android:layout_margin="@dimen/top_padding"
+                    android:textSize="@dimen/text_size_info_landmark"
                     android:id="@+id/information_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

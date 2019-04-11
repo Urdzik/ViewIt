@@ -20,15 +20,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome_to_lanhan"
-            android:textSize="15dp"
+            android:textSize="@dimen/text_size_info_landmark"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp"/>
+            android:layout_marginTop="@dimen/margin_top_sliding_panel"/>
 
     <Button
             android:background="@drawable/button_botton"
             android:id="@+id/recognize_btn"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/height_button_welcome"
             android:text="@string/recognize_landmark"
             android:layout_alignParentBottom="true"/>
 

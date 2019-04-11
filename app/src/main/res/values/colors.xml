@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="sliding_panel_color">#FFFFFF</color>
+    <color name="color_name_landmark">#181818</color>
+    <color name="color_info_landmark">#5E5E5E</color>
 </resources>
