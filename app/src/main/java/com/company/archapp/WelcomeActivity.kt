@@ -3,22 +3,50 @@ package com.company.archapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.theartofdev.edmodo.cropper.CropImage
 
 class WelcomeActivity : AppCompatActivity() {
+
     private val recognizeBtn by lazy { findViewById<Button>(R.id.recognize_btn)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
+        // Find the toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+
+
         // Here we call CropImageActivity for get image for recognize
         recognizeBtn.setOnClickListener {
             CropImage.activity().start(this)
         }
+    }
+
+    // Find the menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when (item.itemId) {
+                R.id.info -> {
+                    startActivity(Intent(this@WelcomeActivity, InfoActivity::class.java))
+                    return true
+                }
+            }
+        }
+        return true
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
