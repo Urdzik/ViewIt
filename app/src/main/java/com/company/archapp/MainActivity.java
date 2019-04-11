@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         NetworkService.getInstance()
                 .getImgApi()
-                .getAPIImg(name, "images", "images", "json")
+                .getAPIImg(name.toLowerCase(), "images", "images", "json")
                 .enqueue(new Callback<ImageSearch>() {                                              //делаем запрос на сервер по нэйму
                     @Override
                     public void onResponse(Call<ImageSearch> call, Response<ImageSearch> response) {
@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
                             ImageSearch myImg = response.body();
                             //находим из POJO-класса(класс, в который передаётся результат запроса) ссылку на картинки и передаём их в метод ShowImage()
                             if(myImg.getRelatedTopics().length!=0) {
-                                String url1 = myImg.getRelatedTopics()[0].getIcon().getURL();
-                                showImage(url1);//передали URL в метод, где мы отображаем картинку
+                                String url = myImg.getRelatedTopics()[0].getIcon().getURL();
+                                showImage(url);//передали URL в метод, где мы отображаем картинку
                             }else{
                                 myLog.d(TAG, "None results");
                             }
@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void showImage(String url1) {
+    private void showImage(String url) {
 
         imageView1 = findViewById(R.id.info_image);
 
-        myLog.d(TAG, url1);
+        myLog.d(TAG, url);
 
-        Glide.with(this).load(url1).into(imageView1);
+        Glide.with(this).load(url).into(imageView1);
     }
 
 }
