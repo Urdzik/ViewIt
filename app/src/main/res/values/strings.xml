@@ -1,9 +1,9 @@
 <resources>
-    <string name="ViewIt">ViewIt</string>
+    <string name="app_name">ViewIt</string>
     <string name="welcome_to_lanhan">Welcome to LanHan app</string>
     <string name="recognize_landmark">Recognize landmark</string>
     <string name="dev">dev</string>
     <string name="history">History</string>
-    <string name="Info">info</string>
+    <string name="Info">Info</string>
     <string name="slavik_urdzik">Slavik Urdzik</string>
 </resources>
