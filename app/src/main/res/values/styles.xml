@@ -24,6 +24,7 @@
     <style name="StatusBarWhite" parent="AppTheme">
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/white</item>
+        <item name="android:windowBackground">@color/sliding_panel_color</item>
     </style>
 
 
