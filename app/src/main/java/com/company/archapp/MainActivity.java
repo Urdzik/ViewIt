@@ -11,11 +11,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    
-    public String name;
+
+    private String name;
 
     //B метод передаём название достопремечательности
-    public void getNameOfLAndmarkToImage(String name) {
+
+    public void getNameOfLandmarkToImage(String name) {
         this.name = name;
     }
 
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showImage(String url1) {
-
-        //Необходимо указать ID от ImageView, где будем отображать картинки
 
         imageView1 = findViewById(R.id.info_image);
 
