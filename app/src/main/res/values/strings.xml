@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">archapp</string>
+    <string name="ViewIt">ViewIt</string>
     <string name="welcome_to_lanhan">Welcome to LanHan app</string>
     <string name="recognize_landmark">Recognize landmark</string>
     <string name="download">Download...</string>
+    <string name="dev">dev</string>
+    <string name="history">history</string>
+    <string name="info">info</string>
 </resources>

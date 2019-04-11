@@ -19,7 +19,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import java.util.*
 
-@Suppress("DEPRECATION")
+
 class ResultActivity : AppCompatActivity() {
 
     private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel)!! }
@@ -27,6 +27,8 @@ class ResultActivity : AppCompatActivity() {
     private val dragview by lazy { findViewById<LinearLayout>(R.id.dragview) }
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
+    private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
+    private val wk = WikipediaClass()
 
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
@@ -47,8 +49,6 @@ class ResultActivity : AppCompatActivity() {
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
-
-
 
 
         // Get image from intent
@@ -92,6 +92,7 @@ class ResultActivity : AppCompatActivity() {
 
         // Delete an image from the screen and show the progress Bar
         landmarkIv.setImageBitmap(null)
+
         showProgress()
 
         // Preparation for processing image
@@ -111,11 +112,15 @@ class ResultActivity : AppCompatActivity() {
                 recognizeLandmarks(it, mutableImage)
 
                 // Set our image, hide the ProgressBar and show the recognized landmark
+
                 landmarkIv.setImageBitmap(mutableImage)
                 hideProgress()
-                if (nameOfLandmark != null)
-                landmarkTv.text = nameOfLandmark
-                else landmarkTv.text = "Landmark not recognized"
+                if (nameOfLandmark != null) {
+                    landmarkTv.text = nameOfLandmark
+
+                    wk.findWikipediaText(nameOfLandmark!!, informationTv)
+
+                } else landmarkTv.text = "Landmark not recognized"
 
 
             }
@@ -140,7 +145,7 @@ class ResultActivity : AppCompatActivity() {
             nameOfLandmark = landmark.landmark
 
             // Get locations landmarks
-            for ( loc in landmark.locations) {
+            for (loc in landmark.locations) {
                 latitude = loc.latitude
                 longitude = loc.longitude
             }

@@ -1,5 +1,6 @@
 package com.company.archapp;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.widget.TextView;
 import org.jsoup.Jsoup;
@@ -21,6 +22,7 @@ public class WikipediaClass {
         mt.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     class MyTask extends AsyncTask<Void, Void, Void> {
 
         @Override
