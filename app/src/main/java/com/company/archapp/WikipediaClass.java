@@ -66,7 +66,6 @@ public class WikipediaClass {
                 }
             } else
                 information = "Error";
-
             return null;
         }
 

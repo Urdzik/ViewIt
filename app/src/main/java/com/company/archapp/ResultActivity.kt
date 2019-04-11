@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.widget.*
-
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
@@ -39,7 +38,6 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
@@ -50,7 +48,6 @@ class ResultActivity : AppCompatActivity() {
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
-
 
         // Get image from intent
         val intent = intent
@@ -63,7 +60,6 @@ class ResultActivity : AppCompatActivity() {
             override fun onPanelSlide(panel: View, slideOffset: Float) {
                 // Nothing to do here
             }
-
             override fun onPanelStateChanged(
                 panel: View,
                 previousState: PanelState,
@@ -132,7 +128,6 @@ class ResultActivity : AppCompatActivity() {
             }
     }
 
-
     private fun recognizeLandmarks(landmarks: List<FirebaseVisionCloudLandmark>?, image: Bitmap?) {
         if (landmarks == null || image == null) {
             // If no image or no landmarks show a Toast about error
@@ -151,8 +146,6 @@ class ResultActivity : AppCompatActivity() {
                 longitude = loc.longitude
             }
         }
-
-
     }
 
     private fun showProgress() {

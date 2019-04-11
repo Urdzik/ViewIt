@@ -44,6 +44,7 @@ dependencies {
     //Library for issuing articles and photos
     implementation 'org.jsoup:jsoup:1.11.1'
     //Image cropper
+    //noinspection GradleDependency
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
 }
     //Google Plugin

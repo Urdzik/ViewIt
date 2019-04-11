@@ -16,7 +16,6 @@ import com.theartofdev.edmodo.cropper.CropImage
 
 class WelcomeActivity : AppCompatActivity() {
 
-
     private val recognizeBtn by lazy { findViewById<Button>(R.id.recognize_btn)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
