@@ -10,7 +10,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class ImageActivity extends AppCompatActivity {
 
     private ImageView imageView1;
     private Log myLog;
@@ -24,19 +24,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     //B метод передаём название достопремечательности
-    public void getNameOfLandmarkToImage(String name) {
+    
+    public void putNameOfLandmarkToImage(String name) {
         NetworkService.getInstance()
                 .getImgApi()
                 .getAPIImg(name.toLowerCase(), "images", "images", "json")
-                .enqueue(new Callback<ImageSearch>() {                                              //делаем запрос на сервер по нэйму
+                .enqueue(new Callback<ImageSearch>() {
                     @Override
                     public void onResponse(Call<ImageSearch> call, Response<ImageSearch> response) {
                         if (response.isSuccessful()) {
                             ImageSearch myImg = response.body();
-                            //находим из POJO-класса(класс, в который передаётся результат запроса) ссылку на картинки и передаём их в метод ShowImage()
                             if(myImg.getRelatedTopics().length!=0) {
                                 String url1 = myImg.getRelatedTopics()[0].getIcon().getURL();
-                                showImage(url1);//передали URL в метод, где мы отображаем картинку
+                                showImage(url1);
                             }else{
                                 myLog.d(TAG, "None results");
                             }
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
          }
-    
+
     private void showImage(String url) {
         imageView1 = findViewById(R.id.info_image);
         myLog.d(TAG, url);
