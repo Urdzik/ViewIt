@@ -12,14 +12,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String name;
-
-    //B метод передаём название достопремечательности
-
-    public void getNameOfLandmarkToImage(String name) {
-        this.name = name;
-    }
-
     private ImageView imageView1;
     private Log myLog;
     private final static String TAG = "MyActivity";
@@ -28,7 +20,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+    }
 
+
+    //B метод передаём название достопремечательности
+    public void getNameOfLandmarkToImage(String name) {
         NetworkService.getInstance()
                 .getImgApi()
                 .getAPIImg(name.toLowerCase(), "images", "images", "json")
@@ -39,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
                             ImageSearch myImg = response.body();
                             //находим из POJO-класса(класс, в который передаётся результат запроса) ссылку на картинки и передаём их в метод ShowImage()
                             if(myImg.getRelatedTopics().length!=0) {
-                                String url = myImg.getRelatedTopics()[0].getIcon().getURL();
-                                showImage(url);//передали URL в метод, где мы отображаем картинку
+                                String url1 = myImg.getRelatedTopics()[0].getIcon().getURL();
+                                showImage(url1);//передали URL в метод, где мы отображаем картинку
                             }else{
                                 myLog.d(TAG, "None results");
                             }
-                            } else {
+                        } else {
                             myLog.d(TAG, "Query error");
                         }
                     }
@@ -55,14 +51,11 @@ public class MainActivity extends AppCompatActivity {
                         showImage("Fail server response");
                     }
                 });
-    }
-
+         }
+    
     private void showImage(String url) {
-
         imageView1 = findViewById(R.id.info_image);
-
         myLog.d(TAG, url);
-
         Glide.with(this).load(url).into(imageView1);
     }
 
