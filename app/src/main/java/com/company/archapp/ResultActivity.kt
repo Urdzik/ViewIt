@@ -23,10 +23,12 @@ class ResultActivity : AppCompatActivity() {
     private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel)!! }
     private val landmarkIv by lazy { findViewById<ImageView>(R.id.landmark_iv) }
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
+    private val textPut by lazy { findViewById<TextView>(R.id.urltext) }
+    private val imagePut by lazy { findViewById<ImageView>(R.id.info_image) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val wk = WikipediaClass()
-
+    private val iF = ImageActivity()
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
@@ -98,8 +100,8 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
-                    val iF = MainActivity()
-                    iF.getNameOfLandmarkToImage(nameOfLandmark)
+
+                    iF.putNameOfLandmarkToImage(nameOfLandmark, imagePut, textPut)
 
                 } else {
                     landmarkTv.text = "Landmark not recognized"

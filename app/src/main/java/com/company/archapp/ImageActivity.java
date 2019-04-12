@@ -1,62 +1,56 @@
 package com.company.archapp;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.company.archapp.img.ImageSearch;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ImageActivity extends AppCompatActivity {
-
-    private ImageView imageView1;
+public class ImageActivity {
+    
     private Log myLog;
     private final static String TAG = "MyActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
-    }
+    public void putNameOfLandmarkToImage(String name, final ImageView imageView, final TextView textView) {
 
-
-    //B метод передаём название достопремечательности
-    
-    public void putNameOfLandmarkToImage(String name) {
         NetworkService.getInstance()
-                .getImgApi()
-                .getAPIImg(name.toLowerCase(), "images", "images", "json")
-                .enqueue(new Callback<ImageSearch>() {
-                    @Override
-                    public void onResponse(Call<ImageSearch> call, Response<ImageSearch> response) {
-                        if (response.isSuccessful()) {
-                            ImageSearch myImg = response.body();
-                            if(myImg.getRelatedTopics().length!=0) {
-                                String url1 = myImg.getRelatedTopics()[0].getIcon().getURL();
-                                showImage(url1);
-                            }else{
-                                myLog.d(TAG, "None results");
-                            }
-                        } else {
-                            myLog.d(TAG, "Query error");
+            .getImgApi()
+            .getAPIImg(name.toLowerCase(), "images", "images", "json")
+            .enqueue(new Callback<ImageSearch>() {
+                @Override
+                public void onResponse(Call<ImageSearch> call, Response<ImageSearch> response) {
+                    if (response.isSuccessful()) {
+                        ImageSearch myImg = response.body();
+                        if(myImg.getRelatedTopics().length!=0) {
+                            String url1 = myImg.getRelatedTopics()[0].getIcon().getURL();
+                            //showImage(url1);
+                            showImage(url1, imageView, textView);
+                        }else{
+                          myLog.d(TAG, "None results");
                         }
+                    } else {
+                        myLog.d(TAG, "Query error");
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<ImageSearch> call, Throwable t) {
-                        myLog.d(TAG, t.getMessage());
-                        showImage("Fail server response");
-                    }
-                });
-         }
-
-    private void showImage(String url) {
-        imageView1 = findViewById(R.id.info_image);
-        myLog.d(TAG, url);
-        Glide.with(this).load(url).into(imageView1);
+                @Override
+                public void onFailure(Call<ImageSearch> call, Throwable t) {
+                   myLog.d(TAG, t.getMessage());
+                }
+            });
     }
+
+    public void showImage(String url, ImageView imageView, TextView textView) {
+        if(!url.equals(null)){
+            Glide.with(imageView).load(url).into(imageView);
+        } else {
+            textView.setText("Sorry...");
+        }
+    }
+
+
 
 }
