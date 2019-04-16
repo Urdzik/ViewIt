@@ -6,10 +6,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ImageApi {
-//создаём GET-запрос по необходимой ссылке
-@GET("photos/")
-Call<ImageDownloader> getAPIImg(
-        @Query("query") String name,
-        @Query("client_id") String client_id
-);
+    @GET("photos/")
+        Call<ImageDownloader> getAPIImg(
+                @Query("query") String name,
+                @Query("client_id") String client_id
+        );
 }

@@ -29,27 +29,27 @@ public class ImageActivity {
                                 showImage(url1, imageView, textView);
                             }else{
                                 myLog.d(TAG, "None results");
+                                textView.setText("No results...");
                             }
                         } else {
                             myLog.d(TAG, "Query error");
+                            textView.setText("No results...");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ImageDownloader> call, Throwable t) {
                         myLog.d(TAG, t.getMessage());
+                        textView.setText("No results...");
                     }
                 });
     }
 
-    public void showImage(String url, ImageView imageView, TextView textView) {
+    private void showImage(String url, ImageView imageView, TextView textView) {
         if(!url.equals(null)){
             Glide.with(imageView).load(url).into(imageView);
         } else {
-            textView.setText("Sorry...");
+            textView.setText("Sorry, no results...");
         }
     }
-
-
-
 }
