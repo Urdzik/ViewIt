@@ -16,26 +16,6 @@ public class ImageDownloader {
     @Expose
     private Results[] results;
 
-    public String getTotal ()
-    {
-        return total;
-    }
-
-    public void setTotal (String total)
-    {
-        this.total = total;
-    }
-
-    public String getTotal_pages ()
-    {
-        return total_pages;
-    }
-
-    public void setTotal_pages (String total_pages)
-    {
-        this.total_pages = total_pages;
-    }
-
     public Results[] getResults ()
     {
         return results;
