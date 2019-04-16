@@ -25,7 +25,7 @@ public class ImageActivity {
                         if (response.isSuccessful()) {
                             ImageDownloader myImg = response.body();
                             if(myImg.getResults().length!=0) {
-                                String url1 = myImg.getResults()[0].getUrls().getFull();
+                                String url1 = myImg.getResults()[1].getUrls().getRegular();
                                 showImage(url1, imageView, textView);
                             }else{
                                 myLog.d(TAG, "None results");
