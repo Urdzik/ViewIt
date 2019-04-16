@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 
+
+// Simple recyclerview adapter
 class PhotosAdapter(val data: List<PhotoItem>?, val contentResolver: ContentResolver) :
     RecyclerView.Adapter<PhotosAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,6 +22,7 @@ class PhotosAdapter(val data: List<PhotoItem>?, val contentResolver: ContentReso
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // Getting image from data list and setting to image
         holder.photoIv?.setImageBitmap(
             MediaStore.Images.Media.getBitmap(
                 contentResolver,

@@ -61,13 +61,14 @@ class ResultActivity : AppCompatActivity() {
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
 
+        // Add to photosDSV adapter and simple animation transformer
         val adapter = PhotosAdapter(generateData(), contentResolver)
         photosDSV.adapter = adapter
         photosDSV.setItemTransformer(
             ScaleTransformer.Builder()
-                .setMaxScale(1.05f)
-                .setMinScale(0.8f)
-                .setPivotY(Pivot.Y.BOTTOM)
+                .setMaxScale(1.05f) // min scale
+                .setMinScale(0.8f) // max scale
+                .setPivotY(Pivot.Y.BOTTOM) // position
                 .build()
         )
     }
