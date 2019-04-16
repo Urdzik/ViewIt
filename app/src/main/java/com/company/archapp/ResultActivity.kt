@@ -10,13 +10,20 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.yarolegovich.discretescrollview.DiscreteScrollView
+import com.yarolegovich.discretescrollview.transform.Pivot
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ResultActivity : AppCompatActivity() {
 
@@ -25,6 +32,7 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
+    private val photosDSV by lazy { findViewById<DiscreteScrollView>(R.id.photos_dsv) }
     private val wk = WikipediaClass()
 
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -53,7 +61,15 @@ class ResultActivity : AppCompatActivity() {
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
 
-
+        val adapter = PhotosAdapter(generateData(), contentResolver)
+        photosDSV.adapter = adapter
+        photosDSV.setItemTransformer(
+            ScaleTransformer.Builder()
+                .setMaxScale(1.05f)
+                .setMinScale(0.8f)
+                .setPivotY(Pivot.Y.BOTTOM)
+                .build()
+        )
     }
 
     // Find the menu
@@ -141,6 +157,17 @@ class ResultActivity : AppCompatActivity() {
         /** Hide progressbar */
         slidingPanelLayout.visibility = View.VISIBLE
         resultPb.visibility = View.GONE
+    }
+
+    private fun generateData(): List<PhotoItem> {
+        val photos = ArrayList<PhotoItem>()
+        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
+        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
+        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
+        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
+        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
+        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
+        return photos
     }
 }
 

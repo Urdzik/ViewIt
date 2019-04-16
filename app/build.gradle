@@ -42,6 +42,8 @@ dependencies {
     //Image cropper
     //noinspection GradleDependency
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    //DiscreteScrollView
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
 }
-    //Google Plugin
+//Google Plugin
 apply plugin: 'com.google.gms.google-services'
