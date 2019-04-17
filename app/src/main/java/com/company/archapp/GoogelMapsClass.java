@@ -11,6 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 
 public class GoogelMapsClass extends AppCompatActivity implements OnMapReadyCallback {
 
+    private double latitude;
+    private double longitude;
+
+    public void map(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     /**
      * This shows how to create a simple activity with a map and a marker on the map.

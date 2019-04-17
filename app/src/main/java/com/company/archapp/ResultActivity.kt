@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
@@ -26,6 +29,7 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val wk = WikipediaClass()
+    private val map = GoogelMapsClass()
 
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
@@ -52,8 +56,6 @@ class ResultActivity : AppCompatActivity() {
 
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
-
-
     }
 
     // Find the menu
@@ -98,6 +100,7 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
+                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
                 } else {
                     landmarkTv.text = "Landmark not recognized"
@@ -143,4 +146,3 @@ class ResultActivity : AppCompatActivity() {
         resultPb.visibility = View.GONE
     }
 }
-
