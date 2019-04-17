@@ -13,8 +13,10 @@ public class ImageActivity {
 
     private Log myLog;
     private final static String TAG = "MyActivity";
+    private ImageDownloader myImg;
+    public String urls[] = new String[6];
 
-    public void putNameOfLandmarkToImage(String name, final ImageView imageView, final TextView textView) {
+    public String[] putNameOfLandmarkToImage(String name, final ImageView imageView, final TextView textView) {
 
         NetworkService.getInstance()
                 .getImgApi()
@@ -23,14 +25,14 @@ public class ImageActivity {
                     @Override
                     public void onResponse(Call<ImageDownloader> call, Response<ImageDownloader> response) {
                         if (response.isSuccessful()) {
-                            ImageDownloader myImg = response.body();
-                            if(myImg.getResults().length!=0) {
-                                String url1 = myImg.getResults()[0].getUrls().getRegular();
-                                showImage(url1, imageView, textView);
-                            }else{
-                                myLog.d(TAG, "None results");
-                                textView.setText("No results...");
-                            }
+                            myImg = response.body();
+
+                            for (int i = 0; i < urls.length; i++)
+                                urls[i] = myImg.getResults()[i].getUrls().getRegular();
+
+                            myLog.d(TAG, "URL = " + urls[0]);
+                            showImage(urls, imageView, textView);
+
                         } else {
                             myLog.d(TAG, "Query error");
                             textView.setText("No results...");
@@ -43,13 +45,26 @@ public class ImageActivity {
                         textView.setText("No results...");
                     }
                 });
+        return urls;
     }
 
-    private void showImage(String url, ImageView imageView, TextView textView) {
+    private void showImage(String[] url, ImageView imageView, TextView textView) {
         if(!url.equals(null)){
-            Glide.with(imageView).load(url).into(imageView);
+            Glide.with(imageView).load(url[0]).into(imageView);
         } else {
             textView.setText("Sorry, no results...");
         }
     }
+
+
+  /*    if(myImg.getResults().length!=0) {
+                                //String url1 = myImg.getResults()[0].getUrls().getRegular();
+                                //showImage(url1, imageView, textView);
+                            }else{
+                                myLog.d(TAG, "None results");
+                                textView.setText("No results...");
+                            }*/
+
+
+
 }
