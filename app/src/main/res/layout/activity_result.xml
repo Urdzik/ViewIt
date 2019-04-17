@@ -27,7 +27,6 @@
                 android:src="@drawable/sliding_panel_radius"/>
 
         <!-- SLIDING CONTENT -->
-
         <LinearLayout
                     android:layout_marginTop="@dimen/margin_top_sliding_panel"
                     android:id="@+id/dragview"
@@ -79,7 +78,14 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="5dp"
                 />
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
+                    android:id="@+id/photos_dsv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dsv_orientation="horizontal"/>
+
         </LinearLayout>
+
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
     <android.support.v7.widget.Toolbar

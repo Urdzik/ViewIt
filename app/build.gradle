@@ -46,6 +46,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    //DiscreteScrollView
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
 }
-    //Google Plugin
+//Google Plugin
 apply plugin: 'com.google.gms.google-services'
