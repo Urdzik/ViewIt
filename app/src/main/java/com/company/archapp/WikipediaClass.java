@@ -30,16 +30,16 @@ public class WikipediaClass {
 
         //Определяем язык
         switch (language) {
-            case "русский": {
-                language = "ru";
-                start = " — ";
-                break;
-            }
-            case "українська": {
-                language = "uk";
-                start = " — ";
-                break;
-            }
+//            case "русский": {
+//                language = "ru";
+//                start = " — ";
+//                break;
+//            }
+//            case "українська": {
+//                language = "uk";
+//                start = " — ";
+//                break;
+//            }
             default: {
                 language = "en";
                 start = " is ";
@@ -77,7 +77,7 @@ public class WikipediaClass {
                     ind1++;
                 }
                 //Если текста в первом абзаце мало, берем ещё и второй
-                if (information.length() < 400) {
+                if (information.length() < 600) {
                     information += "\n" + paragraphs.get(ind1).text();
                 }
 
