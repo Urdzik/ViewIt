@@ -13,5 +13,5 @@
     <dimen name="button_sliding_wight">30dp</dimen>
     <dimen name="button_sliding_height">3dp</dimen>
     <dimen name="height_button_welcome">55dp</dimen>
-    <dimen name="margin_top_info_landmark">6dp</dimen>
+    <dimen name="margin_top_info_landmark">2dp</dimen>
 </resources>
