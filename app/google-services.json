@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "586725185048",
-    "firebase_url": "https://arch-app-1230c.firebaseio.com",
-    "project_id": "arch-app-1230c",
-    "storage_bucket": "arch-app-1230c.appspot.com"
+    "project_number": "582837624796",
+    "firebase_url": "https://view-it-960e5.firebaseio.com",
+    "project_id": "view-it-960e5",
+    "storage_bucket": "view-it-960e5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:586725185048:android:4add606268f19d9f",
+        "mobilesdk_app_id": "1:582837624796:android:4add606268f19d9f",
         "android_client_info": {
           "package_name": "com.company.archapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "586725185048-e6e3e4f6vaka34fd0qn8adu235rce5oa.apps.googleusercontent.com",
+          "client_id": "582837624796-26h7hnaseujciq25f8pso1htrh8snqvg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCUEQfG6v5wwzpyWRUnCxEz23sRheBkaIc"
+          "current_key": "AIzaSyBPqZuCgfahFoMdiqvu7Ri4eO7P5DA6G6A"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582837624796-26h7hnaseujciq25f8pso1htrh8snqvg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
