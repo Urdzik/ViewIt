@@ -61,31 +61,13 @@
                     android:maxLines="9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-            />
+                    android:layout_marginBottom="5dp"/>
 
-            <!--<ImageView-->
-            <!--android:id="@+id/info_image"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="200dp"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_margin="20dp"-->
-            <!--/>-->
-
-            <!--<TextView-->
-            <!--android:id="@+id/urltext"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_margin="5dp"-->
-            <!--/>-->
             <com.yarolegovich.discretescrollview.DiscreteScrollView
                     android:id="@+id/photos_dsv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-
                     app:dsv_orientation="horizontal"/>
 
         </LinearLayout>
