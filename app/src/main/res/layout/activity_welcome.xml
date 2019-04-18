@@ -15,7 +15,6 @@
             android:background="@android:color/transparent"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
-
     <Button
             android:layout_margin="16dp"
             android:textColor="#fff"
