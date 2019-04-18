@@ -15,7 +15,7 @@ public class ImageActivity {
 
     private final static String TAG = "MyActivity";
     private ImageDownloader myImg;
-    public String urls[] = new String[6];
+    public String urls[] = new String[4];
 
     public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context) {
 
