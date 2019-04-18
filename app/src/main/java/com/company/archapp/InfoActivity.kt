@@ -22,7 +22,6 @@ class InfoActivity : AppCompatActivity() {
         val dev3: TextView = findViewById(R.id.dev3)
         val dev4: TextView = findViewById(R.id.dev4)
 
-
         tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         textView.typeface = tp
         dev1.typeface = tp
@@ -41,5 +40,4 @@ class InfoActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
-    // Find the menu
 }
