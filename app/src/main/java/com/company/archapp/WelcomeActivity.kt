@@ -2,7 +2,9 @@ package com.company.archapp
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.preference.PreferenceActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -14,10 +16,20 @@ import com.theartofdev.edmodo.cropper.CropImage
 class WelcomeActivity : AppCompatActivity() {
 
     private val recognizeBtn by lazy { findViewById<Button>(R.id.recognize_btn)!! }
+    private lateinit var tp: Typeface
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
+
+        tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Black.ttf")
+        recognizeBtn.typeface = tp
+
+
+
+
+
 
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

@@ -30,7 +30,6 @@
     <TextView
             android:maxLines="11"
             android:ellipsize="end"
-            android:textStyle="bold"
             android:textColor="@color/color_info_landmark"
             android:layout_marginStart="@dimen/top_padding"
             android:layout_marginTop="@dimen/margin_top_info_landmark"

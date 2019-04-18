@@ -38,12 +38,12 @@ dependencies {
     //Sliding Panel
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     //Library for issuing articles and photos
-    implementation 'org.jsoup:jsoup:1.11.1'
+    implementation 'org.jsoup:jsoup:1.11.3'
     //Image cropper
     //noinspection GradleDependency
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
 
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 }
-    //Google Plugin
+//Google Plugin
 apply plugin: 'com.google.gms.google-services'

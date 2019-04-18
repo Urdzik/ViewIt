@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ViewIt</string>
+    <string name="app_name">View It</string>
     <string name="welcome_to_lanhan">Welcome to LanHan app</string>
     <string name="recognize_landmark">Recognize landmark</string>
     <string name="dev">dev</string>
