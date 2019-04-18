@@ -42,8 +42,6 @@ dependencies {
     //Image cropper
     //noinspection GradleDependency
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
-
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
 }
 //Google Plugin
 apply plugin: 'com.google.gms.google-services'

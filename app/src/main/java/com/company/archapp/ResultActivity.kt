@@ -29,7 +29,6 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val wk = WikipediaClass()
-    private val map = GoogelMapsClass()
 
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
@@ -100,7 +99,7 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
-                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
+
 
                 } else {
                     landmarkTv.text = "Landmark not recognized"

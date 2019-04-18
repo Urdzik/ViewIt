@@ -21,7 +21,9 @@
     <TextView
             android:textStyle="bold"
             android:textColor="@color/color_name_landmark"
-            android:layout_margin="@dimen/top_padding"
+            android:layout_marginBottom="9dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="13dp"
             android:textSize="@dimen/text_size_name_landmark"
             android:id="@+id/landmark_tv"
             android:layout_width="wrap_content"
