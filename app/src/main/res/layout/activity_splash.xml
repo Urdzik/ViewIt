@@ -8,16 +8,17 @@
 
 
         <ImageView
-                android:layout_width="256dp"
-                android:layout_height="256dp"
+                android:layout_marginTop="100dp"
+                android:layout_width="226dp"
+                android:layout_height="226dp"
                 android:layout_centerHorizontal="true"/>
 
         <TextView
+                android:textColor="#B7808080"
                 android:id="@+id/tv"
-                android:textSize="@dimen/text_size_name_landmark"
-                android:textStyle="bold"
+                android:textSize="33sp"
                 android:fontFamily="sans-serif"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="60dp"
                 android:text="@string/app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
