@@ -2,8 +2,11 @@
     <string name="app_name">View It</string>
     <string name="welcome_to_lanhan">Welcome to LanHan app</string>
     <string name="recognize_landmark">Recognize landmark</string>
-    <string name="dev">dev</string>
-    <string name="history">History</string>
-    <string name="info">Info</string>
+    <string name="info">About us</string>
+    <string name="developer">Developer</string>
+    <string name="authors">Authors</string>
+    <string name="victoriya_roi">Victoriya Roi</string>
+    <string name="kostia_levitskiy">Kostia Levitskiy</string>
+    <string name="anton_sizov">Anton Sizov</string>
     <string name="slavik_urdzik">Slavik Urdzik</string>
 </resources>

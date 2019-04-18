@@ -12,7 +12,102 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    />
+
+    <TextView
+            android:textSize="@dimen/authors_text_size"
+            android:text="@string/authors"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/author_padding"
+            android:layout_below="@id/toolbar"
+            android:id="@+id/authors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_name_landmark" android:layout_marginTop="2dp"
+            android:layout_centerInParent="true"/>
+
+
+    <TextView
+            android:id="@+id/author1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_small_padding"
+            android:layout_below="@+id/authors"
+            android:text="@string/slavik_urdzik"
+            android:textColor="@color/color_name_landmark"
+            android:textSize="@dimen/info_text_size"/>
+    <TextView
+            android:id="@+id/dev1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_padding"
+            android:layout_below="@+id/author1"
+            android:textColor="@color/color_info_landmark"
+            android:text="@string/developer"
+            android:textSize="@dimen/dev_text_size"/>
+    <TextView
+            android:id="@+id/author2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_small_padding"
+            android:layout_below="@+id/dev1"
+            android:text="@string/victoriya_roi"
+            android:textColor="@color/color_name_landmark"
+            android:textSize="@dimen/info_text_size"/>
+    <TextView
+            android:id="@+id/dev2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_padding"
+            android:layout_below="@+id/author2"
+            android:textColor="@color/color_info_landmark"
+            android:text="@string/developer"
+            android:textSize="@dimen/dev_text_size"/>
+    <TextView
+            android:id="@+id/author3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_small_padding"
+            android:layout_below="@+id/dev2"
+            android:text="@string/kostia_levitskiy"
+            android:textColor="@color/color_name_landmark"
+            android:textSize="@dimen/info_text_size"/>
+    <TextView
+            android:id="@+id/dev3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_padding"
+            android:layout_below="@+id/author3"
+            android:textColor="@color/color_info_landmark"
+            android:text="@string/developer"
+            android:textSize="@dimen/dev_text_size"/>
+    <TextView
+            android:id="@+id/author4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_small_padding"
+            android:layout_below="@+id/dev3"
+            android:text="@string/anton_sizov"
+            android:textColor="@color/color_name_landmark"
+            android:textSize="@dimen/info_text_size"/>
+    <TextView
+            android:id="@+id/dev4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_padding"
+            android:layout_below="@+id/author4"
+            android:textColor="@color/color_info_landmark"
+            android:text="@string/developer"
+            android:textSize="@dimen/dev_text_size"/>
 
 
 </RelativeLayout>

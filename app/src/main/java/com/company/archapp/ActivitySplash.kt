@@ -32,7 +32,6 @@ class ActivitySplash : AppCompatActivity() {
     }
 
     companion object {
-
         private val SPLASH_TIME = 2000 //This is 4 seconds
     }
 }
