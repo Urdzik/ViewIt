@@ -8,16 +8,17 @@
 
 
         <ImageView
-                android:layout_marginTop="100dp"
+                android:src="@drawable/ic_launcher"
+                android:layout_marginTop="130dp"
                 android:layout_width="226dp"
                 android:layout_height="226dp"
                 android:layout_centerHorizontal="true"/>
 
         <TextView
-                android:textColor="#B7808080"
+                android:textStyle="bold"
+                android:textColor="#88929292"
                 android:id="@+id/tv"
-                android:textSize="33sp"
-                android:fontFamily="sans-serif"
+                android:textSize="30sp"
                 android:layout_marginBottom="60dp"
                 android:text="@string/app_name"
                 android:layout_width="wrap_content"
