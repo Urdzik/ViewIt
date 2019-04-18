@@ -9,7 +9,6 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.Locale;
 
@@ -82,7 +81,7 @@ public class WikipediaClass {
                 }
 
                 //Забираем ненужную информацию
-                if (information.contains(")"+start)) ind1 = information.indexOf(")"+start) + 1;
+                if (information.contains(")" + start)) ind1 = information.indexOf(")" + start) + 1;
                 else ind1 = information.indexOf(start);
                 information = information.substring(ind1);
                 information = word + information;

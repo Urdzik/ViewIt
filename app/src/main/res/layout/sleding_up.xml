@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"/>
 
     <TextView
-            android:maxLines="11"
+            android:maxLines="10"
             android:ellipsize="end"
             android:textColor="@color/color_info_landmark"
             android:layout_marginStart="@dimen/top_padding"
