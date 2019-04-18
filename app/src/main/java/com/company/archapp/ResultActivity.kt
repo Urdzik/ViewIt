@@ -20,18 +20,16 @@ import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.yarolegovich.discretescrollview.DiscreteScrollView
-import com.yarolegovich.discretescrollview.transform.Pivot
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ResultActivity : AppCompatActivity() {
 
     private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel)!! }
     private val landmarkIv by lazy { findViewById<ImageView>(R.id.landmark_iv) }
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
-    private val textPut by lazy { findViewById<TextView>(R.id.urltext) }
-    private val imagePut by lazy { findViewById<ImageView>(R.id.info_image) }
+    //    private val textPut by lazy { findViewById<TextView>(R.id.urltext) }
+//    private val imagePut by lazy { findViewById<ImageView>(R.id.info_image) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val photosDSV by lazy { findViewById<DiscreteScrollView>(R.id.photos_dsv) }
@@ -56,23 +54,20 @@ class ResultActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
+        // Add simple transformer to DSV
+        photosDSV.setItemTransformer(
+            ScaleTransformer.Builder()
+                .setMaxScale(1.05f) // min scale
+                .setMinScale(0.8f) // max scale
+                .build()
+        )
+
         // Get image from intent
         val intent = intent
         val imageUri = intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI)
 
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
-
-        // Add to photosDSV adapter and simple animation transformer
-        val adapter = PhotosAdapter(generateData(), contentResolver)
-        photosDSV.adapter = adapter
-        photosDSV.setItemTransformer(
-            ScaleTransformer.Builder()
-                .setMaxScale(1.05f) // min scale
-                .setMinScale(0.8f) // max scale
-                .setPivotY(Pivot.Y.BOTTOM) // position
-                .build()
-        )
     }
 
     // Find the menu
@@ -118,8 +113,15 @@ class ResultActivity : AppCompatActivity() {
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
 
-                    iF.putNameOfLandmarkToImage(nameOfLandmark, imagePut, textPut)
+                    iF.putNameOfLandmarkToImage(nameOfLandmark, photosDSV, this@ResultActivity)
 
+//                    // Add to photosDSV adapter
+//                    val adapter = PhotosAdapter(
+//                        generateData(
+//                            iF.putNameOfLandmarkToImage(nameOfLandmark, imagePut, textPut)
+//                        ), this
+//                    )
+//                    photosDSV.adapter = adapter
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()
@@ -164,15 +166,13 @@ class ResultActivity : AppCompatActivity() {
         resultPb.visibility = View.GONE
     }
 
-    private fun generateData(): List<PhotoItem> {
-        val photos = ArrayList<PhotoItem>()
-        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
-        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
-        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
-        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
-        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
-        photos.add(PhotoItem(intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI).toString()))
-        return photos
-    }
+//    private fun generateData(urls: Array<String>): List<PhotoItem> {
+//        Toast.makeText(this, Arrays.toString(urls), Toast.LENGTH_LONG).show()
+//        val photos = ArrayList<PhotoItem>()
+//        urls.forEach {
+//            photos.add(PhotoItem(it))
+//        }
+//        return photos
+//    }
 }
 

@@ -1,8 +1,6 @@
 package com.company.archapp
 
-import android.content.ContentResolver
-import android.net.Uri
-import android.provider.MediaStore
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,7 @@ import com.bumptech.glide.Glide
 
 
 // Simple recyclerview adapter
-class PhotosAdapter(val data: List<PhotoItem>?, val contentResolver: ContentResolver) :
+class PhotosAdapter(val data: List<PhotoItem>?, val context: Context) :
     RecyclerView.Adapter<PhotosAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -24,9 +22,13 @@ class PhotosAdapter(val data: List<PhotoItem>?, val contentResolver: ContentReso
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // Getting image from data list and setting to image
-        val photoItem: PhotoItem
+        val photoItem = data?.get(position)
 
-      //  Glide.with(holder.itemView.getContext()).load(photoItem.photoURI).into(holder.photoIv)
+        holder.photoIv?.let {
+            Glide.with(context)
+                .load(photoItem?.photoURI)
+                .into(it)
+        }
     }
 
     override fun getItemCount(): Int = data?.size ?: 0
@@ -35,11 +37,3 @@ class PhotosAdapter(val data: List<PhotoItem>?, val contentResolver: ContentReso
         val photoIv: ImageView? by lazy { itemView.findViewById<ImageView>(R.id.photo_iv) }
     }
 }
-
-/*
-        holder.photoIv?.setImageBitmap(
-            MediaStore.Images.Media.getBitmap(
-                contentResolver,
-                Uri.parse(data?.get(position)?.photoURI)
-            )
-        )*/

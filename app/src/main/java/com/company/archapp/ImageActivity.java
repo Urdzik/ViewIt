@@ -1,22 +1,23 @@
 package com.company.archapp;
 
+import android.content.Context;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import com.company.archapp.img.ImageDownloader;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ImageActivity {
 
-    private Log myLog;
     private final static String TAG = "MyActivity";
     private ImageDownloader myImg;
     public String urls[] = new String[6];
 
-    public String[] putNameOfLandmarkToImage(String name, final ImageView imageView, final TextView textView) {
+    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context) {
 
         NetworkService.getInstance()
                 .getImgApi()
@@ -30,38 +31,35 @@ public class ImageActivity {
                             for (int i = 0; i < urls.length; i++)
                                 urls[i] = myImg.getResults()[i].getUrls().getRegular();
 
-                            myLog.d(TAG, "URL = " + urls[0]);
-                            showImage(urls, imageView, textView);
-
+                            generateDataForDSV(urls, discreteScrollView, context);
                         } else {
-                            myLog.d(TAG, "Query error");
-                            textView.setText("No results...");
+                            Log.d(TAG, "Query error");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ImageDownloader> call, Throwable t) {
-                        myLog.d(TAG, t.getMessage());
-                        textView.setText("No results...");
+                        Log.d(TAG, t.getMessage());
                     }
                 });
         return urls;
     }
 
-    private void showImage(String[] url, ImageView imageView, TextView textView) {
-        if(!url.equals(null)){
-            Glide.with(imageView).load(url[0]).into(imageView);
-        } else {
-            textView.setText("Sorry, no results...");
-        }
-    }
+    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, Context context) {
 
+        List<PhotoItem> photoItems = new ArrayList<>();
+        for (String url : urls)
+            photoItems.add(new PhotoItem(url));
+
+        PhotosAdapter adapter = new PhotosAdapter(photoItems, context);
+        discreteScrollView.setAdapter(adapter);
+    }
 
   /*    if(myImg.getResults().length!=0) {
                                 //String url1 = myImg.getResults()[0].getUrls().getRegular();
                                 //showImage(url1, imageView, textView);
                             }else{
-                                myLog.d(TAG, "None results");
+                                Log.d(TAG, "None results");
                                 textView.setText("No results...");
                             }*/
 
