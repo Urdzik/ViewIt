@@ -58,9 +58,11 @@
                     android:textSize="@dimen/text_size_info_landmark"
                     android:id="@+id/information_tv"
                     android:ellipsize="end"
-                    android:maxLines="10"
+                    android:maxLines="9"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+            />
 
             <!--<ImageView-->
             <!--android:id="@+id/info_image"-->
@@ -82,8 +84,8 @@
                     android:id="@+id/photos_dsv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="5dp"
+
                     app:dsv_orientation="horizontal"/>
 
         </LinearLayout>
