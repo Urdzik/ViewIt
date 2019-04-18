@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_welocome"
+        android:background="@drawable/bw"
         tools:context=".WelcomeActivity">
 
     <android.support.v7.widget.Toolbar
@@ -14,22 +14,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
-
-    <LinearLayout
-            android:layout_marginTop="100dp"
-            android:background="@color/sliding_panel_color"
-            android:elevation="2dp"
-            android:layout_centerHorizontal="true"
-            android:layout_width="220dp"
-            android:layout_height="250dp">
-        <TextView
-                android:id="@+id/welcome_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_info_landmark"
-
-                android:layout_marginTop="@dimen/margin_top_sliding_panel"/>
-    </LinearLayout>
 
 
     <Button
@@ -44,5 +28,55 @@
             android:layout_height="@dimen/height_button_welcome"
             android:text="@string/recognize_landmark"
             android:layout_alignParentBottom="true"/>
+
+
+    <ImageView
+            android:layout_marginTop="460dp"
+            android:layout_marginStart="200dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+    <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="130dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+
+    <ImageView
+            android:layout_marginTop="420dp"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+
+    <ImageView
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="78dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+
+    <ImageView
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="280dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+
+    <ImageView
+            android:layout_marginTop="250dp"
+            android:layout_marginStart="330dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+
+    <ImageView
+            android:layout_marginTop="590dp"
+            android:layout_marginStart="340dp"
+            android:src="@drawable/marker"
+            android:layout_width="38dp"
+            android:layout_height="38dp"/>
+
 
 </RelativeLayout>
