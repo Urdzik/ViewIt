@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginTop="@dimen/margin_top_sliding_panel"
+        android:id="@+id/dragview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/sliding_panel_radius"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding"
+        android:paddingTop="@dimen/top_padding"
+        tools:context=".ResultActivity">
+
+    <View android:layout_gravity="center"
+          android:background="@drawable/button_result"
+          android:layout_width="@dimen/button_sliding_wight"
+          android:layout_height="@dimen/button_sliding_height"/>
+
+    <TextView
+            android:textStyle="bold"
+            android:textColor="@color/color_name_landmark"
+            android:layout_margin="@dimen/top_padding"
+            android:textSize="@dimen/text_size_name_landmark"
+            android:id="@+id/landmark_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:maxLines="11"
+            android:ellipsize="end"
+            android:textColor="@color/color_info_landmark"
+            android:layout_marginStart="@dimen/top_padding"
+            android:layout_marginTop="@dimen/margin_top_info_landmark"
+            android:textSize="@dimen/text_size_info_landmark"
+            android:id="@+id/information_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="220dp"/>
+
+    <fragment
+            android:layout_marginTop="@dimen/margin_top_info_landmark"
+            android:layout_marginEnd="@dimen/top_padding"
+            android:layout_marginStart="@dimen/top_padding"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            class="com.google.android.gms.maps.SupportMapFragment"/>
+
+</LinearLayout>
