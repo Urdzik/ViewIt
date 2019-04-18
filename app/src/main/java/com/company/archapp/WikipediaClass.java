@@ -9,10 +9,13 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
+import java.util.Locale;
+
 
 public class WikipediaClass {
-    private String information, url, word;
+    private String information, url, word, language, start;
     private TextView textview;
     private ProgressBar progressBar;
     private SlidingUpPanelLayout slidingUpPanelLayout;
@@ -23,7 +26,28 @@ public class WikipediaClass {
         this.progressBar = progressBar;
         this.slidingUpPanelLayout = slidingUpPanelLayout;
         this.word = word;
-        url = "https://en.wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
+        language = Locale.getDefault().getDisplayLanguage();
+
+        //Определяем язык
+        switch (language) {
+//            case "русский": {
+//                language = "ru";
+//                start = " — ";
+//                break;
+//            }
+//            case "українська": {
+//                language = "uk";
+//                start = " — ";
+//                break;
+//            }
+            default: {
+                language = "en";
+                start = " is ";
+                break;
+            }
+        }
+
+        url = "https://" + language + ".wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
         MyTask mt = new MyTask();
         mt.execute();
     }
@@ -47,17 +71,22 @@ public class WikipediaClass {
                 Elements paragraphs = doc.select("p");
                 //Ищем нужный абзац
                 information = "";
-                int ind1 = 1;
-                while (!information.contains(word)) {
+                int ind1 = 0;
+                while (!information.contains(start)) {
                     information = paragraphs.get(ind1).text();
                     ind1++;
                 }
-                //Забираем ненужную информацию
-                if (information.contains(" is ")) {
-                    ind1 = information.indexOf(" is ");
-                    information = information.substring(ind1);
-                    information = word + information;
+                //Если текста в первом абзаце мало, берем ещё и второй
+                if (information.length() < 600) {
+                    information += "\n" + paragraphs.get(ind1).text();
                 }
+
+                //Забираем ненужную информацию
+                if (information.contains(")"+start)) ind1 = information.indexOf(")"+start) + 1;
+                else ind1 = information.indexOf(start);
+                information = information.substring(ind1);
+                information = word + information;
+
                 while (information.contains("[")) {
                     ind1 = information.indexOf("[");
                     int ind2 = information.indexOf("]");
