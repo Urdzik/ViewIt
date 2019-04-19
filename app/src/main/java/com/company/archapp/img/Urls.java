@@ -1,8 +1,8 @@
 package com.company.archapp.img;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
+/**
+ * Class for retrofit
+ */
 public class Urls {
 
     private String small;
@@ -15,53 +15,43 @@ public class Urls {
 
     private String full;
 
-    public String getSmall ()
-    {
+    public String getSmall() {
         return small;
     }
 
-    public void setSmall (String small)
-    {
+    public void setSmall(String small) {
         this.small = small;
     }
 
-    public String getThumb ()
-    {
+    public String getThumb() {
         return thumb;
     }
 
-    public void setThumb (String thumb)
-    {
+    public void setThumb(String thumb) {
         this.thumb = thumb;
     }
 
-    public String getRaw ()
-    {
+    public String getRaw() {
         return raw;
     }
 
-    public void setRaw (String raw)
-    {
+    public void setRaw(String raw) {
         this.raw = raw;
     }
 
-    public String getRegular ()
-    {
+    public String getRegular() {
         return regular;
     }
 
-    public void setRegular (String regular)
-    {
+    public void setRegular(String regular) {
         this.regular = regular;
     }
 
-    public String getFull ()
-    {
+    public String getFull() {
         return full;
     }
 
-    public void setFull (String full)
-    {
+    public void setFull(String full) {
         this.full = full;
     }
 }

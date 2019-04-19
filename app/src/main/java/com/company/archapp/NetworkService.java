@@ -4,7 +4,10 @@ package com.company.archapp;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NetworkService {
+/**
+ * Class for retrofit
+ */
+class NetworkService {
     private static NetworkService instance;
     private static final Object lock = new Object();
     private static final String BASE_URL = "https://api.unsplash.com/search/";
@@ -17,7 +20,7 @@ public class NetworkService {
                 .build();
     }
 
-    public static NetworkService getInstance() {
+    static NetworkService getInstance() {
         if (instance == null)
             synchronized (lock) {
                 if (instance == null)

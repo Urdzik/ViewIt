@@ -13,7 +13,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.Locale;
 
-
+/**
+ * Class for getting article from wikipedia.org
+ */
 public class WikipediaClass {
     private String information, url, word, language, start;
     private TextView textview;

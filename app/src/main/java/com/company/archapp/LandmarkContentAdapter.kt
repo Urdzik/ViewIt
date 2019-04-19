@@ -15,7 +15,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-// Simple recyclerview adapter
+/**
+ * Discrete scroll view adapter
+ */
 class LandmarkContentAdapter(
     private val data: List<LandmarkContentItem>?,
     private val context: Context

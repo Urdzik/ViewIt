@@ -12,6 +12,10 @@ import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Download images from ethernet and paste them into discrete scroll view and insert as first element google map
+ */
 public class ImagesFromEthernet {
 
     private final static String TAG = "MyActivity";

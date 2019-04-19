@@ -2,7 +2,9 @@ package com.company.archapp
 
 import com.google.android.gms.maps.model.LatLng
 
-
+/**
+ *  Class with data for Discrete scroll view
+ */
 class LandmarkContentItem {
 
     val viewType: Int
