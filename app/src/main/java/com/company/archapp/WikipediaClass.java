@@ -92,7 +92,7 @@ public class WikipediaClass {
                     information = information.substring(0, ind1) + information.substring(ind2 + 1);
                 }
             } else
-                information = "Error";
+                information = "Article in development";
             return null;
         }
 

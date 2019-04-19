@@ -122,7 +122,7 @@ class ResultActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
                 // If we got error show a Toast about error
-                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No network connection", Toast.LENGTH_SHORT).show()
                 hideProgress()
             }
     }
@@ -130,7 +130,7 @@ class ResultActivity : AppCompatActivity() {
     private fun recognizeLandmarks(landmarks: List<FirebaseVisionCloudLandmark>?, image: Bitmap?) {
         if (landmarks == null || image == null) {
             // If no image or no landmarks show a Toast about error
-            Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "No network connection", Toast.LENGTH_SHORT).show()
             return
         }
 
