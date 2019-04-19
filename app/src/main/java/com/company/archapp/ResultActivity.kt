@@ -16,11 +16,14 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.company.archapp.image.ImagesFromEthernet
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.yarolegovich.discretescrollview.DiscreteScrollView
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import java.util.*
 
 class ResultActivity : AppCompatActivity() {
@@ -30,8 +33,9 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
+    private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
     private val wk = WikipediaClass()
-
+    private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
@@ -50,6 +54,16 @@ class ResultActivity : AppCompatActivity() {
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
+
+        // Add simple transformer to DSV
+        landmarkContentDSV.setItemTransformer(
+            ScaleTransformer.Builder()
+                .setMaxScale(1.05f) // min scale
+                .setMinScale(0.8f) // max scale
+                .build()
+        )
+
+//        mapFragment.getMapAsync(this)
 
         // Get image from intent
         val intent = intent
@@ -114,7 +128,7 @@ class ResultActivity : AppCompatActivity() {
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
 
-
+                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity)
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()
@@ -122,7 +136,7 @@ class ResultActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
                 // If we got error show a Toast about error
-                Toast.makeText(this, "No network connection", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
                 hideProgress()
             }
     }
@@ -130,19 +144,18 @@ class ResultActivity : AppCompatActivity() {
     private fun recognizeLandmarks(landmarks: List<FirebaseVisionCloudLandmark>?, image: Bitmap?) {
         if (landmarks == null || image == null) {
             // If no image or no landmarks show a Toast about error
-            Toast.makeText(this, "No network connection", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Get landmarks
-        for (landmark in landmarks) {
-
+        landmarks.forEach { landmark ->
             nameOfLandmark = landmark.landmark
 
             // Get locations landmarks
-            for (loc in landmark.locations) {
-                latitude = loc.latitude
-                longitude = loc.longitude
+            landmark.locations.forEach { latLng ->
+                latitude = latLng.latitude
+                longitude = latLng.longitude
             }
         }
     }
@@ -159,3 +172,4 @@ class ResultActivity : AppCompatActivity() {
         resultPb.visibility = View.GONE
     }
 }
+
