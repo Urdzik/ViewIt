@@ -52,7 +52,7 @@ class LandmarkContentAdapter(
 
         if (holder.item != null && holder.item?.viewType == LandmarkContentItem.VIEW_MAP) {
             // If error still occur unpredictably, it's best to remove fragment here
-            // holder.removeMapFragment();
+            holder.removeMapFragment()
         }
     }
 
