@@ -2,8 +2,6 @@ package com.company.archapp.image;
 
 import android.content.Context;
 import android.util.Log;
-import com.company.archapp.LandmarkContentAdapter;
-import com.company.archapp.LandmarkContentItem;
 import com.company.archapp.image.img.ImageDownloader;
 import com.google.android.gms.maps.model.LatLng;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;

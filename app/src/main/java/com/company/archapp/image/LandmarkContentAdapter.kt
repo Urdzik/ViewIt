@@ -1,4 +1,4 @@
-package com.company.archapp
+package com.company.archapp.image
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.company.archapp.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -42,6 +43,7 @@ class LandmarkContentAdapter(
                 val latLng = item.latLng
                 it.addMarker(MarkerOptions().position(latLng))
                 it.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+                it.setMinZoomPreference(15f)
             })
         }
     }
