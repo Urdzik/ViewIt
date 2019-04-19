@@ -17,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.company.archapp.image.ImagesFromEthernet
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
@@ -34,6 +35,7 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
+    //    private val mapFragment by lazy { supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -127,8 +129,10 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
+//                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
-                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity)
+                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
+                        latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()

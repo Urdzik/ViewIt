@@ -28,7 +28,55 @@
 
         <!-- SLIDING CONTENT -->
 
-        <include layout="@layout/sleding_up"/>
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_marginTop="@dimen/margin_top_sliding_panel"
+                android:id="@+id/dragview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/sliding_panel_radius"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                android:paddingTop="@dimen/top_padding"
+                tools:context=".ResultActivity">
+
+            <View android:layout_gravity="center"
+                  android:background="@drawable/button_result"
+                  android:layout_width="@dimen/button_sliding_wight"
+                  android:layout_height="@dimen/button_sliding_height"/>
+
+            <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/color_name_landmark"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginStart="13dp"
+                    android:textSize="@dimen/text_size_name_landmark"
+                    android:id="@+id/landmark_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:maxLines="10"
+                    android:ellipsize="end"
+                    android:textColor="@color/color_info_landmark"
+                    android:layout_marginStart="@dimen/top_padding"
+                    android:textSize="@dimen/text_size_info_landmark"
+                    android:id="@+id/information_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <com.yarolegovich.discretescrollview.DiscreteScrollViewи
+                    android:background="@color/sliding_panel_color"
+                    android:layout_marginTop="38dp"
+                    android:id="@+id/landmark_content_dsv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dsv_orientation="horizontal"/>
+
+        </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

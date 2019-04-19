@@ -40,7 +40,6 @@
             android:layout_height="wrap_content"/>
 
     <com.yarolegovich.discretescrollview.DiscreteScrollViewи
-
             android:background="@color/sliding_panel_color"
             android:layout_marginTop="38dp"
             android:id="@+id/landmark_content_dsv"
