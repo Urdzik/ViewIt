@@ -3,6 +3,7 @@ package com.company.archapp;
 import android.content.Context;
 import android.util.Log;
 import com.company.archapp.img.ImageDownloader;
+import com.google.android.gms.maps.model.LatLng;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,13 +12,13 @@ import retrofit2.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageActivity {
+public class ImagesFromEthernet {
 
     private final static String TAG = "MyActivity";
     private ImageDownloader myImg;
-    public String urls[] = new String[4];
+    private String[] urls = new String[4];
 
-    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context) {
+    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context, final LatLng latLng) {
 
         NetworkService.getInstance()
                 .getImgApi()
@@ -31,7 +32,7 @@ public class ImageActivity {
                             for (int i = 0; i < urls.length; i++)
                                 urls[i] = myImg.getResults()[i].getUrls().getRegular();
 
-                            generateDataForDSV(urls, discreteScrollView, context);
+                            generateDataForDSV(urls, discreteScrollView, context, latLng);
                         } else {
                             Log.d(TAG, "Query error");
                         }
@@ -45,24 +46,15 @@ public class ImageActivity {
         return urls;
     }
 
-    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, Context context) {
+    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, Context context, LatLng latLng) {
 
-        List<PhotoItem> photoItems = new ArrayList<>();
+        List<LandmarkContentItem> landmarkContentItems = new ArrayList<>();
+
+        landmarkContentItems.add(new LandmarkContentItem(latLng));
         for (String url : urls)
-            photoItems.add(new PhotoItem(url));
+            landmarkContentItems.add(new LandmarkContentItem(url));
 
-        PhotosAdapter adapter = new PhotosAdapter(photoItems, context);
+        LandmarkContentAdapter adapter = new LandmarkContentAdapter(landmarkContentItems, context);
         discreteScrollView.setAdapter(adapter);
     }
-
-  /*    if(myImg.getResults().length!=0) {
-                                //String url1 = myImg.getResults()[0].getUrls().getRegular();
-                                //showImage(url1, imageView, textView);
-                            }else{
-                                Log.d(TAG, "None results");
-                                textView.setText("No results...");
-                            }*/
-
-
-
 }

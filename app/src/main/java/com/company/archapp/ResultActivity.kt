@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
 import com.google.firebase.ml.vision.cloud.landmark.FirebaseVisionCloudLandmark
@@ -30,10 +31,10 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
-    private val photosDSV by lazy { findViewById<DiscreteScrollView>(R.id.photos_dsv) }
+    private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
+    //    private val mapFragment by lazy { supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment }
     private val wk = WikipediaClass()
-    private val map = GoogelMapsClass()
-    private val iF = ImageActivity()
+    private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
@@ -54,12 +55,14 @@ class ResultActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
         // Add simple transformer to DSV
-        photosDSV.setItemTransformer(
+        landmarkContentDSV.setItemTransformer(
             ScaleTransformer.Builder()
                 .setMaxScale(1.05f) // min scale
                 .setMinScale(0.8f) // max scale
                 .build()
         )
+
+//        mapFragment.getMapAsync(this)
 
         // Get image from intent
         val intent = intent
@@ -111,9 +114,10 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
-                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
+//                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
-                    iF.putNameOfLandmarkToImage(nameOfLandmark, photosDSV, this@ResultActivity)
+                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
+                        longitude?.let { it1 -> latitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()
@@ -134,14 +138,13 @@ class ResultActivity : AppCompatActivity() {
         }
 
         // Get landmarks
-        for (landmark in landmarks) {
-
+        landmarks.forEach { landmark ->
             nameOfLandmark = landmark.landmark
 
             // Get locations landmarks
-            for (loc in landmark.locations) {
-                latitude = loc.latitude
-                longitude = loc.longitude
+            landmark.locations.forEach { latLng ->
+                latitude = latLng.latitude
+                longitude = latLng.longitude
             }
         }
     }

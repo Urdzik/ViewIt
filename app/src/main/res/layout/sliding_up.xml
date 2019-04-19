@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_marginTop="@dimen/margin_top_sliding_panel"
         android:id="@+id/dragview"
@@ -38,13 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="220dp"/>
 
-    <fragment
-            android:layout_marginTop="@dimen/margin_top_info_landmark"
-            android:layout_marginEnd="@dimen/top_padding"
-            android:layout_marginStart="@dimen/top_padding"
-            android:id="@+id/map"
+    <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/landmark_content_dsv"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            class="com.google.android.gms.maps.SupportMapFragment"/>
+            android:layout_height="wrap_content"
+            app:dsv_orientation="horizontal"/>
 
 </LinearLayout>
