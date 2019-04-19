@@ -7,8 +7,8 @@
     <dimen name="top_padding">13dp</dimen>
     <dimen name="default_padding">16dp</dimen>
     <dimen name="text_size_name_landmark">22sp</dimen>
-    <dimen name="text_size_info_landmark">16sp</dimen>
-    <dimen name="margin_top_sliding_panel">110dp</dimen>
+    <dimen name="text_size_info_landmark">14sp</dimen>
+    <dimen name="margin_top_sliding_panel">150dp</dimen>
     <dimen name="button_sliding_wight">30dp</dimen>
     <dimen name="button_sliding_height">3dp</dimen>
     <dimen name="height_button_welcome">55dp</dimen>
