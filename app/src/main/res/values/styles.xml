@@ -30,11 +30,9 @@
 
     <style name="AppThemeFIRST">
         <item name="colorPrimary">#fff</item>
-        <item name="titleTextColor">#000 </item>
+        <item name="titleTextColor">#000</item>
 
     </style>
-
-
 
 
 </resources>

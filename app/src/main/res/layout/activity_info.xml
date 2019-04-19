@@ -12,8 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-    />
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
     <TextView
             android:textSize="@dimen/authors_text_size"
@@ -24,10 +23,9 @@
             android:id="@+id/authors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_name_landmark" android:layout_marginTop="2dp"
+            android:textColor="@color/color_name_landmark"
+            android:layout_marginTop="2dp"
             android:layout_centerInParent="true"/>
-
-
     <TextView
             android:id="@+id/author1"
             android:layout_width="wrap_content"
@@ -108,6 +106,5 @@
             android:textColor="@color/color_info_landmark"
             android:text="@string/developer"
             android:textSize="@dimen/dev_text_size"/>
-
 
 </RelativeLayout>

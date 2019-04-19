@@ -12,7 +12,7 @@ public class ImageDownloader {
     @Expose
     private Results[] results;
 
-    public Results[] getResults () {
+    public Results[] getResults() {
         return results;
     }
 }

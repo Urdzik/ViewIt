@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.preference.PreferenceActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -25,11 +24,6 @@ class WelcomeActivity : AppCompatActivity() {
 
         tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Black.ttf")
         recognizeBtn.typeface = tp
-
-
-
-
-
 
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

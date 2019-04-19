@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Class for retrofit
  */
 class NetworkService {
-    private static NetworkService instance;
     private static final Object lock = new Object();
     private static final String BASE_URL = "https://api.unsplash.com/search/";
+    private static NetworkService instance;
     private Retrofit retrofit;
 
     private NetworkService() {
