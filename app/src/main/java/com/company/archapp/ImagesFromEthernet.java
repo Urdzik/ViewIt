@@ -3,7 +3,6 @@ package com.company.archapp;
 import android.content.Context;
 import android.util.Log;
 import com.company.archapp.img.ImageDownloader;
-import com.google.android.gms.maps.model.LatLng;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +21,7 @@ public class ImagesFromEthernet {
     private ImageDownloader myImg;
     private String[] urls = new String[4];
 
-    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context, final LatLng latLng) {
+    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context) {
 
         NetworkService.getInstance()
                 .getImgApi()
@@ -36,7 +35,7 @@ public class ImagesFromEthernet {
                             for (int i = 0; i < urls.length; i++)
                                 urls[i] = myImg.getResults()[i].getUrls().getRegular();
 
-                            generateDataForDSV(urls, discreteScrollView, context, latLng);
+                            generateDataForDSV(urls, discreteScrollView, context);
                         } else {
                             Log.d(TAG, "Query error");
                         }
@@ -50,11 +49,10 @@ public class ImagesFromEthernet {
         return urls;
     }
 
-    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, Context context, LatLng latLng) {
+    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, Context context) {
 
         List<LandmarkContentItem> landmarkContentItems = new ArrayList<>();
 
-        landmarkContentItems.add(new LandmarkContentItem(latLng));
         for (String url : urls)
             landmarkContentItems.add(new LandmarkContentItem(url));
 
