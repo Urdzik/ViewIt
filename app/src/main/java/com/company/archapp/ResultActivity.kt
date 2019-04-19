@@ -117,7 +117,7 @@ class ResultActivity : AppCompatActivity() {
 //                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
                     iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
-                        longitude?.let { it1 -> latitude?.let { it2 -> LatLng(it1, it2) } })
+                        latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()
