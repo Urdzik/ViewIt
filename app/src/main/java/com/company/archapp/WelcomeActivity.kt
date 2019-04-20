@@ -22,7 +22,7 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Black.ttf")
+        tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         recognizeBtn.typeface = tp
 
         // Find the toolbar

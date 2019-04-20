@@ -3,6 +3,7 @@ package com.company.archapp
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,10 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.company.archapp.image.ImagesFromEthernet
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
@@ -35,6 +33,8 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
+
+    private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt)!! }
     //    private val mapFragment by lazy { supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
@@ -42,9 +42,15 @@ class ResultActivity : AppCompatActivity() {
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
 
+    private lateinit var tp: Typeface
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+
+        // Font button browser wiki
+        tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
+        wikiInfoBt.typeface = tp
 
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -63,9 +69,10 @@ class ResultActivity : AppCompatActivity() {
                 .setMaxScale(1.05f) // min scale
                 .setMinScale(0.8f) // max scale
                 .build()
+
         )
 
-//        mapFragment.getMapAsync(this)
+        // mapFragment.getMapAsync(this)
 
         // Get image from intent
         val intent = intent
@@ -73,6 +80,13 @@ class ResultActivity : AppCompatActivity() {
 
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
+
+        // Button browser wiki
+        wikiInfoBt.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/" + nameOfLandmark))
+            startActivity(browserIntent)
+        }
+
     }
 
     // Find the menu

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"/>
 
     <TextView
-            android:maxLines="10"
+            android:maxLines="7"
             android:ellipsize="end"
             android:textColor="@color/color_info_landmark"
             android:layout_marginStart="@dimen/top_padding"
@@ -39,12 +39,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
+    <Button
+            android:id="@+id/wiki_site_bt"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@color/sliding_panel_color"
+            android:text="@string/read_more"
+            android:layout_marginTop="16dp"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_botton"
+            android:layout_gravity="center"/>
+
+
     <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:background="@color/sliding_panel_color"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="30dp"
             android:id="@+id/landmark_content_dsv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="210dp"
             app:dsv_orientation="horizontal"/>
 
 </LinearLayout>
