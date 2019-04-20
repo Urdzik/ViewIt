@@ -8,9 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@drawable/sliding_panel_radius"
-        android:paddingLeft="@dimen/default_padding"
-        android:paddingRight="@dimen/default_padding"
-        android:paddingTop="@dimen/top_padding"
+        android:paddingTop="@dimen/default_padding"
         tools:context=".ResultActivity">
 
     <View android:layout_gravity="center"
@@ -19,6 +17,8 @@
           android:layout_height="@dimen/button_sliding_height"/>
 
     <TextView
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
             android:textStyle="bold"
             android:textColor="@color/color_name_landmark"
             android:layout_marginBottom="8dp"
@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"/>
 
     <TextView
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
             android:maxLines="7"
             android:ellipsize="end"
             android:textColor="@color/color_info_landmark"
@@ -52,13 +54,21 @@
             android:background="@drawable/button_botton"
             android:layout_gravity="center"/>
 
+    <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:text="Slide for show images -> "
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="HardcodedText"/>
 
     <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:background="@color/sliding_panel_color"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/landmark_content_dsv"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="200dp"
             app:dsv_orientation="horizontal"/>
 
 </LinearLayout>

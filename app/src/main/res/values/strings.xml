@@ -10,4 +10,14 @@
     <string name="anton_sizov">Anton Sizov</string>
     <string name="slavik_urdzik">Slavik Urdzik</string>
     <string name="read_more">Read more</string>
+    <string name="instruction">How to use our app very easy:
+        \n
+        \n I. Try to click the button Recognize landmark
+        \n
+        \n II. Successfully?) Choose image from gallery or use camera for recognizing
+        \n
+        \n III. Then crop
+        \n
+        \n IV. Final level: catch info, images and google map about the place
+    </string>
 </resources>
