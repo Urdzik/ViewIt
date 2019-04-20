@@ -4,4 +4,6 @@
         android:id="@+id/map_layout"
         android:orientation="vertical"
         android:layout_width="280dp"
-        android:layout_height="210dp"/>
+        android:layout_height="200dp"
+        android:layout_margin="4dp"
+        android:layout_gravity="center"/>

@@ -35,7 +35,6 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
-    //    private val mapFragment by lazy { supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -65,7 +64,9 @@ class ResultActivity : AppCompatActivity() {
                 .build()
         )
 
-//        mapFragment.getMapAsync(this)
+        landmarkContentDSV.addOnItemChangedListener { viewHolder, adapterPosition ->
+            Toast.makeText(this@ResultActivity, adapterPosition.toString(), Toast.LENGTH_LONG).show()
+        }
 
         // Get image from intent
         val intent = intent
@@ -73,6 +74,21 @@ class ResultActivity : AppCompatActivity() {
 
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
+
+        slidingPanelLayout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+            override fun onPanelSlide(panel: View?, slideOffset: Float) {
+            }
+
+            override fun onPanelStateChanged(
+                panel: View?,
+                previousState: SlidingUpPanelLayout.PanelState?,
+                newState: SlidingUpPanelLayout.PanelState?
+            ) {
+                if (previousState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+
+                }
+            }
+        })
     }
 
     // Find the menu
@@ -129,7 +145,6 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
-//                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
                     iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
                         latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
