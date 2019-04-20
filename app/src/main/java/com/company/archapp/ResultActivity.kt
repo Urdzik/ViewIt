@@ -33,9 +33,7 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
-
     private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt)!! }
-    //    private val mapFragment by lazy { supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -72,8 +70,6 @@ class ResultActivity : AppCompatActivity() {
 
         )
 
-        // mapFragment.getMapAsync(this)
-
         // Get image from intent
         val intent = intent
         val imageUri = intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI)
@@ -83,10 +79,9 @@ class ResultActivity : AppCompatActivity() {
 
         // Button browser wiki
         wikiInfoBt.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/" + nameOfLandmark))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/$nameOfLandmark"))
             startActivity(browserIntent)
         }
-
     }
 
     // Find the menu
