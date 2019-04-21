@@ -47,37 +47,6 @@
             android:layout_height="wrap_content"
             app:dsv_orientation="horizontal"/>
 
-    <LinearLayout
-            android:id="@+id/circles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
-        <View
-                android:id="@+id/circle_0"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/green_bordered_circle"/>
-        <View
-                android:id="@+id/circle_1"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/circle"/>
-        <View
-                android:id="@+id/circle_2"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/circle"/>
-        <View
-                android:id="@+id/circle_3"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/circle"/>
-        <View
-                android:id="@+id/circle_4"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/circle"/>
-    </LinearLayout>
+   <include layout="@layout/scroll_points"/>
 
 </LinearLayout>

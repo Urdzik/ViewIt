@@ -64,9 +64,9 @@ class ResultActivity : AppCompatActivity() {
         // Set for current item circle image and for new item circle border
         landmarkContentDSV.addScrollListener { scrollPosition, currentPosition, newPosition, currentHolder, newCurrent ->
             findViewById<LinearLayout>(R.id.circles).getChildAt(newPosition).background =
-                getDrawable(R.drawable.green_bordered_circle)
+                getDrawable(R.drawable.second)
             findViewById<LinearLayout>(R.id.circles).getChildAt(currentPosition).background =
-                getDrawable(R.drawable.circle)
+                getDrawable(R.drawable.first)
         }
 
         // Get image from intent
