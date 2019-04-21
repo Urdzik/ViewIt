@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.image.ImagesFromEthernet
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
@@ -33,13 +34,13 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
+    private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt)!! }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
-
     private lateinit var tp: Typeface
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +68,6 @@ class ResultActivity : AppCompatActivity() {
                 .setMaxScale(1.05f) // min scale
                 .setMinScale(0.8f) // max scale
                 .build()
-
         )
 
         // Get image from intent
@@ -138,9 +138,9 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
-//                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
-                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
+                    iF.putNameOfLandmarkToImage(
+                        nameOfLandmark, landmarkContentDSV, dotsPi, this@ResultActivity,
                         latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"

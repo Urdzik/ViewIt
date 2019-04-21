@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
     //Google Maps
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    //Page Indicator
+    implementation 'com.github.chahine:pageindicator:0.2.7'
 }
 //Google Plugin
 apply plugin: 'com.google.gms.google-services'

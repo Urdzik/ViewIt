@@ -2,6 +2,7 @@ package com.company.archapp.image;
 
 import android.content.Context;
 import android.util.Log;
+import com.chahinem.pageindicator.PageIndicator;
 import com.company.archapp.image.img.ImageDownloader;
 import com.google.android.gms.maps.model.LatLng;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
@@ -22,7 +23,7 @@ public class ImagesFromEthernet {
     private ImageDownloader myImg;
     private String[] urls = new String[4];
 
-    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final Context context, final LatLng latLng) {
+    public String[] putNameOfLandmarkToImage(String name, final DiscreteScrollView discreteScrollView, final PageIndicator pageIndicator, final Context context, final LatLng latLng) {
 
         NetworkService.getInstance()
                 .getImgApi()
@@ -36,7 +37,7 @@ public class ImagesFromEthernet {
                             for (int i = 0; i < urls.length; i++)
                                 urls[i] = myImg.getResults()[i].getUrls().getRegular();
 
-                            generateDataForDSV(urls, discreteScrollView, context, latLng);
+                            generateDataForDSV(urls, discreteScrollView, pageIndicator, context, latLng);
                         } else {
                             Log.d(TAG, "Query error");
                         }
@@ -50,7 +51,7 @@ public class ImagesFromEthernet {
         return urls;
     }
 
-    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, Context context, LatLng latLng) {
+    private void generateDataForDSV(String[] urls, DiscreteScrollView discreteScrollView, PageIndicator pageIndicator, Context context, LatLng latLng) {
 
         List<LandmarkContentItem> landmarkContentItems = new ArrayList<>();
 
@@ -60,5 +61,7 @@ public class ImagesFromEthernet {
 
         LandmarkContentAdapter adapter = new LandmarkContentAdapter(landmarkContentItems, context);
         discreteScrollView.setAdapter(adapter);
+
+        pageIndicator.attachTo(discreteScrollView);
     }
 }

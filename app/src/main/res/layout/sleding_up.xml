@@ -58,10 +58,19 @@
 
     <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:background="@color/sliding_panel_color"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="28dp"
             android:id="@+id/landmark_content_dsv"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:dsv_orientation="horizontal"/>
 
+    <com.chahinem.pageindicator.PageIndicator
+            android:id="@+id/dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:piDotBound="70dp"
+            app:piSelectedColor="#3CA773"
+            app:piSize1="10dp"/>
 </LinearLayout>
