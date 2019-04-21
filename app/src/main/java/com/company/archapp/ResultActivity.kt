@@ -12,10 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.company.archapp.image.ImagesFromEthernet
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
@@ -64,8 +61,12 @@ class ResultActivity : AppCompatActivity() {
                 .build()
         )
 
-        landmarkContentDSV.addOnItemChangedListener { viewHolder, adapterPosition ->
-            Toast.makeText(this@ResultActivity, adapterPosition.toString(), Toast.LENGTH_LONG).show()
+        // Set for current item circle image and for new item circle border
+        landmarkContentDSV.addScrollListener { scrollPosition, currentPosition, newPosition, currentHolder, newCurrent ->
+            findViewById<LinearLayout>(R.id.circles).getChildAt(newPosition).background =
+                getDrawable(R.drawable.green_bordered_circle)
+            findViewById<LinearLayout>(R.id.circles).getChildAt(currentPosition).background =
+                getDrawable(R.drawable.circle)
         }
 
         // Get image from intent
@@ -74,21 +75,6 @@ class ResultActivity : AppCompatActivity() {
 
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
-
-        slidingPanelLayout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-            }
-
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: SlidingUpPanelLayout.PanelState?,
-                newState: SlidingUpPanelLayout.PanelState?
-            ) {
-                if (previousState == SlidingUpPanelLayout.PanelState.EXPANDED) {
-
-                }
-            }
-        })
     }
 
     // Find the menu
