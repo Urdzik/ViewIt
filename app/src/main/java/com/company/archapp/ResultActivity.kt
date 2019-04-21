@@ -9,13 +9,15 @@ import android.provider.MediaStore
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
+import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.image.ImagesFromEthernet
-import com.company.archapp.image.LandmarkContentAdapter
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
@@ -34,6 +36,7 @@ class ResultActivity : AppCompatActivity() {
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
+    private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -62,30 +65,6 @@ class ResultActivity : AppCompatActivity() {
                 .setMinScale(0.8f) // max scale
                 .build()
         )
-
-
-        landmarkContentDSV.addScrollStateChangeListener(object :
-            DiscreteScrollView.ScrollStateChangeListener<LandmarkContentAdapter.ViewHolder> {
-            override fun onScroll(
-                scrollPosition: Float,
-                currentPosition: Int,
-                newPosition: Int,
-                currentHolder: LandmarkContentAdapter.ViewHolder?,
-                newCurrent: LandmarkContentAdapter.ViewHolder?
-            ) {
-                Log.d("ResultActivity", currentPosition.toString())
-            }
-
-            override fun onScrollEnd(currentItemHolder: LandmarkContentAdapter.ViewHolder, adapterPosition: Int) {
-                findViewById<LinearLayout>(R.id.circles).getChildAt(adapterPosition).background =
-                    getDrawable(R.drawable.second)
-            }
-
-            override fun onScrollStart(currentItemHolder: LandmarkContentAdapter.ViewHolder, adapterPosition: Int) {
-                findViewById<LinearLayout>(R.id.circles).getChildAt(adapterPosition).background =
-                    getDrawable(R.drawable.first)
-            }
-        })
 
         // Get image from intent
         val intent = intent
@@ -150,7 +129,8 @@ class ResultActivity : AppCompatActivity() {
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
 
-                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
+                    iF.putNameOfLandmarkToImage(
+                        nameOfLandmark, landmarkContentDSV, dotsPi, this@ResultActivity,
                         latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"
