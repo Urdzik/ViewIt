@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+            app:theme="@style/ToolbarTheme"/>
 
     <ProgressBar
             android:id="@+id/result_pb"
