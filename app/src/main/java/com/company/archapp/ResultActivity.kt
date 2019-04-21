@@ -9,11 +9,13 @@ import android.provider.MediaStore
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import com.company.archapp.image.ImagesFromEthernet
+import com.company.archapp.image.LandmarkContentAdapter
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
@@ -61,13 +63,29 @@ class ResultActivity : AppCompatActivity() {
                 .build()
         )
 
-        // Set for current item circle image and for new item circle border
-        landmarkContentDSV.addScrollListener { scrollPosition, currentPosition, newPosition, currentHolder, newCurrent ->
-            findViewById<LinearLayout>(R.id.circles).getChildAt(newPosition).background =
-                getDrawable(R.drawable.second)
-            findViewById<LinearLayout>(R.id.circles).getChildAt(currentPosition).background =
-                getDrawable(R.drawable.first)
-        }
+
+        landmarkContentDSV.addScrollStateChangeListener(object :
+            DiscreteScrollView.ScrollStateChangeListener<LandmarkContentAdapter.ViewHolder> {
+            override fun onScroll(
+                scrollPosition: Float,
+                currentPosition: Int,
+                newPosition: Int,
+                currentHolder: LandmarkContentAdapter.ViewHolder?,
+                newCurrent: LandmarkContentAdapter.ViewHolder?
+            ) {
+                Log.d("ResultActivity", currentPosition.toString())
+            }
+
+            override fun onScrollEnd(currentItemHolder: LandmarkContentAdapter.ViewHolder, adapterPosition: Int) {
+                findViewById<LinearLayout>(R.id.circles).getChildAt(adapterPosition).background =
+                    getDrawable(R.drawable.second)
+            }
+
+            override fun onScrollStart(currentItemHolder: LandmarkContentAdapter.ViewHolder, adapterPosition: Int) {
+                findViewById<LinearLayout>(R.id.circles).getChildAt(adapterPosition).background =
+                    getDrawable(R.drawable.first)
+            }
+        })
 
         // Get image from intent
         val intent = intent
