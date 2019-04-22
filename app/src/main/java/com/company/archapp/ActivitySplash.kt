@@ -17,7 +17,7 @@ class ActivitySplash : AppCompatActivity() {
         textView = findViewById(R.id.tv)
 
         val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
-        textView!!.typeface = typeface
+        textView?.typeface = typeface
 
         //Code to start timer and take action after the timer ends
         Handler().postDelayed({

@@ -28,14 +28,14 @@ import java.util.*
 
 class ResultActivity : AppCompatActivity() {
 
-    private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel)!! }
+    private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel) }
     private val landmarkIv by lazy { findViewById<ImageView>(R.id.landmark_iv) }
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
     private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
-    private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt)!! }
+    private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt) }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -58,8 +58,8 @@ class ResultActivity : AppCompatActivity() {
 
         //Button backwards
         Objects.requireNonNull<ActionBar>(supportActionBar).setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
         // Add simple transformer to DSV
