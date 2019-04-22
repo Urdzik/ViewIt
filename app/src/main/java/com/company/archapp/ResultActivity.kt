@@ -3,6 +3,7 @@ package com.company.archapp
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,10 +13,8 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.image.ImagesFromEthernet
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
@@ -29,22 +28,28 @@ import java.util.*
 
 class ResultActivity : AppCompatActivity() {
 
-    private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel)!! }
+    private val slidingPanelLayout by lazy { findViewById<SlidingUpPanelLayout>(R.id.sliding_panel) }
     private val landmarkIv by lazy { findViewById<ImageView>(R.id.landmark_iv) }
     private val landmarkTv by lazy { findViewById<TextView>(R.id.landmark_tv) }
     private val resultPb by lazy { findViewById<ProgressBar>(R.id.result_pb) }
     private val informationTv by lazy { findViewById<TextView>(R.id.information_tv) }
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
-    //    private val mapFragment by lazy { supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment }
+    private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
+    private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt) }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
+    private lateinit var tp: Typeface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+
+        // Font button browser wiki
+        tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
+        wikiInfoBt.typeface = tp
 
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -52,9 +57,9 @@ class ResultActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //Button backwards
-        Objects.requireNonNull<ActionBar>(supportActionBar).setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
         // Add simple transformer to DSV
@@ -65,14 +70,18 @@ class ResultActivity : AppCompatActivity() {
                 .build()
         )
 
-//        mapFragment.getMapAsync(this)
-
         // Get image from intent
         val intent = intent
         val imageUri = intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI)
 
         // Analyze our image
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
+
+        // Button browser wiki
+        wikiInfoBt.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/$nameOfLandmark"))
+            startActivity(browserIntent)
+        }
     }
 
     // Find the menu
@@ -129,9 +138,9 @@ class ResultActivity : AppCompatActivity() {
                     landmarkTv.text = nameOfLandmark
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
-//                    longitude?.let { it1 -> latitude?.let { it2 -> map.map(it2, it1) } }
 
-                    iF.putNameOfLandmarkToImage(nameOfLandmark, landmarkContentDSV, this@ResultActivity,
+                    iF.putNameOfLandmarkToImage(
+                        nameOfLandmark, landmarkContentDSV, dotsPi, this@ResultActivity,
                         latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"

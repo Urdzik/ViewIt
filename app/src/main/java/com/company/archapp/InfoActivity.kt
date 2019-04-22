@@ -34,9 +34,9 @@ class InfoActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //Button backwards
-        Objects.requireNonNull<ActionBar>(supportActionBar).setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 

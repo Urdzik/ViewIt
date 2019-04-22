@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginTop="@dimen/margin_top_sliding_panel"
         android:id="@+id/dragview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@drawable/sliding_panel_radius"
-        android:paddingLeft="@dimen/default_padding"
-        android:paddingRight="@dimen/default_padding"
-        android:paddingTop="@dimen/top_padding"
+        android:paddingTop="@dimen/default_padding"
         tools:context=".ResultActivity">
 
     <View android:layout_gravity="center"
@@ -19,6 +18,8 @@
           android:layout_height="@dimen/button_sliding_height"/>
 
     <TextView
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
             android:textStyle="bold"
             android:textColor="@color/color_name_landmark"
             android:layout_marginBottom="8dp"
@@ -30,7 +31,9 @@
             android:layout_height="wrap_content"/>
 
     <TextView
-            android:maxLines="10"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
+            android:maxLines="7"
             android:ellipsize="end"
             android:textColor="@color/color_info_landmark"
             android:layout_marginStart="@dimen/top_padding"
@@ -39,12 +42,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
+    <Button
+            android:id="@+id/wiki_site_bt"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@color/sliding_panel_color"
+            android:text="@string/read_more"
+            android:layout_marginTop="16dp"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_botton"
+            android:layout_gravity="center"/>
+
+
     <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:background="@color/sliding_panel_color"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="28dp"
             android:id="@+id/landmark_content_dsv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             app:dsv_orientation="horizontal"/>
 
+    <com.chahinem.pageindicator.PageIndicator
+            android:id="@+id/dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:piDotBound="70dp"
+            app:piSelectedColor="#3CA773"
+            app:piSize1="10dp"/>
 </LinearLayout>

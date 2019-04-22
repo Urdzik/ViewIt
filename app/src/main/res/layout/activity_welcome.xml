@@ -16,9 +16,10 @@
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
     <Button
+
             android:layout_margin="16dp"
             android:textColor="#fff"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:textAllCaps="false"
             android:fontFamily="sans-serif"
             android:background="@drawable/button_botton"
@@ -27,6 +28,7 @@
             android:layout_height="@dimen/height_button_welcome"
             android:text="@string/recognize_landmark"
             android:layout_alignParentBottom="true"/>
+
 
 
     <ImageView
@@ -51,7 +53,7 @@
 
     <ImageView
             android:layout_marginTop="160dp"
-            android:layout_marginStart="78dp"
+            android:layout_marginStart="40dp"
             android:src="@drawable/marker"
             android:layout_width="38dp"
             android:layout_height="38dp"/>
@@ -76,6 +78,9 @@
             android:src="@drawable/marker"
             android:layout_width="38dp"
             android:layout_height="38dp"/>
+
+
+    <include layout="@layout/info_text"/>
 
 
 </RelativeLayout>
