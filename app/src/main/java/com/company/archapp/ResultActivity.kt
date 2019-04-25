@@ -7,7 +7,6 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -16,6 +15,8 @@ import android.view.View
 import android.widget.*
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.image.ImagesFromEthernet
+import com.company.archapp.models.Landmark
+import com.company.archapp.models.WikiArticle
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.cloud.FirebaseVisionCloudDetectorOptions
@@ -24,7 +25,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
-import java.util.*
+import io.realm.Realm
 
 class ResultActivity : AppCompatActivity() {
 
@@ -36,6 +37,8 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
     private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt) }
+    private val saveLandmarkBtn by lazy { findViewById<Button>(R.id.save_landmark_btn) }
+    private val realm by lazy { Realm.getDefaultInstance() }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
     private var nameOfLandmark: String? = null // Name of recognized landmark
@@ -81,6 +84,22 @@ class ResultActivity : AppCompatActivity() {
         wikiInfoBt.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/$nameOfLandmark"))
             startActivity(browserIntent)
+        }
+
+        saveLandmarkBtn.setOnClickListener {
+            realm.executeTransaction {
+                val article = WikiArticle()
+                article.article =
+                    if (informationTv.text.toString() == "Article in development" || informationTv.text.toString() == "")
+                        informationTv.text.toString() else "Article in development"
+
+                val landmark = Landmark()
+                landmark.name = nameOfLandmark.toString()
+                landmark.position = ArrayList()
+
+                (landmark.position as ArrayList<Double>).plus(latitude)
+                (landmark.position as ArrayList<Double>).plus(longitude)
+            }
         }
     }
 

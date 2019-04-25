@@ -20,4 +20,5 @@
         \n
         \n IV. Final level: catch info, images and google map about the place
     </string>
+    <string name="save_landmarks">Save landmarks</string>
 </resources>

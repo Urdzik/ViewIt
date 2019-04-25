@@ -17,18 +17,32 @@
           android:layout_width="@dimen/button_sliding_wight"
           android:layout_height="@dimen/button_sliding_height"/>
 
-    <TextView
-            android:paddingLeft="@dimen/default_padding"
-            android:paddingRight="@dimen/default_padding"
-            android:textStyle="bold"
-            android:textColor="@color/color_name_landmark"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginStart="13dp"
-            android:textSize="@dimen/text_size_name_landmark"
-            android:id="@+id/landmark_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                android:textStyle="bold"
+                android:textColor="@color/color_name_landmark"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginStart="13dp"
+                android:layout_alignParentStart="true"
+                android:textSize="@dimen/text_size_name_landmark"
+                android:id="@+id/landmark_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:id="@+id/save_landmark_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_landmarks"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
     <TextView
             android:paddingLeft="@dimen/default_padding"
