@@ -144,6 +144,7 @@ class ResultActivity : AppCompatActivity() {
                         latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
                 } else {
                     landmarkTv.text = "Landmark not recognized"
+                    wikiInfoBt.visibility = View.GONE
                     hideProgress()
                 }
             }
