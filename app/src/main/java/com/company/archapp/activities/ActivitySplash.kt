@@ -1,4 +1,4 @@
-package com.company.archapp
+package com.company.archapp.activities
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
+import com.company.archapp.R
 
 class ActivitySplash : AppCompatActivity() {
     private var textView: TextView? = null

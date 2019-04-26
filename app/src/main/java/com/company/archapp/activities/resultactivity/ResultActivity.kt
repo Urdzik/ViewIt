@@ -1,4 +1,4 @@
-package com.company.archapp
+package com.company.archapp.activities.ResultActivity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,9 +14,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import com.chahinem.pageindicator.PageIndicator
+import com.company.archapp.R
+import com.company.archapp.WikipediaClass
+import com.company.archapp.activities.InfoActivity
+import com.company.archapp.activities.SavedLandmarksActivity.SavedLandmarksActivity
+import com.company.archapp.activities.WelcomeActivity
 import com.company.archapp.image.ImagesFromEthernet
-import com.company.archapp.image.LandmarkContentAdapter
-import com.company.archapp.image.LandmarkContentItem
 import com.company.archapp.models.Landmark
 import com.company.archapp.models.Photo
 import com.company.archapp.models.Position
@@ -50,6 +53,7 @@ class ResultActivity : AppCompatActivity() {
     private var longitude: Double? = null // Longitude of recognized landmark
     private lateinit var photosUrls: Array<out String>
     private lateinit var tp: Typeface
+    private lateinit var information: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,9 +98,7 @@ class ResultActivity : AppCompatActivity() {
         saveLandmarkBtn.setOnClickListener {
             realm.executeTransaction {
                 val article = realm.createObject(WikiArticle::class.java)
-                article.article =
-                    if (informationTv.text.toString() == "Article in development" || informationTv.text.toString() == "")
-                        informationTv.text.toString() else "Article in development"
+                article.article = information
                 article.uri = "https://en.wikipedia.org/wiki/$nameOfLandmark"
 
                 val position = realm.createObject(Position::class.java)
@@ -112,7 +114,13 @@ class ResultActivity : AppCompatActivity() {
                 landmark.photo = photo
                 landmark.position = position
             }
+            Toast.makeText(this, "Landmark Saved", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
     }
 
     // Find the menu
@@ -124,6 +132,11 @@ class ResultActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
             when (item.itemId) {
+                R.id.saved_landmarks -> {
+                    startActivity(Intent(this@ResultActivity, SavedLandmarksActivity::class.java))
+                    return true
+                }
+
                 R.id.info -> {
                     startActivity(Intent(this@ResultActivity, InfoActivity::class.java))
                     return true
@@ -168,10 +181,13 @@ class ResultActivity : AppCompatActivity() {
                 if (nameOfLandmark != null) {
                     landmarkTv.text = nameOfLandmark
 
-                    wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
+                    information = wk.findWikipediaText(nameOfLandmark)
+                    informationTv.text = information
 
                     photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
                     generateDataForDSV()
+
+                    hideProgress()
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()
@@ -207,7 +223,13 @@ class ResultActivity : AppCompatActivity() {
 
         val landmarkContentItems = ArrayList<LandmarkContentItem>()
 
-        landmarkContentItems.add(LandmarkContentItem(LatLng(latitude ?: 0.0, longitude ?: 0.0)))
+        landmarkContentItems.add(
+            LandmarkContentItem(
+                LatLng(
+                    latitude ?: 0.0, longitude ?: 0.0
+                )
+            )
+        )
         photosUrls.forEach {
             landmarkContentItems.add(LandmarkContentItem(it))
         }

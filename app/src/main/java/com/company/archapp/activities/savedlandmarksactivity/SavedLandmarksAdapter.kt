@@ -1,36 +1,35 @@
-package com.company.archapp.image
+package com.company.archapp.activities
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.company.archapp.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-
-/**
- * Discrete scroll view adapter
- */
-class LandmarkContentAdapter(
-    private val data: List<LandmarkContentItem>?,
+class SavedLandmarksAdapter(
+    private val data: List<SavedLandmarksItem>,
     private val context: Context
-) : RecyclerView.Adapter<LandmarkContentAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SavedLandmarksAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutId =
-            if (viewType == LandmarkContentItem.VIEW_IMAGE) R.layout.landmark_content_photo else R.layout.landmark_content_map
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.saved_landmarks_item, parent, false)
 
-        val inflatedView = LayoutInflater.from(context)
-            .inflate(layoutId, parent, false)
-
-        return ViewHolder(inflatedView, context)
+        return ViewHolder(itemView, context)
     }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
@@ -38,10 +37,10 @@ class LandmarkContentAdapter(
 
         val item = holder.item
 
-        if (item != null && item.viewType == LandmarkContentItem.VIEW_MAP) {
+        item.apply {
             holder.getMapFragmentAndCallBack(OnMapReadyCallback {
-                val latLng = item.latLng
-                it.addMarker(MarkerOptions().position(latLng))
+                val latLng = this?.position
+                it.addMarker(MarkerOptions().position(this?.position ?: LatLng(0.0, 0.0)))
                 it.animateCamera(CameraUpdateFactory.newLatLng(latLng))
                 it.setMinZoomPreference(15f)
             })
@@ -51,36 +50,41 @@ class LandmarkContentAdapter(
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
         super.onViewDetachedFromWindow(holder)
 
-        if (holder.item != null && holder.item?.viewType == LandmarkContentItem.VIEW_MAP) {
-            // If error still occur unpredictably, it's best to remove fragment here
-            holder.removeMapFragment()
-        }
+        // If error still occur unpredictably, it's best to remove fragment here
+        holder.removeMapFragment()
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // Getting image from data list and setting to image
-        val item = data?.get(position)
+        val item = data[position]
 
-        if (item?.viewType == LandmarkContentItem.VIEW_IMAGE) {
-            holder.photoIv?.let {
-                Glide.with(context)
-                    .load(item.photoURI)
-                    .into(it)
-            }
-        } else if (item?.viewType == LandmarkContentItem.VIEW_MAP) {
-            holder.item = item
+        holder.item = item
+
+        Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
+
+        Glide.with(context)
+            .load(item.photo)
+            .into(holder.photoIv)
+
+        holder.nameTv.text = item.name
+
+        holder.articleTv.text = item.article
+
+        holder.readMoreBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.articleUrl))
+            context.startActivity(intent)
         }
     }
 
-    override fun getItemCount(): Int = data?.size ?: 0
-
-    override fun getItemViewType(position: Int): Int = data?.get(position)?.viewType ?: 0
+    override fun getItemCount(): Int = data.size
 
     class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
-        val photoIv: ImageView? by lazy { itemView.findViewById<ImageView>(R.id.photo_iv) }
-        //val mapLayout by lazy { itemView.findViewById<FrameLayout>(R.id.map_layout) }
+        val photoIv: ImageView by lazy { itemView.findViewById<ImageView>(R.id.landmark_photo_iv) }
+        val nameTv: TextView by lazy { itemView.findViewById<TextView>(R.id.landmark_name_tv) }
+        val articleTv: TextView by lazy { itemView.findViewById<TextView>(R.id.landmark_article_tv) }
+        val readMoreBtn: Button by lazy { itemView.findViewById<Button>(R.id.read_more_btn) }
         private var mapFragment: SupportMapFragment? = null
-        var item: LandmarkContentItem? = null
+        var item: SavedLandmarksItem? = null
 
         fun getMapFragmentAndCallBack(callback: OnMapReadyCallback): SupportMapFragment? {
             if (mapFragment == null) {

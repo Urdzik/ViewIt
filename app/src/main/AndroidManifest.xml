@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.company.archapp">
-
     <!-- Internet Permission -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- Read And Write external storage permission -->
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Read And Write external storage permission -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- Access file location permission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- Access file location permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
@@ -19,26 +16,27 @@
             android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/StatusBarWhite">
-        <activity android:name=".ActivitySplash">
+        <activity android:name=".activities.savedlandmarksactivity.SavedLandmarksActivity">
+        </activity>
+        <activity android:name=".activities.ActivitySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity">
+        <activity android:name=".activities.InfoActivity">
         </activity>
-        <activity android:name=".WelcomeActivity">
-
+        <activity android:name=".activities.WelcomeActivity">
         </activity>
-        <activity android:name=".ResultActivity"/>
+        <activity android:name=".activities.resultactivity.ResultActivity"/>
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                 android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>
+
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
                 android:value="@string/google_maps_key"/>
-
     </application>
 
 </manifest>

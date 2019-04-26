@@ -1,4 +1,4 @@
-package com.company.archapp
+package com.company.archapp.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -10,6 +10,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
+import com.company.archapp.R
+import com.company.archapp.activities.resultactivity.ResultActivity
+import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 import com.theartofdev.edmodo.cropper.CropImage
 
 class WelcomeActivity : AppCompatActivity() {
@@ -46,6 +49,10 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
             when (item.itemId) {
+                R.id.saved_landmarks -> {
+                    startActivity(Intent(this@WelcomeActivity, SavedLandmarksActivity::class.java))
+                    return true
+                }
                 R.id.info -> {
                     startActivity(Intent(this@WelcomeActivity, InfoActivity::class.java))
                     return true
@@ -56,11 +63,11 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        // After CropImageActivity we got image for recognize and sending this image to ResultActivity
+        // After CropImageActivity we got image for recognize and sending this image to resultactivity
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
-                // If result code is OK we start ResultActivity with image
+                // If result code is OK we start resultactivity with image
                 val resultUri = result.uri
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra(IMAGE_URI, resultUri)

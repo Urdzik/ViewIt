@@ -1,11 +1,5 @@
 package com.company.archapp;
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -16,15 +10,9 @@ import java.util.Locale;
 
 public class WikipediaClass {
     private String information, url, word, language, start;
-    private TextView textview;
-    private ProgressBar progressBar;
-    private SlidingUpPanelLayout slidingUpPanelLayout;
 
-    //В функцию нужно передавать название достопримечательности и textview в каком будет показыватся информация про неё
-    public void findWikipediaText(String word, TextView textview, ProgressBar progressBar, SlidingUpPanelLayout slidingUpPanelLayout) {
-        this.textview = textview;
-        this.progressBar = progressBar;
-        this.slidingUpPanelLayout = slidingUpPanelLayout;
+    // В функцию нужно передавать название достопримечательности
+    public String findWikipediaText(String word) {
         this.word = word;
         language = Locale.getDefault().getDisplayLanguage();
 
@@ -48,15 +36,20 @@ public class WikipediaClass {
         }
 
         url = "https://" + language + ".wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
-        MyTask mt = new MyTask();
-        mt.execute();
+        Runnable myTask = new MyTask();
+        Thread thread = new Thread(myTask);
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return information;
     }
 
-    @SuppressLint("StaticFieldLeak")
-    class MyTask extends AsyncTask<Void, Void, Void> {
-
+    class MyTask implements Runnable {
         @Override
-        protected Void doInBackground(Void... params) {
+        public void run() {
             Document doc = null;
             try {
                 //Ищем html документ за url
@@ -94,15 +87,6 @@ public class WikipediaClass {
                 }
             } else
                 information = "Article in development";
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            textview.setText(information);
-            progressBar.setVisibility(View.GONE);
-            slidingUpPanelLayout.setVisibility(View.VISIBLE);
         }
     }
 }

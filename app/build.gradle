@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     //Page Indicator
     implementation 'com.github.chahine:pageindicator:0.2.7'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 
 realm {

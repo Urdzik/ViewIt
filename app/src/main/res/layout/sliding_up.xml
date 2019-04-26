@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:background="@drawable/sliding_panel_radius"
         android:paddingTop="@dimen/default_padding"
-        tools:context=".ResultActivity">
+        tools:context=".activities.resultactivity.ResultActivity">
 
     <View android:layout_gravity="center"
           android:background="@drawable/button_result"
