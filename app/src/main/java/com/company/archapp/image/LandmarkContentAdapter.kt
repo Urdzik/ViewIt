@@ -76,8 +76,6 @@ class LandmarkContentAdapter(
 
     override fun getItemViewType(position: Int): Int = data?.get(position)?.viewType ?: 0
 
-    internal open fun getItem(position: Int): LandmarkContentItem? = data?.get(position)
-
     class ViewHolder(itemView: View, private val context: Context) : RecyclerView.ViewHolder(itemView) {
         val photoIv: ImageView? by lazy { itemView.findViewById<ImageView>(R.id.photo_iv) }
         //val mapLayout by lazy { itemView.findViewById<FrameLayout>(R.id.map_layout) }

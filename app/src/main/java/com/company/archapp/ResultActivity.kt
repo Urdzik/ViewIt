@@ -15,7 +15,11 @@ import android.view.View
 import android.widget.*
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.image.ImagesFromEthernet
+import com.company.archapp.image.LandmarkContentAdapter
+import com.company.archapp.image.LandmarkContentItem
 import com.company.archapp.models.Landmark
+import com.company.archapp.models.Photo
+import com.company.archapp.models.Position
 import com.company.archapp.models.WikiArticle
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.ml.vision.FirebaseVision
@@ -44,6 +48,7 @@ class ResultActivity : AppCompatActivity() {
     private var nameOfLandmark: String? = null // Name of recognized landmark
     private var latitude: Double? = null // Latitude of recognized landmark
     private var longitude: Double? = null // Longitude of recognized landmark
+    private lateinit var photosUrls: Array<out String>
     private lateinit var tp: Typeface
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,17 +93,24 @@ class ResultActivity : AppCompatActivity() {
 
         saveLandmarkBtn.setOnClickListener {
             realm.executeTransaction {
-                val article = WikiArticle()
+                val article = realm.createObject(WikiArticle::class.java)
                 article.article =
                     if (informationTv.text.toString() == "Article in development" || informationTv.text.toString() == "")
                         informationTv.text.toString() else "Article in development"
+                article.uri = "https://en.wikipedia.org/wiki/$nameOfLandmark"
 
-                val landmark = Landmark()
+                val position = realm.createObject(Position::class.java)
+                position.latitude = latitude ?: 0.0
+                position.longitude = longitude ?: 0.0
+
+                val photo = realm.createObject(Photo::class.java)
+                photo.uri = photosUrls[0]
+
+                val landmark = realm.createObject(Landmark::class.java)
                 landmark.name = nameOfLandmark.toString()
-                landmark.position = ArrayList()
-
-                (landmark.position as ArrayList<Double>).plus(latitude)
-                (landmark.position as ArrayList<Double>).plus(longitude)
+                landmark.article = article
+                landmark.photo = photo
+                landmark.position = position
             }
         }
     }
@@ -158,9 +170,8 @@ class ResultActivity : AppCompatActivity() {
 
                     wk.findWikipediaText(nameOfLandmark, informationTv, resultPb, slidingPanelLayout)
 
-                    iF.putNameOfLandmarkToImage(
-                        nameOfLandmark, landmarkContentDSV, dotsPi, this@ResultActivity,
-                        latitude?.let { it1 -> longitude?.let { it2 -> LatLng(it1, it2) } })
+                    photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
+                    generateDataForDSV()
                 } else {
                     landmarkTv.text = "Landmark not recognized"
                     hideProgress()
@@ -190,6 +201,20 @@ class ResultActivity : AppCompatActivity() {
                 longitude = latLng.longitude
             }
         }
+    }
+
+    private fun generateDataForDSV() {
+
+        val landmarkContentItems = ArrayList<LandmarkContentItem>()
+
+        landmarkContentItems.add(LandmarkContentItem(LatLng(latitude ?: 0.0, longitude ?: 0.0)))
+        photosUrls.forEach {
+            landmarkContentItems.add(LandmarkContentItem(it))
+        }
+        val adapter = LandmarkContentAdapter(landmarkContentItems, this)
+        landmarkContentDSV.adapter = adapter
+
+        dotsPi.attachTo(landmarkContentDSV)
     }
 
     private fun showProgress() {

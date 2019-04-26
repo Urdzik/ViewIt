@@ -29,7 +29,7 @@ class NetworkService {
         return instance;
     }
 
-    public ImageApi getImgApi() {
+    ImageApi getImgApi() {
         return retrofit.create(ImageApi.class);
     }
 

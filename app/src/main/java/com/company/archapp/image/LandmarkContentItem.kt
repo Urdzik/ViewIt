@@ -22,7 +22,7 @@ class LandmarkContentItem {
     }
 
     companion object {
-        val VIEW_IMAGE = 1
-        val VIEW_MAP = 2
+        const val VIEW_IMAGE = 1
+        const val VIEW_MAP = 2
     }
 }
