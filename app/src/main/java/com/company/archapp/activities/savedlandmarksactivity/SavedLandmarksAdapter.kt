@@ -1,4 +1,4 @@
-package com.company.archapp.activities
+package com.company.archapp.activities.savedlandmarksactivity
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.company.archapp.R
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -59,8 +58,6 @@ class SavedLandmarksAdapter(
         val item = data[position]
 
         holder.item = item
-
-        Toast.makeText(context, item.name, Toast.LENGTH_SHORT).show()
 
         Glide.with(context)
             .load(item.photo)

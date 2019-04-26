@@ -1,4 +1,4 @@
-package com.company.archapp.activities.SavedLandmarksActivity
+package com.company.archapp.activities.savedlandmarksactivity
 
 import android.content.Intent
 import android.os.Bundle
@@ -36,12 +36,15 @@ class SavedLandmarksActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        savedLandmarksRv.setHasFixedSize(true)
-        savedLandmarksRv.layoutManager = LinearLayoutManager(this@SavedLandmarksActivity)
-        savedLandmarksRv.adapter = SavedLandmarksAdapter(
-            generateData(),
-            this@SavedLandmarksActivity
-        )
+        savedLandmarksRv.apply {
+            layoutManager = LinearLayoutManager(this@SavedLandmarksActivity, LinearLayoutManager.HORIZONTAL, false)
+
+            adapter = SavedLandmarksAdapter(
+                generateData(),
+                this@SavedLandmarksActivity
+            )
+        }
+
     }
 
     override fun onDestroy() {
@@ -71,12 +74,15 @@ class SavedLandmarksActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Generate data for recyclerview
+     */
     private fun generateData(): List<SavedLandmarksItem> {
         val dataFromDatabase = loadData()
         val dataForRecyclerViewAdapter = ArrayList<SavedLandmarksItem>()
 
         dataFromDatabase?.forEach {
-            dataForRecyclerViewAdapter.plus(
+            dataForRecyclerViewAdapter.add(
                 SavedLandmarksItem(
                     it.name,
                     it.article?.article.toString(),
@@ -90,6 +96,9 @@ class SavedLandmarksActivity : AppCompatActivity() {
         return dataForRecyclerViewAdapter
     }
 
+    /**
+     * Load data from realm database
+     */
     private fun loadData(): RealmResults<Landmark>? {
         var landmarks: RealmResults<Landmark>? = null
 

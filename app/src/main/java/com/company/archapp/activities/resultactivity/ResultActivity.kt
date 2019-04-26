@@ -1,4 +1,4 @@
-package com.company.archapp.activities.ResultActivity
+package com.company.archapp.activities.resultactivity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,8 +17,8 @@ import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.WikipediaClass
 import com.company.archapp.activities.InfoActivity
-import com.company.archapp.activities.SavedLandmarksActivity.SavedLandmarksActivity
 import com.company.archapp.activities.WelcomeActivity
+import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 import com.company.archapp.image.ImagesFromEthernet
 import com.company.archapp.models.Landmark
 import com.company.archapp.models.Photo

@@ -1,8 +1,8 @@
-package com.company.archapp.activities
+package com.company.archapp.activities.savedlandmarksactivity
 
 import com.google.android.gms.maps.model.LatLng
 
-class SavedLandmarksItem (
+class SavedLandmarksItem(
     var name: String,
     var article: String = "",
     var articleUrl: String = "",

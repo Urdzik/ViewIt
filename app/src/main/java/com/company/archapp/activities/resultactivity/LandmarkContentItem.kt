@@ -1,4 +1,4 @@
-package com.company.archapp.image
+package com.company.archapp.activities.resultactivity
 
 import com.google.android.gms.maps.model.LatLng
 

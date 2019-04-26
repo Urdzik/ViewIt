@@ -1,4 +1,4 @@
-package com.company.archapp.image
+package com.company.archapp.activities.resultactivity
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
