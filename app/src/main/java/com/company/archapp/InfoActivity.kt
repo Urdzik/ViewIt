@@ -21,6 +21,7 @@ class InfoActivity : AppCompatActivity() {
         val dev2: TextView = findViewById(R.id.dev2)
         val dev3: TextView = findViewById(R.id.dev3)
         val dev4: TextView = findViewById(R.id.dev4)
+        val dev5: TextView = findViewById(R.id.dev5)
 
         tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         textView.typeface = tp
@@ -28,6 +29,7 @@ class InfoActivity : AppCompatActivity() {
         dev2.typeface = tp
         dev3.typeface = tp
         dev4.typeface = tp
+        dev5.typeface = tp
 
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

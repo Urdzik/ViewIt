@@ -20,5 +20,5 @@
     <dimen name="authors_text_size">30sp</dimen>
     <dimen name="author_padding">30dp</dimen>
     <dimen name="width_try_again">170dp</dimen>
-    <dimen name="height_try_again">50dp</dimen>
+    <dimen name="height_try_again">45dp</dimen>
 </resources>

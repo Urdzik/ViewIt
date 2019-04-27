@@ -1,6 +1,7 @@
 package com.company.archapp
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -29,6 +30,9 @@ class NoInternetActivity : AppCompatActivity() {
             tryAgainBtn.setOnClickListener{
                 onBackPressed()
             }
+
+        val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
+        tryAgainBtn?.typeface = typeface
 
     }
 
