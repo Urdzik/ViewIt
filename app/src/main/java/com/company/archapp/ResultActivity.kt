@@ -149,6 +149,7 @@ class ResultActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
                 // If we got error show a Toast about error
+                //startActivity(Intent(this@ResultActivity, NoInternetActivity::class.java))
                 Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
                 hideProgress()
             }

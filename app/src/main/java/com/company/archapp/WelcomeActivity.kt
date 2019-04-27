@@ -11,6 +11,8 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import com.theartofdev.edmodo.cropper.CropImage
+import android.net.ConnectivityManager
+
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -56,23 +58,34 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        // After CropImageActivity we got image for recognize and sending this image to ResultActivity
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data)
-            if (resultCode == Activity.RESULT_OK) {
-                // If result code is OK we start ResultActivity with image
-                val resultUri = result.uri
-                val intent = Intent(this, ResultActivity::class.java)
-                intent.putExtra(IMAGE_URI, resultUri)
-                startActivity(intent)
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                // Else we Make Toast about error
-                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+        if (isOnline()) {
+            // After CropImageActivity we got image for recognize and sending this image to ResultActivity
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                val result = CropImage.getActivityResult(data)
+                if (resultCode == Activity.RESULT_OK) {
+                    // If result code is OK we start ResultActivity with image
+                    val resultUri = result.uri
+                    val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra(IMAGE_URI, resultUri)
+                    startActivity(intent)
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    // Else we Make Toast about error
+                    Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+                }
             }
+        }else{
+            startActivity(Intent(this, NoInternetActivity::class.java))
         }
     }
 
     companion object {
         const val IMAGE_URI = "image_uri"
+    }
+
+    //Проверка или есть интернет
+    private fun isOnline(): Boolean {
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null
     }
 }

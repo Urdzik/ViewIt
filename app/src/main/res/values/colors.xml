@@ -6,4 +6,5 @@
     <color name="sliding_panel_color">#FFFFFF</color>
     <color name="color_name_landmark">#181818</color>
     <color name="color_info_landmark">#5E5E5E</color>
+    <color name="color_internet">#3F3F3F</color>
 </resources>
