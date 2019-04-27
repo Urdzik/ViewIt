@@ -11,8 +11,9 @@ import java.io.IOException;
 public class ImagesFromEthernet {
 
     private ImageDownloader myImg;
-    private String[] urls = new String[4];
+    private final String[] urls = new String[4];
 
+    @SuppressWarnings("UnusedReturnValue")
     public String[] putNameOfLandmarkToImage(final String name) {
         // Running in thread because android does not allowed to execute retrofit synchronised call in main thread
         Thread thread = new Thread(new Runnable() {

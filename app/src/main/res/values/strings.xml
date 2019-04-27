@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">View It</string>
-    <string name="welcome_to_lanhan">Welcome to LanHan app</string>
     <string name="recognize_landmark">Recognize landmark</string>
     <string name="info">About us</string>
     <string name="developer">Developer</string>
@@ -20,6 +19,6 @@
         \n
         \n IV. Final level: catch info, images and google map about the place
     </string>
-    <string name="save_landmarks">Save landmarks</string>
+    <string name="save_landmark">Save landmark</string>
     <string name="saved_landmarks">Saved landmarks</string>
 </resources>

@@ -8,7 +8,7 @@ import retrofit2.http.Query;
 /**
  * Interface for retrofit
  */
-public interface ImageApi {
+interface ImageApi {
     @GET("photos/")
     Call<ImageDownloader> getAPIImg(
             @Query("query") String name,

@@ -9,9 +9,11 @@ import java.util.Locale;
 
 
 public class WikipediaClass {
+    @SuppressWarnings("FieldCanBeLocal")
     private String information, url, word, language, start;
 
     // В функцию нужно передавать название достопримечательности
+    @SuppressWarnings("UnusedReturnValue")
     public String findWikipediaText(String word) {
         this.word = word;
         language = Locale.getDefault().getDisplayLanguage();

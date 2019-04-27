@@ -96,25 +96,7 @@ class ResultActivity : AppCompatActivity() {
         }
 
         saveLandmarkBtn.setOnClickListener {
-            realm.executeTransaction {
-                val article = realm.createObject(WikiArticle::class.java)
-                article.article = information
-                article.uri = "https://en.wikipedia.org/wiki/$nameOfLandmark"
-
-                val position = realm.createObject(Position::class.java)
-                position.latitude = latitude ?: 0.0
-                position.longitude = longitude ?: 0.0
-
-                val photo = realm.createObject(Photo::class.java)
-                photo.uri = photosUrls[0]
-
-                val landmark = realm.createObject(Landmark::class.java)
-                landmark.name = nameOfLandmark.toString()
-                landmark.article = article
-                landmark.photo = photo
-                landmark.position = position
-            }
-            Toast.makeText(this, "Landmark Saved", Toast.LENGTH_SHORT).show()
+            saveLandmarkToDatabase()
         }
     }
 
@@ -219,6 +201,35 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveLandmarkToDatabase() {
+
+        if (realm.where(Landmark::class.java).equalTo("name", nameOfLandmark).findFirst() == null) {
+            // If the user has not previously saved this landmark, save it
+            realm.executeTransaction {
+                val article = realm.createObject(WikiArticle::class.java)
+                article.article = information
+                article.uri = "https://en.wikipedia.org/wiki/$nameOfLandmark"
+
+                val position = realm.createObject(Position::class.java)
+                position.latitude = latitude ?: 0.0
+                position.longitude = longitude ?: 0.0
+
+                val photo = realm.createObject(Photo::class.java)
+                photo.uri = photosUrls[0]
+
+                val landmark = realm.createObject(Landmark::class.java)
+                landmark.name = nameOfLandmark.toString()
+                landmark.article = article
+                landmark.photo = photo
+                landmark.position = position
+            }
+            Toast.makeText(this, "Landmark Saved", Toast.LENGTH_SHORT).show()
+        } else {
+            // Otherwise, let the user know, then he previously saved this landmark.
+            Toast.makeText(this, "Sorry, but you have previously saved this landmark.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun generateDataForDSV() {
 
         val landmarkContentItems = ArrayList<LandmarkContentItem>()
@@ -237,6 +248,17 @@ class ResultActivity : AppCompatActivity() {
         landmarkContentDSV.adapter = adapter
 
         dotsPi.attachTo(landmarkContentDSV)
+    }
+
+    override fun onBackPressed() {
+        if (slidingPanelLayout != null &&
+            (slidingPanelLayout.panelState == SlidingUpPanelLayout.PanelState.EXPANDED ||
+                    slidingPanelLayout.panelState == SlidingUpPanelLayout.PanelState.ANCHORED)
+        ) {
+            slidingPanelLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun showProgress() {

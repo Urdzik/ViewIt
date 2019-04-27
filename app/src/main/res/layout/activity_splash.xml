@@ -11,7 +11,7 @@
             android:layout_marginTop="130dp"
             android:layout_width="226dp"
             android:layout_height="226dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" android:contentDescription="TODO"/>
 
     <TextView
             android:textStyle="bold"

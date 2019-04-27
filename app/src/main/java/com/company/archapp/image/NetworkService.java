@@ -11,7 +11,7 @@ class NetworkService {
     private static final Object lock = new Object();
     private static final String BASE_URL = "https://api.unsplash.com/search/";
     private static NetworkService instance;
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
 
     private NetworkService() {
         retrofit = new Retrofit.Builder()

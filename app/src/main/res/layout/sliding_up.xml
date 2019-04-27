@@ -39,8 +39,8 @@
                 android:id="@+id/save_landmark_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/save_landmarks"
-                android:layout_alignParentEnd="true"/>
+                android:text="@string/save_landmark"
+                android:layout_alignParentEnd="true" tools:ignore="RelativeOverlap"/>
 
     </RelativeLayout>
 

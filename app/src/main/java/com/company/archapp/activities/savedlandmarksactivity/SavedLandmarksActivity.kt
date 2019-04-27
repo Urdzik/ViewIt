@@ -3,22 +3,25 @@ package com.company.archapp.activities.savedlandmarksactivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.activities.InfoActivity
 import com.company.archapp.models.Landmark
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.yarolegovich.discretescrollview.DiscreteScrollView
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import io.realm.Realm
 import io.realm.RealmResults
 import java.util.*
 
 class SavedLandmarksActivity : AppCompatActivity() {
 
-    private val savedLandmarksRv by lazy { findViewById<RecyclerView>(R.id.saved_landmarks_rv) }
+    private val savedLandmarksDsv by lazy { findViewById<DiscreteScrollView>(R.id.saved_landmarks_dsv) }
+    private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val realm by lazy { Realm.getDefaultInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +39,31 @@ class SavedLandmarksActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        savedLandmarksRv.apply {
-            layoutManager = LinearLayoutManager(this@SavedLandmarksActivity, LinearLayoutManager.HORIZONTAL, false)
+        savedLandmarksDsv.apply {
+            setHasFixedSize(true)
+
+            setItemTransformer(
+                ScaleTransformer.Builder()
+                    .setMaxScale(1.05f)
+                    .setMinScale(0.85f)
+                    .build()
+            )
 
             adapter = SavedLandmarksAdapter(
                 generateData(),
                 this@SavedLandmarksActivity
             )
+
+            setRecyclerListener {
+                val mapHolder = it as SavedLandmarksAdapter.ViewHolder
+                mapHolder.map?.apply {
+                    clear()
+                    mapType = GoogleMap.MAP_TYPE_NONE
+                }
+            }
         }
 
+        dotsPi.attachTo(savedLandmarksDsv)
     }
 
     override fun onDestroy() {
@@ -77,13 +96,13 @@ class SavedLandmarksActivity : AppCompatActivity() {
     /**
      * Generate data for recyclerview
      */
-    private fun generateData(): List<SavedLandmarksItem> {
+    private fun generateData(): List<SavedLandmark> {
         val dataFromDatabase = loadData()
-        val dataForRecyclerViewAdapter = ArrayList<SavedLandmarksItem>()
+        val dataForDiscreteScrollView = ArrayList<SavedLandmark>()
 
         dataFromDatabase?.forEach {
-            dataForRecyclerViewAdapter.add(
-                SavedLandmarksItem(
+            dataForDiscreteScrollView.add(
+                SavedLandmark(
                     it.name,
                     it.article?.article.toString(),
                     it.article?.uri.toString(),
@@ -93,7 +112,7 @@ class SavedLandmarksActivity : AppCompatActivity() {
             )
         }
 
-        return dataForRecyclerViewAdapter
+        return dataForDiscreteScrollView
     }
 
     /**
