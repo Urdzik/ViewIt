@@ -35,7 +35,11 @@ class WelcomeActivity : AppCompatActivity() {
 
         // Here we call CropImageActivity for get image for recognize
         recognizeBtn.setOnClickListener {
-            CropImage.activity().start(this)
+            if (isOnline()) {
+                CropImage.activity().start(this)
+            } else {
+                startActivity(Intent(this, NoInternetActivity::class.java))
+            }
         }
     }
 
@@ -58,23 +62,19 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (isOnline()) {
-            // After CropImageActivity we got image for recognize and sending this image to ResultActivity
-            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                val result = CropImage.getActivityResult(data)
-                if (resultCode == Activity.RESULT_OK) {
-                    // If result code is OK we start ResultActivity with image
-                    val resultUri = result.uri
-                    val intent = Intent(this, ResultActivity::class.java)
-                    intent.putExtra(IMAGE_URI, resultUri)
-                    startActivity(intent)
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    // Else we Make Toast about error
-                    Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
-                }
+        // After CropImageActivity we got image for recognize and sending this image to ResultActivity
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == Activity.RESULT_OK) {
+                // If result code is OK we start ResultActivity with image
+                val resultUri = result.uri
+                val intent = Intent(this, ResultActivity::class.java)
+                intent.putExtra(IMAGE_URI, resultUri)
+                startActivity(intent)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                // Else we Make Toast about error
+                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             }
-        }else{
-            startActivity(Intent(this, NoInternetActivity::class.java))
         }
     }
 
