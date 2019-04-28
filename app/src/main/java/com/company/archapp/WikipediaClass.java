@@ -15,7 +15,7 @@ import java.util.Locale;
 
 
 public class WikipediaClass {
-    private String information, url, word, language, start;
+    private String information, url, word;
     private TextView textview;
     private ProgressBar progressBar;
     private SlidingUpPanelLayout slidingUpPanelLayout;
@@ -26,28 +26,8 @@ public class WikipediaClass {
         this.progressBar = progressBar;
         this.slidingUpPanelLayout = slidingUpPanelLayout;
         this.word = word;
-        language = Locale.getDefault().getDisplayLanguage();
 
-        //Определяем язык
-        switch (language) {
-//            case "русский": {
-//                language = "ru";
-//                start = " — ";
-//                break;
-//            }
-//            case "українська": {
-//                language = "uk";
-//                start = " — ";
-//                break;
-//            }
-            default: {
-                language = "en";
-                start = " is ";
-                break;
-            }
-        }
-
-        url = "https://" + language + ".wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
+        url = "https://en.wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
         MyTask mt = new MyTask();
         mt.execute();
     }
@@ -72,20 +52,22 @@ public class WikipediaClass {
                 //Ищем нужный абзац
                 information = "";
                 int ind1 = 0;
-                while (!information.contains(start)) {
+                while (information.length() < 150) {
                     information = paragraphs.get(ind1).text();
                     ind1++;
                 }
                 //Если текста в первом абзаце мало, берем ещё и второй
-                if (information.length() < 600) {
+                if (information.length() < 300) {
                     information += "\n" + paragraphs.get(ind1).text();
                 }
 
                 //Забираем ненужную информацию
-                if (information.contains(")" + start)) ind1 = information.indexOf(")" + start) + 1;
-                else ind1 = information.indexOf(start);
-                information = information.substring(ind1);
-                information = word + information;
+                if (information.contains(" is ")) {
+                    if (information.contains(") is ")) ind1 = information.indexOf(") is ") + 1;
+                    else ind1 = information.indexOf(" is ");
+                    information = information.substring(ind1);
+                    information = word + information;
+                }
 
                 while (information.contains("[")) {
                     ind1 = information.indexOf("[");
