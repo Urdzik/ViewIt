@@ -1,0 +1,68 @@
+package com.company.archapp.activities
+
+import android.content.Intent
+import android.graphics.Typeface
+import android.net.ConnectivityManager
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.ProgressBar
+import com.company.archapp.R
+
+class NoInternetActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_no_internet)
+
+        // Find the toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+
+        //Button backwards
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener { onBackPressed()}
+
+        val tryAgainBtn = findViewById<Button>(R.id.try_again_btn)
+        tryAgainBtn.setOnClickListener {
+            if (isOnline()) onBackPressed()
+        }
+
+        val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
+        tryAgainBtn?.typeface = typeface
+
+    }
+
+    // Find the menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when (item.itemId) {
+                R.id.info -> {
+                    startActivity(Intent(this@NoInternetActivity, InfoActivity::class.java))
+                    return true
+                }
+            }
+        }
+        return true
+    }
+
+    //Проверка или есть интернет
+    private fun isOnline(): Boolean {
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null
+    }
+}

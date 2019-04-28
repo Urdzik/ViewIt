@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.NoInternetActivity">
+
+    <android.support.v7.widget.Toolbar
+            android:layout_alignParentTop="true"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
+
+    <ImageView
+            android:layout_marginTop="150dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_wifi"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"/>
+    <TextView
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/wifi"
+            android:layout_centerHorizontal="true"
+            android:text="@string/oops"
+            android:textStyle="bold"
+            android:textColor="@color/color_name_landmark"
+            android:textSize="35sp"
+            android:id="@+id/oops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/oops"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/internet_conection"
+            android:textColor="@color/color_internet"
+            android:textSize="@dimen/info_text_size"/>
+    <Button
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="#fff"
+            android:textSize="@dimen/text_size_info_landmark"
+            android:textAllCaps="false"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_botton"
+            android:id="@+id/try_again_btn"
+            android:layout_width="@dimen/width_try_again"
+            android:layout_height="@dimen/height_try_again"
+            android:text="@string/try_again"
+            android:layout_marginBottom="@dimen/height_try_again"/>
+
+
+</RelativeLayout>

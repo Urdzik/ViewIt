@@ -106,5 +106,26 @@
             android:textColor="@color/color_info_landmark"
             android:text="@string/developer"
             android:textSize="@dimen/dev_text_size"/>
+    <TextView
+            android:id="@+id/author5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_small_padding"
+            android:layout_below="@+id/dev4"
+            android:text="@string/natalya_ryazantseva"
+            android:textColor="@color/color_name_landmark"
+            android:textSize="@dimen/info_text_size"/>
+
+    <TextView
+            android:id="@+id/dev5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginBottom="@dimen/info_padding"
+            android:layout_below="@+id/author5"
+            android:textColor="@color/color_info_landmark"
+            android:text="@string/designer"
+            android:textSize="@dimen/dev_text_size"/>
 
 </RelativeLayout>

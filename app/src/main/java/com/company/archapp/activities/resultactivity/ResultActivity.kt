@@ -44,7 +44,6 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
     private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt) }
-    private val saveLandmarkBtn by lazy { findViewById<Button>(R.id.save_landmark_btn) }
     private val realm by lazy { Realm.getDefaultInstance() }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
@@ -95,9 +94,6 @@ class ResultActivity : AppCompatActivity() {
             startActivity(browserIntent)
         }
 
-        saveLandmarkBtn.setOnClickListener {
-            saveLandmarkToDatabase()
-        }
     }
 
     override fun onDestroy() {
@@ -107,7 +103,7 @@ class ResultActivity : AppCompatActivity() {
 
     // Find the menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        menuInflater.inflate(R.menu.menu_button_save, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -121,6 +117,10 @@ class ResultActivity : AppCompatActivity() {
 
                 R.id.info -> {
                     startActivity(Intent(this@ResultActivity, InfoActivity::class.java))
+                    return true
+                }
+                R.id.save -> {
+                    saveLandmarkToDatabase()
                     return true
                 }
             }

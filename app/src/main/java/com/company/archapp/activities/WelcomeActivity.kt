@@ -3,6 +3,7 @@ package com.company.archapp.activities
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -36,7 +37,11 @@ class WelcomeActivity : AppCompatActivity() {
 
         // Here we call CropImageActivity for get image for recognize
         recognizeBtn.setOnClickListener {
-            CropImage.activity().start(this)
+            if (isOnline()) {
+                CropImage.activity().start(this)
+            } else {
+                startActivity(Intent(this, NoInternetActivity::class.java))
+            }
         }
     }
 
@@ -81,5 +86,12 @@ class WelcomeActivity : AppCompatActivity() {
 
     companion object {
         const val IMAGE_URI = "image_uri"
+    }
+
+    //Проверка или есть интернет
+    private fun isOnline(): Boolean {
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null
     }
 }
