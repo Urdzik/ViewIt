@@ -6,6 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Class for retrofit
+ * Класс для ретрофита
  */
 class NetworkService {
     private static final Object lock = new Object();

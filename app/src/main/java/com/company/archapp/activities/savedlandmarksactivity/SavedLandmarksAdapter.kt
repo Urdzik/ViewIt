@@ -62,6 +62,8 @@ class SavedLandmarksAdapter(
         var map: GoogleMap? = null
 
         init {
+            // Init Map
+            // Иницилизируем карту
             mapView.onCreate(null)
             mapView.getMapAsync(this)
         }

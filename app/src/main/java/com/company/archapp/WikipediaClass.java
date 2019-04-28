@@ -12,13 +12,15 @@ public class WikipediaClass {
     @SuppressWarnings("FieldCanBeLocal")
     private String information, url, word, language, start;
 
+    // The function must pass the name of the landmark.
     // В функцию нужно передавать название достопримечательности
     @SuppressWarnings("UnusedReturnValue")
     public String findWikipediaText(String word) {
         this.word = word;
         language = Locale.getDefault().getDisplayLanguage();
 
-        //Определяем язык
+        // Choose language
+        // Определяем язык
         switch (language) {
 //            case "русский": {
 //                language = "ru";
@@ -37,7 +39,9 @@ public class WikipediaClass {
             }
         }
 
-        url = "https://" + language + ".wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
+        // Find url for Wikipedia | Находим ссылку на Википедию
+        url = "https://" + language + ".wikipedia.org/wiki/" + word.replaceAll(" ", "_");
+        // Run new Thread for parsing web page
         Runnable myTask = new MyTask();
         Thread thread = new Thread(myTask);
         thread.start();
@@ -54,29 +58,35 @@ public class WikipediaClass {
         public void run() {
             Document doc = null;
             try {
-                //Ищем html документ за url
+                // Find html document by url
+                // Ищем html документ за url
                 doc = Jsoup.connect(url).get();
             } catch (IOException e) {
-                //Если не получилось считать
+                // If you could not count
+                // Если не получилось считать
                 e.printStackTrace();
             }
 
-            //Если всё считалось, берем из документа нужный абзац
+            // If everything was considered, take the necessary paragraph from the document.
+            // Если всё считалось, берем из документа нужный абзац
             if (doc != null) {
                 Elements paragraphs = doc.select("p");
-                //Ищем нужный абзац
+                // Find necessary
+                // Ищем нужный абзац
                 information = "";
                 int ind1 = 0;
                 while (!information.contains(start)) {
                     information = paragraphs.get(ind1).text();
                     ind1++;
                 }
-                //Если текста в первом абзаце мало, берем ещё и второй
+                // If the text in the first paragraph is small, we also take the second
+                // Если текста в первом абзаце мало, берем ещё и второй
                 if (information.length() < 600) {
                     information += "\n" + paragraphs.get(ind1).text();
                 }
 
-                //Забираем ненужную информацию
+                // Take away unnecessary information
+                // Забираем ненужную информацию
                 if (information.contains(")" + start)) ind1 = information.indexOf(")" + start) + 1;
                 else ind1 = information.indexOf(start);
                 information = information.substring(ind1);

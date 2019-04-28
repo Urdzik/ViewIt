@@ -25,22 +25,27 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
+        // Set to recognizeBtn nice font
+        // Устанавлюем для recognizeBtn крутой шрифт
         tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         recognizeBtn.typeface = tp
 
         // Find the toolbar
+        // Находим тулл бар
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
 
 
         // Here we call CropImageActivity for get image for recognize
+        // Здесь мы вызываем CropImageActivity для получения картинки дяя распознавания
         recognizeBtn.setOnClickListener {
             CropImage.activity().start(this)
         }
     }
 
     // Find the menu
+    // Находим меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -63,23 +68,27 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        // After CropImageActivity we got image for recognize and sending this image to resultactivity
+        // After CropImageActivity we got image for recognize and sending this image to ResultActivity
+        // После CropImageActivity мы получаем картинку для распознавания и отправляем её в ResultActivity
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
-                // If result code is OK we start resultactivity with image
+                // If result code is OK we start ResultActivity with image
+                // Если код результата ОК, то мы стартуем ResultActivity с картинкой
                 val resultUri = result.uri
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra(IMAGE_URI, resultUri)
                 startActivity(intent)
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 // Else we Make Toast about error
+                // Иначе мы делаем Тост об ошибке
                 Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     companion object {
-        const val IMAGE_URI = "image_uri"
+        const val IMAGE_URI =
+            "image_uri" // Constant for get image from ResultActivity | Константа для получения картинки в ResultActivity
     }
 }

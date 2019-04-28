@@ -13,18 +13,22 @@ import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActiv
 
 class InfoActivity : AppCompatActivity() {
 
-    private lateinit var tp: Typeface
+    private lateinit var tp: Typeface // Font | Шрифт
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
+        // Find Views
+        // Находим Вьюшки
         val textView: TextView = findViewById(R.id.authors)
         val dev1: TextView = findViewById(R.id.dev1)
         val dev2: TextView = findViewById(R.id.dev2)
         val dev3: TextView = findViewById(R.id.dev3)
         val dev4: TextView = findViewById(R.id.dev4)
 
+        // Set to views fonts
+        // Устанавлюем для вьюшек шрифт
         tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         textView.typeface = tp
         dev1.typeface = tp
@@ -33,10 +37,12 @@ class InfoActivity : AppCompatActivity() {
         dev4.typeface = tp
 
         // Find the toolbar
+        // Находим туллбар
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        //Button backwards
+        // Button backwards
+        // Кнапка назад
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -44,6 +50,7 @@ class InfoActivity : AppCompatActivity() {
     }
 
     // Find the menu
+    // Находим меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)

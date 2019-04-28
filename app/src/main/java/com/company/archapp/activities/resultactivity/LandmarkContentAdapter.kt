@@ -17,6 +17,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 /**
  * Discrete scroll view adapter
+ * Адаптер для Discrete scroll view
+ * @link https://code.luasoftware.com/tutorials/android/supportmapfragment-in-recyclerview/
  */
 class LandmarkContentAdapter(
     private val data: List<LandmarkContentItem>?,
@@ -24,6 +26,14 @@ class LandmarkContentAdapter(
 ) : RecyclerView.Adapter<LandmarkContentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        /*  We use two layouts
+            1. landmark_content_photo -- layout for photos
+            2. landmark_content_map -- layout for google map
+         */
+        /*  Мы используем два макета
+            1. landmark_content_photo -- макет для картинок
+            2. landmark_content_map -- макет для гугл карты
+         */
         val layoutId =
             if (viewType == LandmarkContentItem.VIEW_IMAGE) R.layout.landmark_content_photo else R.layout.landmark_content_map
 

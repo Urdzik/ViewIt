@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng
 
 /**
  *  Class with data for Discrete scroll view
+ *  Класс с данными для Discrete scroll view
  */
 class LandmarkContentItem {
 
