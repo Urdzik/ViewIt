@@ -152,16 +152,20 @@ class ResultActivity : AppCompatActivity() {
         // Detect the image
         landmarkDetector.detectInImage(firebaseVisionImage)
             .addOnSuccessListener {
+
                 // We convert the image into a bitmap image in order to display the image on the screen
                 val mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
 
                 // Recognize landmarks
                 recognizeLandmarks(it, mutableImage)
 
-                // Set our image, hide the ProgressBar and show the recognized landmark
 
-                landmarkIv.setImageBitmap(mutableImage)
                 if (nameOfLandmark != null) {
+
+                    // Set our image, hide the ProgressBar and show the recognized landmark
+                    landmarkIv.setImageBitmap(mutableImage)
+
+
                     landmarkTv.text = nameOfLandmark
 
                     information = wk.findWikipediaText(nameOfLandmark)
@@ -272,6 +276,10 @@ class ResultActivity : AppCompatActivity() {
         /** Hide progressbar */
         slidingPanelLayout.visibility = View.VISIBLE
         resultPb.visibility = View.GONE
+    }
+
+    private fun imgBackground(){
+
     }
 }
 
