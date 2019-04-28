@@ -17,6 +17,7 @@ import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.WikipediaClass
 import com.company.archapp.activities.InfoActivity
+import com.company.archapp.activities.NoLandmark
 import com.company.archapp.activities.WelcomeActivity
 import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 import com.company.archapp.image.ImagesFromEthernet
@@ -171,7 +172,7 @@ class ResultActivity : AppCompatActivity() {
 
                     hideProgress()
                 } else {
-                    landmarkTv.text = "Landmark not recognized"
+                    startActivity(Intent(this@ResultActivity, NoLandmark::class.java))
                     hideProgress()
                 }
             }

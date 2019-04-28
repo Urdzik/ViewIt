@@ -16,6 +16,8 @@
             android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/StatusBarWhite">
+        <activity android:name=".activities.NoLandmark">
+        </activity>
         <activity android:name=".activities.savedlandmarksactivity.SavedLandmarksActivity">
         </activity>
         <activity android:name=".activities.ActivitySplash">

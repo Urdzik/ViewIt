@@ -2,43 +2,33 @@ package com.company.archapp.activities
 
 import android.content.Intent
 import android.graphics.Typeface
-import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
 import com.company.archapp.R
 import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 
-class NoInternetActivity : AppCompatActivity() {
+class NoLandmark : AppCompatActivity() {
+    private val btn_no_landmark by lazy { findViewById<Button>(R.id.try_again_btn_landmark) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_no_internet)
+        setContentView(R.layout.activity_no_landmark)
 
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
 
-        //Button backwards
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.setNavigationOnClickListener { onBackPressed()}
-
-        val tryAgainBtn = findViewById<Button>(R.id.try_again_btn)
-        tryAgainBtn.setOnClickListener {
-            if (isOnline()) onBackPressed()
+        btn_no_landmark.setOnClickListener {
+           startActivity(Intent(this@NoLandmark, WelcomeActivity::class.java))
         }
 
         val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
-        tryAgainBtn?.typeface = typeface
+        btn_no_landmark?.typeface = typeface
 
     }
 
@@ -51,23 +41,16 @@ class NoInternetActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
             when (item.itemId) {
-                R.id.info -> {
-                    startActivity(Intent(this@NoInternetActivity, InfoActivity::class.java))
+                R.id.saved_landmarks -> {
+                    startActivity(Intent(this@NoLandmark, SavedLandmarksActivity::class.java))
                     return true
                 }
-                R.id.saved_landmarks -> {
-                    startActivity(Intent(this@NoInternetActivity, SavedLandmarksActivity::class.java))
+                R.id.info -> {
+                    startActivity(Intent(this@NoLandmark, InfoActivity::class.java))
                     return true
                 }
             }
         }
         return true
-    }
-
-    //Проверка или есть интернет
-    private fun isOnline(): Boolean {
-        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netInfo = cm.activeNetworkInfo
-        return netInfo != null
     }
 }
