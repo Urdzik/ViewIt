@@ -83,11 +83,6 @@ class SavedLandmarksActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
             when (item.itemId) {
-                R.id.saved_landmarks -> {
-                    startActivity(Intent(this@SavedLandmarksActivity, SavedLandmarksActivity::class.java))
-                    return true
-                }
-
                 R.id.info -> {
                     startActivity(Intent(this@SavedLandmarksActivity, InfoActivity::class.java))
                     return true

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Typeface
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,6 +18,8 @@ import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.WikipediaClass
 import com.company.archapp.activities.InfoActivity
+import com.company.archapp.activities.NoInternetActivity
+import com.company.archapp.activities.NoLandmark
 import com.company.archapp.activities.WelcomeActivity
 import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 import com.company.archapp.image.ImagesFromEthernet
@@ -44,7 +47,6 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
     private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt) }
-    private val saveLandmarkBtn by lazy { findViewById<Button>(R.id.save_landmark_btn) }
     private val realm by lazy { Realm.getDefaultInstance() }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
@@ -103,9 +105,6 @@ class ResultActivity : AppCompatActivity() {
             startActivity(browserIntent)
         }
 
-        saveLandmarkBtn.setOnClickListener {
-            saveLandmarkToDatabase()
-        }
     }
 
     override fun onDestroy() {
@@ -116,7 +115,7 @@ class ResultActivity : AppCompatActivity() {
     // Find the menu
     // Находим меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        menuInflater.inflate(R.menu.menu_button_save, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -130,6 +129,10 @@ class ResultActivity : AppCompatActivity() {
 
                 R.id.info -> {
                     startActivity(Intent(this@ResultActivity, InfoActivity::class.java))
+                    return true
+                }
+                R.id.save -> {
+                    saveLandmarkToDatabase()
                     return true
                 }
             }
@@ -164,6 +167,7 @@ class ResultActivity : AppCompatActivity() {
         // Распознаем картинку
         landmarkDetector.detectInImage(firebaseVisionImage)
             .addOnSuccessListener {
+
                 // We convert the image into a bitmap image in order to display the image on the screen
                 // Мы сонвертируем картинку в Битмапу для отображения на экране
                 val mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
@@ -172,28 +176,40 @@ class ResultActivity : AppCompatActivity() {
                 // Распознаем Достопримечательности
                 recognizeLandmarks(it)
 
-                // Set our image, hide the ProgressBar and show the recognized landmark
-                // Устонавлюем нашу картинку, прячем ПрогрессБар и показывм определённую дотопримечательность
-                landmarkIv.setImageBitmap(mutableImage)
+
                 if (nameOfLandmark != null) {
-                    landmarkTv.text = nameOfLandmark
+                    if (isOnline()) {
 
-                    information = wk.findWikipediaText(nameOfLandmark)
-                    informationTv.text = information
+                       // Set our image, hide the ProgressBar and show the recognized landmark
+                // Устонавлюем нашу картинку, прячем ПрогрессБар и показывм определённую дотопримечательность
+                        landmarkIv.setImageBitmap(mutableImage)
 
-                    photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
-                    generateDataForDSV()
 
-                    hideProgress()
+                        landmarkTv.text = nameOfLandmark
+                        if (isOnline()) information = wk.findWikipediaText(nameOfLandmark)
+                        else startActivity(Intent(this, NoInternetActivity::class.java))
+                        informationTv.text = information
+
+                        if(isOnline()) photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
+                        else startActivity(Intent(this, NoInternetActivity::class.java))
+
+                        generateDataForDSV()
+
+                        hideProgress()
+                    } else {
+                        startActivity(Intent(this, NoInternetActivity::class.java))
+                    }
                 } else {
-                    landmarkTv.text = "Landmark not recognized"
+                    startActivity(Intent(this@ResultActivity, NoLandmark::class.java))
                     hideProgress()
                 }
             }
             .addOnFailureListener {
-                // If we got error show a Toast about error
-                // Если мы вдруг получили ошибку распознавания, то делаем Тост об Ошибке
-                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+              
+                // If we got error show a Activity about error
+                // Если мы вдруг получили ошибку распознавания, то показываем экарн об Ошибке
+                startActivity(Intent(this, NoInternetActivity::class.java))
+
                 hideProgress()
             }
     }
@@ -300,6 +316,17 @@ class ResultActivity : AppCompatActivity() {
          */
         slidingPanelLayout.visibility = View.VISIBLE
         resultPb.visibility = View.GONE
+    }
+
+    private fun imgBackground() {
+
+    }
+
+    //Проверка или есть интернет
+    private fun isOnline(): Boolean {
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null
     }
 }
 

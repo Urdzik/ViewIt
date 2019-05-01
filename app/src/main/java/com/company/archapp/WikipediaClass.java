@@ -5,43 +5,21 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.Locale;
+
 
 
 public class WikipediaClass {
     @SuppressWarnings("FieldCanBeLocal")
-    private String information, url, word, language, start;
+    private String information, url, word;
 
     // The function must pass the name of the landmark.
     // В функцию нужно передавать название достопримечательности
     @SuppressWarnings("UnusedReturnValue")
     public String findWikipediaText(String word) {
         this.word = word;
-        language = Locale.getDefault().getDisplayLanguage();
 
-        // Choose language
-        // Определяем язык
-        switch (language) {
-//            case "русский": {
-//                language = "ru";
-//                start = " — ";
-//                break;
-//            }
-//            case "українська": {
-//                language = "uk";
-//                start = " — ";
-//                break;
-//            }
-            default: {
-                language = "en";
-                start = " is ";
-                break;
-            }
-        }
 
-        // Find url for Wikipedia | Находим ссылку на Википедию
-        url = "https://" + language + ".wikipedia.org/wiki/" + word.replaceAll(" ", "_");
-        // Run new Thread for parsing web page
+        url = "https://en.wikipedia.org/wiki/" + word.replaceAll(" ", "_"); //Находим ссылку на Википедию
         Runnable myTask = new MyTask();
         Thread thread = new Thread(myTask);
         thread.start();
@@ -75,22 +53,25 @@ public class WikipediaClass {
                 // Ищем нужный абзац
                 information = "";
                 int ind1 = 0;
-                while (!information.contains(start)) {
+                while (information.length() < 150) {
                     information = paragraphs.get(ind1).text();
                     ind1++;
                 }
-                // If the text in the first paragraph is small, we also take the second
+
+                 // If the text in the first paragraph is small, we also take the second
                 // Если текста в первом абзаце мало, берем ещё и второй
-                if (information.length() < 600) {
+                if (information.length() < 300) {
                     information += "\n" + paragraphs.get(ind1).text();
                 }
 
-                // Take away unnecessary information
+                 // Take away unnecessary information
                 // Забираем ненужную информацию
-                if (information.contains(")" + start)) ind1 = information.indexOf(")" + start) + 1;
-                else ind1 = information.indexOf(start);
-                information = information.substring(ind1);
-                information = word + information;
+                if (information.contains(" is ")) {
+                    if (information.contains(") is ")) ind1 = information.indexOf(") is ") + 1;
+                    else ind1 = information.indexOf(" is ");
+                    information = information.substring(ind1);
+                    information = word + information;
+                }
 
                 while (information.contains("[")) {
                     ind1 = information.indexOf("[");
@@ -100,5 +81,7 @@ public class WikipediaClass {
             } else
                 information = "Article in development";
         }
+
+
     }
 }

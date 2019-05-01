@@ -16,6 +16,8 @@
             android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/StatusBarWhite">
+        <activity android:name=".activities.NoLandmark">
+        </activity>
         <activity android:name=".activities.savedlandmarksactivity.SavedLandmarksActivity">
         </activity>
         <activity android:name=".activities.ActivitySplash">
@@ -30,6 +32,7 @@
         <activity android:name=".activities.WelcomeActivity">
         </activity>
         <activity android:name=".activities.resultactivity.ResultActivity"/>
+        <activity android:name=".activities.NoInternetActivity"/>
         <activity
                 android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
                 android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"/>

@@ -52,7 +52,7 @@ class InfoActivity : AppCompatActivity() {
     // Find the menu
     // Находим меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
+        menuInflater.inflate(R.menu.menu_info, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -61,11 +61,6 @@ class InfoActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.saved_landmarks -> {
                     startActivity(Intent(this@InfoActivity, SavedLandmarksActivity::class.java))
-                    return true
-                }
-
-                R.id.info -> {
-                    startActivity(Intent(this@InfoActivity, InfoActivity::class.java))
                     return true
                 }
             }
