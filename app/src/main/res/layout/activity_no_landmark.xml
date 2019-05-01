@@ -22,7 +22,7 @@
             android:id="@+id/wifi_landmark"
             android:layout_width="218dp"
             android:layout_height="218dp"
-            android:src="@drawable/ic_not_interested_black_24dp"
+            android:src="@drawable/ic_group_2"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"/>
     <TextView
