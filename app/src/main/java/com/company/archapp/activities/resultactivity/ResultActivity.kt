@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Typeface
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,6 +18,7 @@ import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.WikipediaClass
 import com.company.archapp.activities.InfoActivity
+import com.company.archapp.activities.NoInternetActivity
 import com.company.archapp.activities.NoLandmark
 import com.company.archapp.activities.WelcomeActivity
 import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
@@ -161,28 +163,33 @@ class ResultActivity : AppCompatActivity() {
 
 
                 if (nameOfLandmark != null) {
+                    if (isOnline()) {
 
-                    // Set our image, hide the ProgressBar and show the recognized landmark
-                    landmarkIv.setImageBitmap(mutableImage)
+                        // Set our image, hide the ProgressBar and show the recognized landmark
+                        landmarkIv.setImageBitmap(mutableImage)
 
 
-                    landmarkTv.text = nameOfLandmark
+                        landmarkTv.text = nameOfLandmark
+                        if (isOnline()) information = wk.findWikipediaText(nameOfLandmark)
+                        else startActivity(Intent(this, NoInternetActivity::class.java))
+                        informationTv.text = information
 
-                    information = wk.findWikipediaText(nameOfLandmark)
-                    informationTv.text = information
+                        if(isOnline()) photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
+                        else startActivity(Intent(this, NoInternetActivity::class.java))
 
-                    photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
-                    generateDataForDSV()
+                        generateDataForDSV()
 
-                    hideProgress()
+                        hideProgress()
+                    } else {
+                        startActivity(Intent(this, NoInternetActivity::class.java))
+                    }
                 } else {
                     startActivity(Intent(this@ResultActivity, NoLandmark::class.java))
                     hideProgress()
                 }
             }
             .addOnFailureListener {
-                // If we got error show a Toast about error
-                Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, NoInternetActivity::class.java))
                 hideProgress()
             }
     }
@@ -278,8 +285,15 @@ class ResultActivity : AppCompatActivity() {
         resultPb.visibility = View.GONE
     }
 
-    private fun imgBackground(){
+    private fun imgBackground() {
 
+    }
+
+    //Проверка или есть интернет
+    private fun isOnline(): Boolean {
+        val cm = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return netInfo != null
     }
 }
 
