@@ -50,48 +50,56 @@ class ResultActivity : AppCompatActivity() {
     private val realm by lazy { Realm.getDefaultInstance() }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
-    private var nameOfLandmark: String? = null // Name of recognized landmark
-    private var latitude: Double? = null // Latitude of recognized landmark
-    private var longitude: Double? = null // Longitude of recognized landmark
-    private lateinit var photosUrls: Array<out String>
-    private lateinit var tp: Typeface
-    private lateinit var information: String
+    private var nameOfLandmark: String? = null // Name of recognized landmark | Имя распознаной достопримечательности
+    private var latitude: Double? = null // Latitude of recognized landmark | Широта распознаной достопримечательности
+    private var longitude: Double? =
+        null // Longitude of recognized landmark | Долгота распознаной достопримечательности
+    private lateinit var photosUrls: Array<out String> // Array of urls of photos | Список ссылок картинок
+    private lateinit var tp: Typeface // Font | Шрифт
+    private lateinit var information: String // Article from Wikipedia | Статья из Википедии
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
         // Font button browser wiki
+        // Шрифт для button browser wiki
         tp = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         wikiInfoBt.typeface = tp
 
         // Find the toolbar
+        // Находим тулбар
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
 
-        //Button backwards
+        // Button backwards
+        // Кнопка назад
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
-        // Add simple transformer to DSV
+        // Add simple transformer to DiscreteScrollView
+        // Добавим простенькую анимацию трансформации для DiscreteScrollView
         landmarkContentDSV.setItemTransformer(
             ScaleTransformer.Builder()
-                .setMaxScale(1.05f) // min scale
-                .setMinScale(0.8f) // max scale
+                .setMaxScale(1.05f) // max scale | Максимальное увеличение
+                .setMinScale(0.8f) // min scale | Минимально увеличени
                 .build()
         )
 
         // Get image from intent
+        // Получаем картинку с интента
         val intent = intent
         val imageUri = intent.getParcelableExtra<Uri>(WelcomeActivity.IMAGE_URI)
 
         // Analyze our image
+        // Анализируем нашу картинку
         analyzeImage(MediaStore.Images.Media.getBitmap(contentResolver, imageUri))
 
-        // Button browser wiki
+        // Click Listeners for buttons
+        // Клик листенеры для кнопок
         wikiInfoBt.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://en.wikipedia.org/wiki/$nameOfLandmark"))
             startActivity(browserIntent)
@@ -105,6 +113,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     // Find the menu
+    // Находим меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_button_save, menu)
         return super.onCreateOptionsMenu(menu)
@@ -135,16 +144,19 @@ class ResultActivity : AppCompatActivity() {
     private fun analyzeImage(image: Bitmap?) {
         if (image == null) {
             // If no image we show Toast about error
+            // Если нет картинки мы показываем Тост об ошибки
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Delete an image from the screen and show the progress Bar
+        // Удаляем картинку с экрана и показываем ПрогрессБар
         landmarkIv.setImageBitmap(null)
 
         showProgress()
 
         // Preparation for processing image
+        // Подготовка к распознованию картинки
         val firebaseVisionImage = FirebaseVisionImage.fromBitmap(image)
         val options = FirebaseVisionCloudDetectorOptions.Builder()
             .setMaxResults(5)
@@ -152,20 +164,24 @@ class ResultActivity : AppCompatActivity() {
         val landmarkDetector = FirebaseVision.getInstance().getVisionCloudLandmarkDetector(options)
 
         // Detect the image
+        // Распознаем картинку
         landmarkDetector.detectInImage(firebaseVisionImage)
             .addOnSuccessListener {
 
                 // We convert the image into a bitmap image in order to display the image on the screen
+                // Мы сонвертируем картинку в Битмапу для отображения на экране
                 val mutableImage = image.copy(Bitmap.Config.ARGB_8888, true)
 
                 // Recognize landmarks
-                recognizeLandmarks(it, mutableImage)
+                // Распознаем Достопримечательности
+                recognizeLandmarks(it)
 
 
                 if (nameOfLandmark != null) {
                     if (isOnline()) {
 
-                        // Set our image, hide the ProgressBar and show the recognized landmark
+                       // Set our image, hide the ProgressBar and show the recognized landmark
+                // Устонавлюем нашу картинку, прячем ПрогрессБар и показывм определённую дотопримечательность
                         landmarkIv.setImageBitmap(mutableImage)
 
 
@@ -189,23 +205,30 @@ class ResultActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener {
+              
+                // If we got error show a Activity about error
+                // Если мы вдруг получили ошибку распознавания, то показываем экарн об Ошибке
                 startActivity(Intent(this, NoInternetActivity::class.java))
+
                 hideProgress()
             }
     }
 
-    private fun recognizeLandmarks(landmarks: List<FirebaseVisionCloudLandmark>?, image: Bitmap?) {
-        if (landmarks == null || image == null) {
+    private fun recognizeLandmarks(landmarks: List<FirebaseVisionCloudLandmark>?) {
+        if (landmarks == null) {
             // If no image or no landmarks show a Toast about error
+            // Если нет достопримечательностей, то делаем Тост об Ошибке
             Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Get landmarks
+        // Получаем достопримечательности
         landmarks.forEach { landmark ->
             nameOfLandmark = landmark.landmark
 
             // Get locations landmarks
+            // Получаем Местоположение достопримечательностей
             landmark.locations.forEach { latLng ->
                 latitude = latLng.latitude
                 longitude = latLng.longitude
@@ -217,6 +240,7 @@ class ResultActivity : AppCompatActivity() {
 
         if (realm.where(Landmark::class.java).equalTo("name", nameOfLandmark).findFirst() == null) {
             // If the user has not previously saved this landmark, save it
+            // Если юзер ранее не сохранял даную достопримечательность, то сохраняем её
             realm.executeTransaction {
                 val article = realm.createObject(WikiArticle::class.java)
                 article.article = information
@@ -238,11 +262,14 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, "Landmark Saved", Toast.LENGTH_SHORT).show()
         } else {
             // Otherwise, let the user know, then he previously saved this landmark.
+            // В ином случае, дадим юзеру знать, что он ранее сохранял эту достопримечательность
             Toast.makeText(this, "Sorry, but you have previously saved this landmark.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun generateDataForDSV() {
+        // Generate data for DiscreteScrollView
+        // Генерируем данные для DiscreteScrollView
 
         val landmarkContentItems = ArrayList<LandmarkContentItem>()
 
@@ -267,6 +294,8 @@ class ResultActivity : AppCompatActivity() {
             (slidingPanelLayout.panelState == SlidingUpPanelLayout.PanelState.EXPANDED ||
                     slidingPanelLayout.panelState == SlidingUpPanelLayout.PanelState.ANCHORED)
         ) {
+            // If sliding panel is opened, close it
+            // Если слайдинговая панель открыта, закрываем её
             slidingPanelLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         } else {
             super.onBackPressed()
@@ -274,13 +303,17 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun showProgress() {
-        /** Show progressbar */
+        /** Show progressbar
+         * Показываем прогресс бар
+         */
         slidingPanelLayout.visibility = View.GONE
         resultPb.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {
-        /** Hide progressbar */
+        /** Hide progressbar
+         * Прячем прогресс бар
+         */
         slidingPanelLayout.visibility = View.VISIBLE
         resultPb.visibility = View.GONE
     }

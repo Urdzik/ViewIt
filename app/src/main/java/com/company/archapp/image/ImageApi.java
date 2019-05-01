@@ -7,6 +7,7 @@ import retrofit2.http.Query;
 
 /**
  * Interface for retrofit
+ *  Интерфейс для ретрофита
  */
 interface ImageApi {
     @GET("photos/")

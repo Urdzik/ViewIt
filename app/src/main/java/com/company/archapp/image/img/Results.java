@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Class for retrofit
+ * Класс для ретрофита
  */
 public class Results {
 

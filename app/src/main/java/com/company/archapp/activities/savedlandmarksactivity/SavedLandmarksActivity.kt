@@ -29,16 +29,20 @@ class SavedLandmarksActivity : AppCompatActivity() {
         setContentView(R.layout.activity_saved_landmarks)
 
         // Find the toolbar
+        // Находим туллбар
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
 
-        //Button backwards
+        // Button backwards
+        // Кнопка назад
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener { onBackPressed() }
 
+        // Setting up savedLandmarksDsv
+        // Настраиваем savedLandmarksDsv
         savedLandmarksDsv.apply {
             setHasFixedSize(true)
 
@@ -89,7 +93,8 @@ class SavedLandmarksActivity : AppCompatActivity() {
     }
 
     /**
-     * Generate data for recyclerview
+     * Generate data for DiscreteScrollView
+     * Генерируем данные для DiscreteScrollView
      */
     private fun generateData(): List<SavedLandmark> {
         val dataFromDatabase = loadData()
@@ -112,6 +117,7 @@ class SavedLandmarksActivity : AppCompatActivity() {
 
     /**
      * Load data from realm database
+     * Загружаем данные из базы данных
      */
     private fun loadData(): RealmResults<Landmark>? {
         var landmarks: RealmResults<Landmark>? = null

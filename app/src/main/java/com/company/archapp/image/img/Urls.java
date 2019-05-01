@@ -2,6 +2,7 @@ package com.company.archapp.image.img;
 
 /**
  * Class for retrofit
+ * Класс для ретрофита
  */
 public class Urls {
 
