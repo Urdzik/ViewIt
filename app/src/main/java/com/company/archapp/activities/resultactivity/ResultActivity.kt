@@ -200,6 +200,7 @@ class ResultActivity : AppCompatActivity() {
                         startActivity(Intent(this, NoInternetActivity::class.java))
                     }
                 } else {
+                    slidingPanelLayout.visibility = View.GONE
                     startActivity(Intent(this@ResultActivity, NoLandmark::class.java))
                     hideProgress()
                 }
@@ -318,9 +319,6 @@ class ResultActivity : AppCompatActivity() {
         resultPb.visibility = View.GONE
     }
 
-    private fun imgBackground() {
-
-    }
 
     //Проверка или есть интернет
     private fun isOnline(): Boolean {

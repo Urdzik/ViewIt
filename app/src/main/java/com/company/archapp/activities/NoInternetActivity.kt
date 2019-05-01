@@ -30,7 +30,7 @@ class NoInternetActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.setNavigationOnClickListener { onBackPressed()}
+        toolbar.setNavigationOnClickListener { startActivity(Intent(this@NoInternetActivity, WelcomeActivity::class.java))}
 
         val tryAgainBtn = findViewById<Button>(R.id.try_again_btn)
         tryAgainBtn.setOnClickListener {
