@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Landmark not recognized"
+            android:text="@string/landmark_not_recognized"
             android:textColor="@color/color_internet"
             android:textSize="@dimen/info_text_size"/>
     <Button

@@ -34,7 +34,7 @@ class NoInternetActivity : AppCompatActivity() {
 
         val tryAgainBtn = findViewById<Button>(R.id.try_again_btn)
         tryAgainBtn.setOnClickListener {
-            if (isOnline()) onBackPressed()
+            if (isOnline()) startActivity(Intent(this@NoInternetActivity, WelcomeActivity::class.java))
         }
 
         val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
