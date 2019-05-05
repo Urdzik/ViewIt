@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".activities.savedlandmarksactivity.SavedLandmarksActivity">
-
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -18,16 +17,16 @@
     <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:id="@+id/saved_landmarks_dsv"
             android:layout_width="match_parent"
-            android:layout_height="540dp"
-            android:layout_margin="16dp"
+            android:layout_height="558dp"
             app:dsv_orientation="horizontal"/>
 
     <com.chahinem.pageindicator.PageIndicator
+
             android:id="@+id/dots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             app:piDotBound="70dp"
             app:piSelectedColor="#3CA773"
             app:piSize1="10dp"/>
