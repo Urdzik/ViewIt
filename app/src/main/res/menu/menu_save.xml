@@ -1,8 +1,10 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+            android:icon="@drawable/ic_delete_black_24dp"
             android:id="@+id/delete_landmark"
-            android:title="Delete landmark"/>
+            app:showAsAction="always"
+            android:title=" "/>
 
     <item
             android:id="@+id/info"
