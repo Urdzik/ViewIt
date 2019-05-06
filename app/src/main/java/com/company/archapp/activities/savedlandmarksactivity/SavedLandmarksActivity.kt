@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.activities.InfoActivity
@@ -81,7 +82,14 @@ class SavedLandmarksActivity : AppCompatActivity() {
         if (item != null) {
             when (item.itemId) {
                 R.id.delete_landmark -> {
-                    deleteLandmark()
+                    if (hasDiscreteScrollViewItems(savedLandmarksDsv))
+                        deleteLandmark()
+                    else
+                        Toast.makeText(
+                            this,
+                            "Sorry, but you need to save at least one landmark",
+                            Toast.LENGTH_SHORT
+                        ).show()
                 }
                 R.id.info -> {
                     startActivity(Intent(this@SavedLandmarksActivity, InfoActivity::class.java))
@@ -91,6 +99,9 @@ class SavedLandmarksActivity : AppCompatActivity() {
         }
         return true
     }
+
+    private fun hasDiscreteScrollViewItems(dsv: DiscreteScrollView?): Boolean =
+        savedLandmarksDsv.adapter?.itemCount != 0
 
     private fun deleteLandmark() {
         val data =
@@ -114,6 +125,8 @@ class SavedLandmarksActivity : AppCompatActivity() {
         data.removeAt(savedLandmarksDsv.currentItem)
 
         (savedLandmarksDsv.adapter as SavedLandmarksAdapter).data = data
+
+        dotsPi.attachTo(savedLandmarksDsv)
     }
 
     /**
