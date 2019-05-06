@@ -17,9 +17,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 class SavedLandmarksAdapter(
-    private val data: List<SavedLandmark>,
+    data: List<SavedLandmark>,
     private val context: Context
 ) : RecyclerView.Adapter<SavedLandmarksAdapter.ViewHolder>() {
+
+    var data: List<SavedLandmark> = data
+        set(value) {
+            field = value
+            this.notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)

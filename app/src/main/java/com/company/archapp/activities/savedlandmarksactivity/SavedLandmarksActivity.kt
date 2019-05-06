@@ -16,7 +16,6 @@ import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import io.realm.Realm
 import io.realm.RealmResults
-import java.util.*
 
 class SavedLandmarksActivity : AppCompatActivity() {
 
@@ -44,8 +43,6 @@ class SavedLandmarksActivity : AppCompatActivity() {
         // Setting up savedLandmarksDsv
         // Настраиваем savedLandmarksDsv
         savedLandmarksDsv.apply {
-            setHasFixedSize(true)
-
             setItemTransformer(
                 ScaleTransformer.Builder()
                     .setMaxScale(1.05f)
@@ -71,8 +68,8 @@ class SavedLandmarksActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         realm.close()
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,6 +80,9 @@ class SavedLandmarksActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
             when (item.itemId) {
+                R.id.delete_landmark -> {
+                    deleteLandmark()
+                }
                 R.id.info -> {
                     startActivity(Intent(this@SavedLandmarksActivity, InfoActivity::class.java))
                     return true
@@ -90,6 +90,30 @@ class SavedLandmarksActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    private fun deleteLandmark() {
+        val data =
+            (savedLandmarksDsv.adapter as SavedLandmarksAdapter).data as ArrayList // Getting whole data from DiscreteScrollView adapter | Получаем данные из  DiscreteScrollView adapter
+        val landmarkToDelete =
+            data[savedLandmarksDsv.currentItem] // Getting current item from data | Получаем текущий елемент
+
+        // Delete current item in realm DB
+        // Удаляем текущий елемент из БД
+        realm.executeTransaction {
+            val toDelete = it.where(Landmark::class.java).equalTo("name", landmarkToDelete.name).findFirst()
+            toDelete?.article?.deleteFromRealm()
+            toDelete?.position?.deleteFromRealm()
+            toDelete?.photo?.deleteFromRealm()
+            toDelete?.deleteFromRealm()
+        }
+
+        // Update data
+        // Обновляем данные
+
+        data.removeAt(savedLandmarksDsv.currentItem)
+
+        (savedLandmarksDsv.adapter as SavedLandmarksAdapter).data = data
     }
 
     /**
