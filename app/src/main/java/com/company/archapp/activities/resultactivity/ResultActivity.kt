@@ -47,6 +47,7 @@ class ResultActivity : AppCompatActivity() {
     private val landmarkContentDSV by lazy { findViewById<DiscreteScrollView>(R.id.landmark_content_dsv) }
     private val dotsPi by lazy { findViewById<PageIndicator>(R.id.dots) }
     private val wikiInfoBt by lazy { findViewById<Button>(R.id.wiki_site_bt) }
+    private var menu: Menu? = null
     private val realm by lazy { Realm.getDefaultInstance() }
     private val wk = WikipediaClass()
     private val iF = ImagesFromEthernet()
@@ -115,6 +116,7 @@ class ResultActivity : AppCompatActivity() {
     // Find the menu
     // Находим меню
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.menu_button_save, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -138,6 +140,10 @@ class ResultActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    private fun hideMenuItem(id: Int) {
+        menu?.removeItem(id)
     }
 
     @SuppressLint("SetTextI18n")
@@ -180,8 +186,8 @@ class ResultActivity : AppCompatActivity() {
                 if (nameOfLandmark != null) {
                     if (isOnline()) {
 
-                       // Set our image, hide the ProgressBar and show the recognized landmark
-                // Устонавлюем нашу картинку, прячем ПрогрессБар и показывм определённую дотопримечательность
+                        // Set our image, hide the ProgressBar and show the recognized landmark
+                        // Устонавлюем нашу картинку, прячем ПрогрессБар и показывм определённую дотопримечательность
                         landmarkIv.setImageBitmap(mutableImage)
 
 
@@ -190,10 +196,14 @@ class ResultActivity : AppCompatActivity() {
                         else startActivity(Intent(this, NoInternetActivity::class.java))
                         informationTv.text = information
 
-                        if(isOnline()) photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
+                        if (isOnline()) photosUrls = iF.putNameOfLandmarkToImage(nameOfLandmark)
                         else startActivity(Intent(this, NoInternetActivity::class.java))
 
                         generateDataForDSV()
+
+                        if (isLandmarkSaved()) {
+                            hideMenuItem(R.id.save)
+                        }
 
                         hideProgress()
                     } else {
@@ -206,7 +216,7 @@ class ResultActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener {
-              
+
                 // If we got error show a Activity about error
                 // Если мы вдруг получили ошибку распознавания, то показываем экарн об Ошибке
                 startActivity(Intent(this, NoInternetActivity::class.java))
@@ -237,35 +247,37 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Check if recognized landmark already saved
+     * Проверяем если распознаная достопримечательность уже сохранена
+     */
+    private fun isLandmarkSaved(): Boolean =
+        realm.where(Landmark::class.java).equalTo("name", nameOfLandmark).findFirst() != null
+
     private fun saveLandmarkToDatabase() {
 
-        if (realm.where(Landmark::class.java).equalTo("name", nameOfLandmark).findFirst() == null) {
-            // If the user has not previously saved this landmark, save it
-            // Если юзер ранее не сохранял даную достопримечательность, то сохраняем её
-            realm.executeTransaction {
-                val article = realm.createObject(WikiArticle::class.java)
-                article.article = information
-                article.uri = "https://en.wikipedia.org/wiki/$nameOfLandmark"
+        // If the user has not previously saved this landmark, save it
+        // Если юзер ранее не сохранял даную достопримечательность, то сохраняем её
+        realm.executeTransaction {
+            val article = realm.createObject(WikiArticle::class.java)
+            article.article = information
+            article.uri = "https://en.wikipedia.org/wiki/$nameOfLandmark"
 
-                val position = realm.createObject(Position::class.java)
-                position.latitude = latitude ?: 0.0
-                position.longitude = longitude ?: 0.0
+            val position = realm.createObject(Position::class.java)
+            position.latitude = latitude ?: 0.0
+            position.longitude = longitude ?: 0.0
 
-                val photo = realm.createObject(Photo::class.java)
-                photo.uri = photosUrls[0]
+            val photo = realm.createObject(Photo::class.java)
+            photo.uri = photosUrls[0]
 
-                val landmark = realm.createObject(Landmark::class.java)
-                landmark.name = nameOfLandmark.toString()
-                landmark.article = article
-                landmark.photo = photo
-                landmark.position = position
-            }
-            Toast.makeText(this, "Landmark Saved", Toast.LENGTH_SHORT).show()
-        } else {
-            // Otherwise, let the user know, then he previously saved this landmark.
-            // В ином случае, дадим юзеру знать, что он ранее сохранял эту достопримечательность
-            Toast.makeText(this, "Sorry, but you have previously saved this landmark.", Toast.LENGTH_SHORT).show()
+            val landmark = realm.createObject(Landmark::class.java)
+            landmark.name = nameOfLandmark.toString()
+            landmark.article = article
+            landmark.photo = photo
+            landmark.position = position
         }
+        Toast.makeText(this, "Landmark Saved", Toast.LENGTH_SHORT).show()
+        hideMenuItem(R.id.save) // Hide save button | Прячем кнопку сохранения
     }
 
     private fun generateDataForDSV() {
