@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.activities.InfoActivity
@@ -28,7 +29,7 @@ class SavedLandmarksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_landmarks)
 
-        if (hasAtLeastOneLandmark()) {
+        if (!hasAtLeastOneLandmark()) {
             val intent = Intent(this, NoLandmark::class.java)
             startActivity(intent)
         }
@@ -117,11 +118,16 @@ class SavedLandmarksActivity : AppCompatActivity() {
         // Update data
         // Обновляем данные
 
-        data.removeAt(savedLandmarksDsv.currentItem)
-
-        (savedLandmarksDsv.adapter as SavedLandmarksAdapter).data = data
+        ((savedLandmarksDsv.adapter as SavedLandmarksAdapter).data as ArrayList).removeAt(savedLandmarksDsv.currentItem)
+        (savedLandmarksDsv.adapter as SavedLandmarksAdapter).notifyItemRemoved(savedLandmarksDsv.currentItem)
 
         dotsPi.attachTo(savedLandmarksDsv)
+
+        Toast.makeText(
+            this,
+            "Landmark deleted.",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     /**
