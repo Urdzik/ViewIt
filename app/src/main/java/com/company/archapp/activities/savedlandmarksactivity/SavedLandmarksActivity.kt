@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.activities.InfoActivity
+import com.company.archapp.activities.NoLandmark
 import com.company.archapp.models.Landmark
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -27,6 +27,11 @@ class SavedLandmarksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved_landmarks)
+
+        if (hasAtLeastOneLandmark()) {
+            val intent = Intent(this, NoLandmark::class.java)
+            startActivity(intent)
+        }
 
         // Find the toolbar
         // Находим туллбар
@@ -82,14 +87,7 @@ class SavedLandmarksActivity : AppCompatActivity() {
         if (item != null) {
             when (item.itemId) {
                 R.id.delete_landmark -> {
-                    if (hasDiscreteScrollViewItems(savedLandmarksDsv))
-                        deleteLandmark()
-                    else
-                        Toast.makeText(
-                            this,
-                            "Sorry, but you need to save at least one landmark",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    deleteLandmark()
                 }
                 R.id.info -> {
                     startActivity(Intent(this@SavedLandmarksActivity, InfoActivity::class.java))
@@ -99,9 +97,6 @@ class SavedLandmarksActivity : AppCompatActivity() {
         }
         return true
     }
-
-    private fun hasDiscreteScrollViewItems(dsv: DiscreteScrollView?): Boolean =
-        savedLandmarksDsv.adapter?.itemCount != 0
 
     private fun deleteLandmark() {
         val data =
@@ -150,6 +145,11 @@ class SavedLandmarksActivity : AppCompatActivity() {
         }
 
         return dataForDiscreteScrollView
+    }
+
+    private fun hasAtLeastOneLandmark(): Boolean {
+        val count = loadData()?.size ?: 0
+        return count > 0
     }
 
     /**
