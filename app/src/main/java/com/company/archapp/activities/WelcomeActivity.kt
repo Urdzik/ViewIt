@@ -109,4 +109,8 @@ class WelcomeActivity : AppCompatActivity() {
         val netInfo = cm.activeNetworkInfo
         return netInfo != null
     }
+
+    override fun onBackPressed() {
+        finish()
+    }
 }
