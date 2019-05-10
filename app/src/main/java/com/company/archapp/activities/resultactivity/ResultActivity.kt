@@ -143,6 +143,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun hideMenuItem(id: Int) {
+        //menu?.findItem(id)?.icon = getDrawable(R.drawable.ic_bookmark_border_black_24dp)
         menu?.removeItem(id)
     }
 
