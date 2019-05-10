@@ -22,11 +22,11 @@
             android:id="@+id/wifi_landmark"
             android:layout_width="218dp"
             android:layout_height="218dp"
-            android:src="@drawable/ic_group_2"
+            android:src="@drawable/no_saved_landmark"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"/>
     <TextView
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:layout_below="@id/wifi_landmark"
             android:layout_centerHorizontal="true"
             android:text="@string/oops"
@@ -38,16 +38,13 @@
             android:layout_height="wrap_content"/>
 
     <TextView
-            android:gravity="center"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="48dp"
             android:layout_marginTop="16dp"
             android:layout_below="@id/oops_landmark"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/landmark_not_recognized"
+            android:text="@string/no_saved_landmark"
             android:textColor="@color/color_internet"
             android:textSize="@dimen/info_text_size"/>
     <Button

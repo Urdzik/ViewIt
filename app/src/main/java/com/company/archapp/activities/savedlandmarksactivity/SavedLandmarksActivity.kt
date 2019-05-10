@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.activities.InfoActivity
-import com.company.archapp.activities.NoLandmark
+import com.company.archapp.activities.NoSavedLandmark
 import com.company.archapp.models.Landmark
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -30,7 +30,7 @@ class SavedLandmarksActivity : AppCompatActivity() {
         setContentView(R.layout.activity_saved_landmarks)
 
         if (!hasAtLeastOneLandmark()) {
-            val intent = Intent(this, NoLandmark::class.java)
+            val intent = Intent(this, NoSavedLandmark::class.java)
             startActivity(intent)
         }
 
