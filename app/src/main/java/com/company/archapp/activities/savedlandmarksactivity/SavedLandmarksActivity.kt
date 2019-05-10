@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.activities.InfoActivity
-import com.company.archapp.activities.NoSavedLandmark
+import com.company.archapp.activityno.NoSavedLandmark
 import com.company.archapp.models.Landmark
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng

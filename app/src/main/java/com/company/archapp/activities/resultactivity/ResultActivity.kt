@@ -18,8 +18,9 @@ import com.chahinem.pageindicator.PageIndicator
 import com.company.archapp.R
 import com.company.archapp.WikipediaClass
 import com.company.archapp.activities.InfoActivity
-import com.company.archapp.activities.NoInternetActivity
-import com.company.archapp.activities.NoLandmark
+import com.company.archapp.activityno.NoInternetActivity
+import com.company.archapp.activityno.NoLandmark
+
 import com.company.archapp.activities.WelcomeActivity
 import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 import com.company.archapp.image.ImagesFromEthernet

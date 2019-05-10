@@ -1,4 +1,4 @@
-package com.company.archapp.activities
+package com.company.archapp.activityno
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -6,8 +6,13 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import com.company.archapp.R
+import com.company.archapp.activities.InfoActivity
+import com.company.archapp.activities.WelcomeActivity
+import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 
 class NoInternetActivity : AppCompatActivity() {
 
@@ -42,6 +47,8 @@ class NoInternetActivity : AppCompatActivity() {
         tryAgainBtn?.typeface = typeface
 
     }
+
+
 
     //Проверка или есть интернет
     private fun isOnline(): Boolean {

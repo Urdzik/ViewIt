@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.company.archapp.R
 import com.company.archapp.activities.resultactivity.ResultActivity
 import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
+import com.company.archapp.activityno.NoInternetActivity
 import com.theartofdev.edmodo.cropper.CropImage
 
 class WelcomeActivity : AppCompatActivity() {
