@@ -5,8 +5,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import com.company.archapp.R
 
@@ -30,24 +28,6 @@ class NoSavedLandmark : AppCompatActivity() {
         val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         btnNoLandmark?.typeface = typeface
 
-    }
-
-    // Find the menu
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_no_saved_landmark, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item != null) {
-            when (item.itemId) {
-                R.id.info -> {
-                    startActivity(Intent(this@NoSavedLandmark, InfoActivity::class.java))
-                    return true
-                }
-            }
-        }
-        return true
     }
 
     override fun onBackPressed() {

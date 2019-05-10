@@ -6,11 +6,8 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import com.company.archapp.R
-import com.company.archapp.activities.savedlandmarksactivity.SavedLandmarksActivity
 
 class NoInternetActivity : AppCompatActivity() {
 
@@ -44,28 +41,6 @@ class NoInternetActivity : AppCompatActivity() {
         val typeface = Typeface.createFromAsset(assets, "fonts/ProductSans-Bold.ttf")
         tryAgainBtn?.typeface = typeface
 
-    }
-
-    // Find the menu
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item != null) {
-            when (item.itemId) {
-                R.id.info -> {
-                    startActivity(Intent(this@NoInternetActivity, InfoActivity::class.java))
-                    return true
-                }
-                R.id.saved_landmarks -> {
-                    startActivity(Intent(this@NoInternetActivity, SavedLandmarksActivity::class.java))
-                    return true
-                }
-            }
-        }
-        return true
     }
 
     //Проверка или есть интернет

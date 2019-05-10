@@ -73,22 +73,22 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-      
+
         if (isOnline()) {
-           // After CropImageActivity we got image for recognize and sending this image to ResultActivity
-        // После CropImageActivity мы получаем картинку для распознавания и отправляем её в ResultActivity
+            // After CropImageActivity we got image for recognize and sending this image to ResultActivity
+            // После CropImageActivity мы получаем картинку для распознавания и отправляем её в ResultActivity
             if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 val result = CropImage.getActivityResult(data)
                 if (resultCode == Activity.RESULT_OK) {
                     // If result code is OK we start ResultActivity with image
-                // Если код результата ОК, то мы стартуем ResultActivity с картинкой
+                    // Если код результата ОК, то мы стартуем ResultActivity с картинкой
                     val resultUri = result.uri
                     val intent = Intent(this, ResultActivity::class.java)
                     intent.putExtra(IMAGE_URI, resultUri)
                     startActivity(intent)
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                     // Else we Make Toast about error
-                // Иначе мы делаем Тост об ошибке
+                    // Else we Make Toast about error
+                    // Иначе мы делаем Тост об ошибке
                     Toast.makeText(this, "There was some error", Toast.LENGTH_SHORT).show()
                 }
 
@@ -100,7 +100,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     companion object {
         const val IMAGE_URI =
-            "image_uri" // Constant for get image from ResultActivity | Константа для получения картинки в ResultActivity
+                "image_uri" // Constant for get image from ResultActivity | Константа для получения картинки в ResultActivity
     }
 
     //Проверка или есть интернет
