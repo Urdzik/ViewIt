@@ -18,10 +18,25 @@ class NoSavedLandmark : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_no_saved_landmark)
 
+
+
         // Find the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
+
+        //Button backwards
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            startActivity(
+                Intent(
+                    this@NoSavedLandmark,
+                    WelcomeActivity::class.java
+                )
+            )
+        }
 
         btnNoLandmark.setOnClickListener {
             startActivity(Intent(this@NoSavedLandmark, WelcomeActivity::class.java))

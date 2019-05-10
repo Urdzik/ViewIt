@@ -26,7 +26,7 @@ class NoInternetActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //Button backwards
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbar.setNavigationOnClickListener {

@@ -24,6 +24,18 @@ class NoLandmark : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
+        //Button backwards
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            startActivity(
+                Intent(
+                    this@NoLandmark,
+                    WelcomeActivity::class.java
+                )
+            )
+        }
 
         btnNoLandmark.setOnClickListener {
            startActivity(Intent(this@NoLandmark, WelcomeActivity::class.java))
