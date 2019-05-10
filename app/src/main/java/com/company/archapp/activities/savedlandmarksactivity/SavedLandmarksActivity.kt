@@ -121,6 +121,10 @@ class SavedLandmarksActivity : AppCompatActivity() {
         ((savedLandmarksDsv.adapter as SavedLandmarksAdapter).data as ArrayList).removeAt(savedLandmarksDsv.currentItem)
         (savedLandmarksDsv.adapter as SavedLandmarksAdapter).notifyItemRemoved(savedLandmarksDsv.currentItem)
 
+        if ((savedLandmarksDsv.adapter as SavedLandmarksAdapter).data.isEmpty()) {
+            startActivity(Intent(this, NoSavedLandmark::class.java))
+        }
+
         dotsPi.attachTo(savedLandmarksDsv)
 
         Toast.makeText(
