@@ -1,4 +1,4 @@
-ViewIt by avt team
+ViewIt 
 ==================
 
 # En version
